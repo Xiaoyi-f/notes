@@ -110,7 +110,7 @@ public class AllOps {
   }
   void byteTest(byte x, byte y) {
     // Arithmetic operators:
-    x = (byte)(x* y);
+    x = (byte)(x * y);
     x = (byte)(x / y);
     x = (byte)(x % y);
     x = (byte)(x + y);
