@@ -1,3 +1,28 @@
+内置模块:
+    Random:
+        import java.util.Random;
+        ...
+        Random randomObj = new Random();
+        // float 精度 6-7位    double 精度 15-17位
+        // 绝大多数直接使用double是最万能的
+        int intNum = randomObj.nextInt(10) + 10;
+        float floatNum = randomObj.nextFloat()
+        double doubleNum = randomObj.nextDouble();
+        boolean randomBoolean = randomObj.nextBoolean();
+        ...
+    内置字符串相关方法/函数:
+        .toCharArray()
+        .charAt(int idx)
+        .split(String regex)
+        .subString(int startIdx, int endIdx)
+        Character.isLowerCase(char x)
+        Character.isUpperCase(char x)
+        Character.isLetter(char x)
+        Character.isWhitespace(char x)
+        Character.toLowerCase(char x)
+        Character.toUpperCase(char x)
+        Tip: char x - '0' 可以实现字符显现数字
+
 1.万物皆对象
 2.一段程序实际上就是多个对象之间通过发送消息来通知彼此要干什么
 3.从内存角度而言，每一个对象都是由其他更为基础的对象组成的
@@ -41,15 +66,24 @@
     逻辑：&& || 短路特性
     三目：? :
     赋值：= 以即 复合赋值(+=、-=...) 以即 右结合连续赋值
+    注意: == 对于基本数据类型比较的是数值，对于引用数据类型比较的是地址，Integer要注意超出对应的缓存范围就会新开地址
 27.基本数据类型
     byte(1)、char(2)、short(2)、int(4)、long(8)、float(4)、double(8)、boolean看JVM
+    对应的包装类: Byte Character Short Integer Long Float Double Boolean
+    Integer 默认缓存 -128 到 127
+    new 方式会无视缓存直接创建新的内存和地址，但是.valueOf会优先使用缓存，缓存池生效
+    Java 的集合框架（如 ArrayList, HashMap）和泛型只能存储对象，不能存储基本类型。包装类是解决这个问题的唯一途径
+    包装类提供了大量的工具函数
+    自动装箱和自动拆箱:
+        Integer i = 100; // 等价于 Integer i = Integer.valueOf(100);
+        int n = i; // 等价于 int n = i.intValue();
     基本数据类型内存不可变
 28.字面量
     后缀: L、F、D
     前缀: 0B 0 0X
     数字字面量允许使用下划线分割
     科学计数法中间符: E
-29.标签: 以自定义标识符和冒号实现管理代码块，经常配合 continue 标识符; 和 break 标识; 使用
+29.标签: 以自定义标识符和冒号实现管理代码块，经常配合 continue 标识符; 和 break 标识符; 使用
 30.java可通过构造器(方法)保证初始化和GC进行垃圾回收管理
 31.java支持方法重载以即嵌套类
 32.java中通过this关键词标识实例引用
@@ -90,7 +124,10 @@
         non-sealed class Dog extends Animal {}
         class AnyDog extends Dog {}   // ✅ 允许
 57.接口中的任何类都会自动成为public和static的。因为类是static的，所以被嵌套的类只是放在了这个接口的命名空间内
-
+58.静态导入
+    只能 import static 那些用 static 修饰的方法或变量，如果你试图导入一个普通方法（非静态方法），编译器会直接报错
+    不要滥用通配符 *：
+        虽然 import static onjava.Range.*; 很方便，但如果两个不同的类里都有同名的静态方法（比如 Math.max 和 MyUtils.max），你同时用 * 导入它们，编译器就会“懵圈”（报错：引用不明确），因为它不知道该用哪一个
 
 
 
