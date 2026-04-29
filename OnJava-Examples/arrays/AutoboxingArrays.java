@@ -12,6 +12,9 @@ public class AutoboxingArrays {
       { 51, 52, 53, 54, 55, 56, 57, 58, 59, 60 },
       { 71, 72, 73, 74, 75, 76, 77, 78, 79, 80 },
     };
+    // 使用 Arrays.deepToString() 打印多维数组的内容
+    // 对于嵌套数组（如二维数组），普通的 Arrays.toString() 只会显示内部数组的引用地址
+    // deepToString() 会递归地转换所有层级的数组元素为字符串，从而展示完整的数组内容
     System.out.println(Arrays.deepToString(a));
   }
 }

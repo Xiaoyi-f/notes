@@ -8,13 +8,19 @@
         int intNum = randomObj.nextInt(10) + 10;
         float floatNum = randomObj.nextFloat()
         double doubleNum = randomObj.nextDouble();
+        // Math.random() 等价类似于 randomObj.nextDouble();
         boolean randomBoolean = randomObj.nextBoolean();
         ...
-    内置字符串相关方法/函数:
+    内置字符(串)相关方法/函数:
+        .matches() 全量匹配，返回boolean
         .toCharArray()
         .charAt(int idx)
         .split(String regex)
         .subString(int startIdx, int endIdx)
+        .replaceFirst(regexPattern, replaceContent)
+        .replaceAll(regexPattern, replaceContent)
+        .length()
+        String.format("%%%c%s%d%m.nf%b%n")
         Character.isLowerCase(char x)
         Character.isUpperCase(char x)
         Character.isLetter(char x)
@@ -22,6 +28,78 @@
         Character.toLowerCase(char x)
         Character.toUpperCase(char x)
         Tip: char x - '0' 可以实现字符显现数字
+    所有类都继承自 Object 类:
+        .equals()
+        .toString()
+        .class
+    Scanner类:
+        Scanner sc = new Scanner(System.in);
+        除了 System.in 还可以 变量 或 文件 为输入源，将内容数据存到缓冲区使用
+        ...
+        sc.next() 读取一个词元，遇到空格或换行停止
+        sc.nextLine() 读取一整行，直到遇到换行符
+        sc.hasNextInt() 优先使用来检测避免报错
+        sc.hasNextDouble() 优先检测避免报错
+        sc.nextInt() 读取一个整数
+        sc.nextDouble() 读取一个浮点数 double
+        MatchResult scRes = sc.match();  --》 Matcher方法大多类似
+        sc.close() 关闭资源
+        ...
+    Pattern类:
+        ...
+        Pattern pattern = Pattern.compile("regexExpr", mode) 预编译
+        Matcher matcher = pattern.matcher(matchObj) 获取匹配器
+            matcher.matches() 全量匹配
+            matcher.find() 局部匹配
+            matcher.group() 0 1 ...
+            matcher.start() 包含
+            matcher.end() 不包含
+            matcher.reset(str)
+    StringBuilder类:
+        可变字符串构造，非线程安全的，需要加锁
+        ...
+        字符数量 1024个
+        StringBuilder sb = new StringBuilder(1024);
+        for (int i = 0; i < 1000; i++) {
+            sb.append("数据").append(i).append(",");
+        }
+        sb.setLength(0) 清空
+        sb.insert(index, content)
+        sb.deleteCharAt(index)
+        ...
+    Formatter类:
+        ...
+        Formatter fmtStr = new Formatter();
+        fmtStr.format("formatStr")
+        String res = fmtStr.toString()
+        Formatter fmtOut = new Formatter(System.out);
+        fmtOut.format("直接打印%n");
+        Formatter fmtFile = new Formatter(new File("log.txt"));
+        fmtFile.format("写入文件内容");
+    Arrays类:
+        下面示例使用大小写不敏感比较器
+        Arrays.sort(strArray, String.CASE_INSENSITIVE_ORDER);
+        默认从小到大排序或者字母顺序排序，以下让包装类数组实现从大到小排列
+        Arrays.sort(array, Collections.reverseOrder());
+        int index = Arrays.binarySearch(array, target, String.CASE_INSENSITIVE_ORDER);
+        Arrays.copyOf(array, lengthNum)
+        Arrays.fill(array, val)
+        Arrays.copyOfRange(array, startIdx, endIdx)
+        Arrays.setAll(array, func) 各元素操作
+        Arrays.parallelSetAll() 并行操作
+        普通的 Arrays.toString() 只会显示内部数组的引用地址
+        Arrays.deepToString() 会递归地转换所有层级的数组元素为字符串
+        .length
+    内置注解:
+        @Override 标记以下方法/函数是重写
+        @Deprecated 标记过时，之后不在使用
+        @SuppressWarnings("抑制警告类型") 标记屏蔽报警
+    Math类:
+        Math.max(a, b)
+        Math.min(a, b)
+        Math.sqrt(num)
+        Math.abs(num)
+        Math.random()
 
 1.万物皆对象
 2.一段程序实际上就是多个对象之间通过发送消息来通知彼此要干什么
@@ -67,6 +145,7 @@
     三目：? :
     赋值：= 以即 复合赋值(+=、-=...) 以即 右结合连续赋值
     注意: == 对于基本数据类型比较的是数值，对于引用数据类型比较的是地址，Integer要注意超出对应的缓存范围就会新开地址
+    提示: java有个特性 -> 方法引用 前::后 即 前接收数据 再执行 后操作
 27.基本数据类型
     byte(1)、char(2)、short(2)、int(4)、long(8)、float(4)、double(8)、boolean看JVM
     对应的包装类: Byte Character Short Integer Long Float Double Boolean
@@ -128,9 +207,10 @@
     只能 import static 那些用 static 修饰的方法或变量，如果你试图导入一个普通方法（非静态方法），编译器会直接报错
     不要滥用通配符 *：
         虽然 import static onjava.Range.*; 很方便，但如果两个不同的类里都有同名的静态方法（比如 Math.max 和 MyUtils.max），你同时用 * 导入它们，编译器就会“懵圈”（报错：引用不明确），因为它不知道该用哪一个
-
-
-
+59.System.exit(0) 执行安全退出程序
+60.基本类型数组（如 int[]）初始化后会有默认值（0），而包装类数组（如 Integer[]）初始化后全是空（null）
+61.java的箭头函数可以使用this
+62.只有实现Iterable接口的对象才有资格调用.forEach()
 
 
 
