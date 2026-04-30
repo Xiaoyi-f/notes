@@ -89,7 +89,17 @@
         Arrays.parallelSetAll() 并行操作
         普通的 Arrays.toString() 只会显示内部数组的引用地址
         Arrays.deepToString() 会递归地转换所有层级的数组元素为字符串
+        Arrays.stream()
+            .skip(n)
+            .limit(n)
+            .map(func)
+            .filter(func)
+            .distinct() 去重
+            .forEach(func)
         .length
+    LocalTime类 和 LocalDate类:
+        LocalTime localTime = new LocalTime();
+        LocalDate localDate = new LocalDate();
     内置注解:
         @Override 标记以下方法/函数是重写
         @Deprecated 标记过时，之后不在使用
@@ -100,6 +110,289 @@
         Math.sqrt(num)
         Math.abs(num)
         Math.random()
+    集合框架:
+        List、Set、Map:
+            List:
+                有序：元素按插入顺序存放
+                可重复：可以存储相同的元素
+                有索引：可以通过下标访问
+            ->
+                ArrayList 动态数组集合:
+                    // 创建
+                    List<String> list = new ArrayList<>(100);       // 指定初始容量，避免频繁扩容
+
+                    // 增
+                    list.add("A");              // 尾部添加
+                    list.add(0, "B");           // 指定位置插入，后面的元素后移
+
+                    // 删
+                    list.remove(0);             // 删除指定索引
+                    list.remove("A");           // 删除指定元素（只删除第一个匹配的）
+                    list.clear();               // 清空所有
+
+                    // 改
+                    list.set(0, "C");           // 修改指定索引的元素
+
+                    // 查
+                    String s = list.get(0);     // 获取指定索引的元素
+                    int index = list.indexOf("A");  // 查找元素第一次出现的位置
+                    boolean exists = list.contains("A");  // 判断是否包含
+                    int size = list.size();     // 获取元素个数
+                    boolean empty = list.isEmpty();  // 判断是否为空
+
+                    // 遍历
+                    // 方式1：普通 for 循环（ArrayList 推荐）
+                    for (int i = 0; i < list.size(); i++) {
+                        System.out.println(list.get(i));
+                    }
+
+                    // 方式2：增强 for 循环
+                    for (String s : list) {
+                        System.out.println(s);
+                    }
+
+                    // 方式3：迭代器
+                    Iterator<String> it = list.iterator();
+                    while (it.hasNext()) {
+                        System.out.println(it.next());
+                    }
+
+                    // 方式4：forEach + Lambda（Java 8+）
+                    list.forEach(System.out::println);
+                LinkedList 双向链表集合:
+                    // 和ArrayList有相同的方法，创建同理
+                    // 特有方法
+                    linkedList.addFirst(val)
+                    linkedList.addLast(val)
+                    linkedList.removeFirst()
+                    linkedList.removeLast()
+                    linkedList.getFirst()
+                    linkedList.getLast()
+            Set:
+                无序：不保证插入顺序（部分实现除外）
+                不可重复：元素不能重复
+                无索引：不能通过下标访问
+            ->
+                HashSet 基于 HashMap 实现，元素作为 HashMap 的 key，value 是一个固定对象:
+                    Set<String> set = new HashSet<>();
+
+                    // 增
+                    set.add("A");
+                    set.add("B");
+                    set.add("A");  // 重复元素不会被添加，返回 false
+
+                    // 删
+                    set.remove("A");
+                    set.clear();
+
+                    // 查
+                    boolean exists = set.contains("A");
+                    int size = set.size();
+                    boolean empty = set.isEmpty();
+
+                    // 遍历
+                    for (String s : set) {
+                        System.out.println(s);
+                    }
+
+                    // 迭代器
+                    Iterator<String> it = set.iterator();
+                    while (it.hasNext()) {
+                        System.out.println(it.next());
+                    }
+
+                    // forEach
+                    set.forEach(System.out::println);
+                去重原理（面试常考）：
+                先计算元素的 hashCode()，确定存储位置
+                如果该位置没有元素，直接存储
+                如果该位置有元素，调用 equals() 比较
+                如果 equals() 返回 true，不存储（去重）
+                如果 equals() 返回 false，形成链表或红黑树
+                    public class Student {
+                        private String name;
+                        private int age;
+
+                        // 构造方法、getter/setter 省略
+
+                        @Override
+                        public boolean equals(Object o) {
+                            if (this == o) return true;
+                            if (o == null || getClass() != o.getClass()) return false;
+                            Student student = (Student) o;
+                            return age == student.age && Objects.equals(name, student.name);
+                        }
+
+                        @Override
+                        public int hashCode() {
+                            return Objects.hash(name, age);
+                        }
+                    }
+
+                    // 使用
+                    Set<Student> students = new HashSet<>();
+                    students.add(new Student("张三", 20));
+                    students.add(new Student("张三", 20));  // 不会被添加，因为 equals 判断相同
+                LinkedHashSet 继承 HashSet，底层使用 LinkedHashMap，维护了一个双向链表记录插入顺序:
+                    Set<String> set = new LinkedHashSet<>();
+                    set.add("C");
+                    set.add("A");
+                    set.add("B");
+
+                    // 遍历顺序：C, A, B（保持插入顺序）
+                    for (String s : set) {
+                        System.out.println(s);
+                    }
+                TreeSet 基于 TreeMap（红黑树）实现，元素自动排序:
+                    Set<Integer> set = new TreeSet<>();
+                    set.add(3);
+                    set.add(1);
+                    set.add(2);
+
+                    // 遍历顺序：1, 2, 3（自然排序）
+                    for (Integer i : set) {
+                        System.out.println(i);
+                    }
+
+                    // 自定义排序
+                    // 方式1：元素实现 Comparable 接口
+                    public class Student implements Comparable<Student> {
+                        private String name;
+                        private int age;
+
+                        @Override
+                        public int compareTo(Student o) {
+                            return this.age - o.age;  // 按年龄升序
+                        }
+                    }
+
+                    // 方式2：传入 Comparator
+                    Set<Student> set = new TreeSet<>((s1, s2) -> s1.getName().compareTo(s2.getName()));
+
+            Map:
+                键唯一：key 不能重复
+                值可重复：value 可以重复
+                每个键映射到一个值
+            ->
+                HashMap 数组 + 链表 + 红黑树（JDK 8+）:
+                    Map<String, Integer> map = new HashMap<>();
+
+                    // 增
+                    map.put("A", 1);
+                    map.put("B", 2);
+                    map.put("A", 3);  // key 重复，value 覆盖，返回旧值 1
+
+                    // 删
+                    map.remove("A");        // 删除指定 key
+                    map.clear();            // 清空
+
+                    // 改
+                    map.put("A", 10);       // 覆盖旧值
+                    map.replace("A", 20);   // 替换，key 不存在时不操作
+
+                    // 查
+                    Integer value = map.get("A");           // 获取值，key 不存在返回 null
+                    Integer value = map.getOrDefault("A", 0);  // 获取值，不存在返回默认值
+                    boolean hasKey = map.containsKey("A");     // 判断 key 是否存在
+                    boolean hasValue = map.containsValue(1);   // 判断 value 是否存在
+                    int size = map.size();
+                    boolean empty = map.isEmpty();
+
+                    // 遍历
+                    // 方式1：遍历 entrySet（推荐）
+                    for (Map.Entry<String, Integer> entry : map.entrySet()) {
+                        System.out.println(entry.getKey() + " = " + entry.getValue());
+                    }
+
+                    // 方式2：遍历 keySet
+                    for (String key : map.keySet()) {
+                        System.out.println(key + " = " + map.get(key));
+                    }
+
+                    // 方式3：遍历 values
+                    for (Integer value : map.values()) {
+                        System.out.println(value);
+                    }
+
+                    // 方式4：forEach（Java 8+）
+                    map.forEach((key, value) -> System.out.println(key + " = " + value));
+                JDK 8+ 的 HashMap 结构：
+                数组（Node[] table）
+                    ├── 索引 0: null
+                    ├── 索引 1: Node("A", 1) → Node("C", 3)  （链表，长度 > 8 转红黑树）
+                    ├── 索引 2: Node("B", 2)
+                    └── 索引 3: null
+                put 流程：
+                    计算 key 的 hashCode()，再通过扰动函数计算 hash 值
+                    通过 (n - 1) & hash 计算数组索引
+                    如果该位置为空，直接创建 Node 放入
+                    如果该位置不为空，遍历链表/红黑树
+                    如果找到相同 key，覆盖 value
+                    如果没找到，插入到链表尾部（JDK 8+）
+                    如果链表长度 > 8，且数组长度 >= 64，转为红黑树
+                    如果元素个数 > 阈值（容量 × 0.75），扩容
+                扩容机制：
+                    默认初始容量：16
+                    加载因子：0.75
+                    扩容倍数：2 倍
+                    扩容后，元素重新计算索引位置
+                为什么 HashMap 的容量是 2 的幂次方？
+                    因为 (n - 1) & hash 等价于 hash % n，但位运算更快
+                    只有 n 是 2 的幂次方时，(n - 1) & hash 才能均匀分布
+                LinkedHashMap 继承 HashMap，维护了一个双向链表记录顺序:
+                    Map<String, Integer> map = new LinkedHashMap<>();
+                    map.put("C", 3);
+                    map.put("A", 1);
+                    map.put("B", 2);
+
+                    // 遍历顺序：C, A, B（插入顺序）
+                    map.forEach((key, value) -> System.out.println(key + " = " + value));
+
+                    // accessOrder = true 表示按访问顺序排序
+                    Map<String, Integer> lru = new LinkedHashMap<>(16, 0.75f, true);
+                    lru.put("A", 1);
+                    lru.put("B", 2);
+                    lru.put("C", 3);
+
+                    lru.get("A");  // 访问 A，A 被移到末尾
+
+                    // 遍历顺序：B, C, A（最近访问的在最后）
+                    lru.forEach((key, value) -> System.out.println(key));
+                TreeMap 红黑树，key 自动排序:
+                    Map<String, Integer> map = new TreeMap<>();
+                    map.put("C", 3);
+                    map.put("A", 1);
+                    map.put("B", 2);
+
+                    // 遍历顺序：A, B, C（key 的自然顺序）
+                    map.forEach((key, value) -> System.out.println(key + " = " + value));
+
+                    // 自定义排序
+                    Map<String, Integer> map2 = new TreeMap<>((s1, s2) -> s2.compareTo(s1));  // 降序
+
+                    // 特有方法
+                    TreeMap<Integer, String> treeMap = new TreeMap<>();
+                    treeMap.put(1, "A");
+                    treeMap.put(3, "C");
+                    treeMap.put(5, "E");
+                    treeMap.put(7, "G");
+
+                    // 范围查询
+                    Map<Integer, String> subMap = treeMap.subMap(3, 6);     // {3=C, 5=E}
+                    Map<Integer, String> headMap = treeMap.headMap(4);      // {1=A, 3=C}
+                    Map<Integer, String> tailMap = treeMap.tailMap(3);      // {3=C, 5=E, 7=G}
+
+                    // 获取最值
+                    Integer firstKey = treeMap.firstKey();  // 1
+                    Integer lastKey = treeMap.lastKey();    // 7
+                    Map.Entry<Integer, String> first = treeMap.firstEntry();  // 1=A
+                    Map.Entry<Integer, String> last = treeMap.lastEntry();    // 7=G
+
+                    // 获取邻近值
+                    Map.Entry<Integer, String> lower = treeMap.lowerEntry(4);   // 小于4的最大键：3=C
+                    Map.Entry<Integer, String> higher = treeMap.higherEntry(4); // 大于4的最小键：5=E
+                    Map.Entry<Integer, String> floor = treeMap.floorEntry(4);   // 小于等于4的最大键：3=C
+                    Map.Entry<Integer, String> ceiling = treeMap.ceilingEntry(4); // 大于等于4的最小键：5=E
 
 1.万物皆对象
 2.一段程序实际上就是多个对象之间通过发送消息来通知彼此要干什么
@@ -211,12 +504,37 @@
 60.基本类型数组（如 int[]）初始化后会有默认值（0），而包装类数组（如 Integer[]）初始化后全是空（null）
 61.java的箭头函数可以使用this
 62.只有实现Iterable接口的对象才有资格调用.forEach()
-
-
-
-
-
-
+63.java直接支持抽象类 abstract 和 接口 interface 以即 枚举 enum enum有.values() 可以获得枚举常量值数组
+64.java支持边长参数 类型... 参数名 实际本质就是一个数组
+65.面向对象除了理解基本的封装继承和多态之外还有一个组合是必须知道的
+66.java支持泛型,声明泛型之后就可以直接使用类型参数代类型，最终实际使用传递真实类型就可以
+    泛型类: 在类名后面加 <T>，T 就是类型参数 这个不一定是要 T，也不是只能有一个类型参数，实例化时候在类名后面依次传递对应的类型就行
+    泛型接口: 定义接口时候在接口名后加 <T> 实现时候 在接口后面传递对应的类型就行，当然也可以不传递实际数据类型，依旧写明 T 标明依旧使用泛型，还未传递具体类型
+    泛型方法: 在方法的返回类型前面加 <T>，表示这是一个泛型方法
+    类型参数约定:
+        T	Type（类型）	一般类型
+        E	Element（元素）	集合中的元素，如 List<E>
+        K	Key（键）	Map 的键，如 Map<K, V>
+        V	Value（值）	Map 的值，如 Map<K, V>
+        N	Number（数字）	数字类型
+        R	Result（结果）	返回结果类型
+    泛型通配符:
+        无界通配符 <?> 表示任意类型，常用于只读场景
+        上界通配符 <? extends T> 表示T 或 T 的子类，用于生产者场景（只读）
+        下界通配符 <? super T> 表示T 或 T 的父类，用于消费者场景（写入）
+    PECS(Producer Extends, Consumer Super):
+        <? extends T>	生产者（提供数据）	✅ 可读为 T	❌ 不可写	生产（读）用 extends
+        <? super T>	消费者（接收数据）	✅ 可读为 Object	✅ 可写 T 及子类	消费（写）用 super
+        <?>	未知类型	✅ 可读为 Object	❌ 不可写（除 null）	任意类型
+    Java 的泛型是伪泛型。泛型信息只在编译阶段存在，编译成字节码后，泛型信息会被擦除
+    擦除规则:
+        原始代码	擦除后（字节码）
+        Box<T>	Box（T 擦除为 Object）
+        Box<T extends Number>	Box（T 擦除为 Number）
+        List<? extends Number>	List（擦除为 Number）
+        List<? super Integer>	List（擦除为 Object）
+67.java的箭头函数即java的lambda表达式，java的箭头函数的立即执行式和js的一个逻辑
+68.stream不是数据结构，他是数据处理的流水线，集合自带.stream() 获得 stream 对象，有一个东西叫做并行流...
 
 
 
