@@ -1,0 +1,78 @@
+特有类型: Null Undefined NaN Infinity
+console.log()
+async await
+Object.keys()
+Object.values()
+Object.entries()
+`${}`
+typeof
+?.
+instanceof
+arguments -> ...参数
+...数据 展开运算符
+[key] 对象的动态键, key 变量
+防抖与节流
+timeout = setTimeout(() => {
+    // pass
+}, time)
+interval = setInterval(() => {
+    // pass
+}, time)
+clearTimeout(timeout)
+clearInterval(interval)
+
+window.Theme -> 定义window全局属性示例
+window.dispatchEvent(new CustomEvent('eventName', { detail: detailData }))
+document.documentElement.getAttribute('key')
+document.documentElement.setAttribute('key', 'value')
+document.createElement(tag)
+document.querySelector()
+document.querySelectorAll()
+parent.appendChild()
+parent.insertBefore(newElement, referenceElement)
+element.remove()
+obj.style.xxx -> 连字符全改写小驼峰
+obj.textContent
+obj.attr
+
+obj.addEventListener(eventType, (event) => {})
+event.target
+event.key
+event.preventDefault()
+event.stopPropagation()
+event.button -> 0 1 2
+
+localStorage sessionStorage
+.setItem('key', 'value')
+.removeItem('key')
+.getItem('key')
+.clear()
+
+JSON.stringify(obj)
+JSON.parse(str)
+
+document.cookie = "key=value"
+// 依次只能写入一个cookie，实际形式是 key1=value1; key2=value2; key3=value3
+
+// 高级方法
+.map((arg) => {})
+.forEach((arg) => {})
+.filter((arg) => {})
+.find((arg) => {})
+.sort((a, b) => {})  // 顺减小，倒大前
+
+// 随机值
+globalThis.crypto?.randomUUID() || `${Date.now()} - ${Math.random().toString(16).slice(n)}`
+
+// 异常
+try {} catch(err) {} finally {}
+
+// 数组基本操作
+.pop()
+.shift()
+.push(val)
+.unshift(val)
+
+
+
+

@@ -1,0 +1,20 @@
+cd xxx
+git init
+git clone url
+git checkout -b branchName
+git pull nickName branch
+git status
+git branch -d branch
+git add .
+git commit -m commitContent
+git push -u nickName branch
+git remote -v
+git remove add nickName url
+git remote rm nickName
+git merge branch
+
+.gitignore
+! --> 强制允许推送
+
+
+

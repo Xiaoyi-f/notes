@@ -1,0 +1,125 @@
+import axios from 'axios'
+import { ElMessage } from 'element-plus'
+
+const envBaseURL = String(import.meta.env.VITE_API_BASE_URL).trim()
+const instance = axios.create({
+  baseURL: envBaseURL,
+  timeout: 10000,
+  headers: {}
+})
+
+let lastErrorToastAt = 0
+let lastErrorToastKey = ''
+
+instance.interceptors.request.use(
+  (config) => {
+    // pass
+    return config
+  },
+  (err) => {
+    console.error('请求配置错误:', err)
+    return Promise.reject(err)  // 关键的数据操作,在组件层写好 catch 接住Promise对象,普通操作可以不用
+  }
+)
+
+instance.interceptors.response.use(
+  (response) => {
+    const res = response.data
+    // 强行调用原始对象的 hasOwnProperty 属性 检测返回的数据中有无 code 字段
+    const hasBizCode = res && typeof res === 'object' && Object.prototype.hasOwnProperty.call(res, 'code')
+
+    // 兼容两种风格的接口数据传输对接模式
+
+    if (!hasBizCode) {
+      return res
+    }
+
+    const bizCode = Number(res.code)
+    if (bizCode === 200) {
+      return res.data
+    }
+
+    // 有 code 字段的风格规定同时应该有 message 字段
+    const message = String(res.message || '操作失败')
+    ElMessage.error(message)  // 调试时候特别有用
+    return Promise.reject(new Error(message))
+  },
+  (err) => {
+    // 处理用户中途主动取消的错误
+    if (err?.code === 'ERR_CANCELED') {
+      return Promise.reject(err)
+    }
+
+    let message = '请求失败'
+    if (err.response) {
+      switch (err.response.status) {
+        case 400:
+          message = '请求参数错误'
+          break
+        case 401:
+          message = '未授权访问'  // 未登录或登录已过期
+        case 403:
+          message = '没有权限'
+          break
+        case 404:
+          message = '请求资源不存在'
+          break
+        case 500:
+          message = '服务器错误'
+          break
+        case 503:
+          message = '服务维护中'
+          break
+        default:
+          message = `连接失败(${err.response.status})`
+      }
+    } else if (err.code === 'ECONNABORTED') {
+      message = '请求超时, 请稍后重试'
+    } else if (err.code === 'ECONNREFUSED') {
+      message = '无法连接到服务器'
+    } else if (err.code === 'ENOTFOUND') {
+      message = '网络连接失败'
+    } else if (!navigator.onLine) {
+      message = '网络已断开, 请检查网络'
+    } else if (err.message === 'Network Error') {
+      message = '接口请求失败'
+    } else if (err.message) {
+      message = err.message
+    }
+
+
+    const method = String(err?.config?.method || '').toUpperCase()
+    const reqUrl = String(err?.config?.url || '')
+    const reqLabel = `${method} ${reqUrl}`.trim()
+    const toastKey = `${message}|${reqLabel}`
+    // 实现错误提示的防抖
+    const now = Date.now()
+    if (!(toastKey === lastErrorToastKey && now - lastErrorToastAt < 3000)) {
+      ElMessage.error(message)
+      lastErrorToastKey = toastKey
+      lastErrorToastAt = now
+    }
+    // 调试时使用，生产环境请删除下面这条打印，避免接口暴漏
+    console.error('请求错误:', reqLabel || '(unknown request)', err)
+    return Promise.reject(err)  // 关键的数据操作,在组件层写好 catch 接住Promise对象,普通操作可以不用
+  }
+)
+
+export async function axiosGet(url, params) {
+  const res = await instance.get(url, {
+    params: {
+      ...params
+    }
+  })
+  console.log(`get 请求成功!`)
+  return res
+}
+
+export async function axiosPost(url, data) {
+  // 提高容错率
+  const payload = typeof data === 'undefined' ? {} : data
+  const res = await instance.post(url, payload)
+  console.log('post 请求成功!')
+  return res
+}
+

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="HTML">
+        <meta name="copyright" content="Copyright © [Year] [Author]. All Rights Reserved.">
+        <meta name="formate-detection" content="telephone=no, email=no">
+        <meta name="renderer" content="webkit">
+        <meta name="og:title" content="HTML">
+        <meta name="og:description" content="HTML">
+        <meta name="og:image" content="/path" type="image/png">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="/path">
+        <title>HTML</title>
+    </head>
+    <body>
+        <div id class data-*></div>
+        <span><p><strong></strong><em></em><ins></ins><del></del></p></span>
+        <h1></h1><h6></h6>
+        <ul>
+            <li></li>
+        </ul>
+        <dl>
+            <dt></dt>
+            <dd></dd>
+        </dl>
+        <ol>
+            <li></li>
+        </ol>
+        <table style="border-collapse: collapse;">
+            <caption></caption>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <br> <hr>
+        <svg></svg>
+        <img title src alt></img>
+        <video controls muted autoplay loop poster>
+        <audio controls muted autoplay loop>
+        <iframe></iframe>
+        <canvas></canvas>
+        <form></form>
+        <input type id name autocomplete="off"></input>
+        <textarea style="resize: none;" rows cols placeholder ></textarea>
+        <button type></button>
+        <label for=id></label>
+        <el-select>
+            <el-option label value />
+        </el-select>
+        <el-badge value>
+            <div></div>
+        </el-badge>
+        <header><nav></nav></header>
+        <main></main>
+        <section></section>
+        <aside></aside>
+        <footer></footer>
+        <template></template>
+    </body>
+</html>
+
+
+
