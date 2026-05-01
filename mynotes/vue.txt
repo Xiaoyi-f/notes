@@ -158,3 +158,22 @@ rules: {
     "prettier/prettier": ["error", {endOfLine: "auto"}]
 }
 
+// pinia
+import { defineStore } from 'pinia'
+
+export const useXxxStore = defineStore('name', () => {
+    // pass
+    return {
+        // pass
+    }
+}, {
+    persist: {
+        key: 'keyName',
+        storage: localStorage, // or sessionStorage
+        paths: ['指定字段']
+    }
+})
+
+const xxxStore = useXxxStore()
+const { xxx } = storeToRefs(xxxStore)
+

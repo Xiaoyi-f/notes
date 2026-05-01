@@ -14,6 +14,11 @@ let lastErrorToastKey = ''
 instance.interceptors.request.use(
   (config) => {
     // pass
+    const token = localStorage.getItem('token')
+    if (token) {
+      // 在请求头中写校验
+      config.headers.Authorization = `Bearer ${token}`
+    }
     return config
   },
   (err) => {
@@ -25,15 +30,6 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => {
     const res = response.data
-    // 强行调用原始对象的 hasOwnProperty 属性 检测返回的数据中有无 code 字段
-    const hasBizCode = res && typeof res === 'object' && Object.prototype.hasOwnProperty.call(res, 'code')
-
-    // 兼容两种风格的接口数据传输对接模式
-
-    if (!hasBizCode) {
-      return res
-    }
-
     const bizCode = Number(res.code)
     if (bizCode === 200) {
       return res.data
@@ -46,7 +42,7 @@ instance.interceptors.response.use(
   },
   (err) => {
     // 处理用户中途主动取消的错误
-    if (err?.code === 'ERR_CANCELED') {
+    if (err.code === 'ERR_CANCELED') {
       return Promise.reject(err)
     }
 
@@ -57,7 +53,7 @@ instance.interceptors.response.use(
           message = '请求参数错误'
           break
         case 401:
-          message = '未授权访问'  // 未登录或登录已过期
+          message = '未登录或登录已过期'
         case 403:
           message = '没有权限'
           break
@@ -87,9 +83,8 @@ instance.interceptors.response.use(
       message = err.message
     }
 
-
-    const method = String(err?.config?.method || '').toUpperCase()
-    const reqUrl = String(err?.config?.url || '')
+    const method = String(err.config.method || '').toUpperCase()
+    const reqUrl = String(err.config.url || '')
     const reqLabel = `${method} ${reqUrl}`.trim()
     const toastKey = `${message}|${reqLabel}`
     // 实现错误提示的防抖
