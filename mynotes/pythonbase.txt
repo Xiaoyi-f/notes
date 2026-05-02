@@ -1,0 +1,131 @@
+pip config list
+pip config set xxx xxx
+pip freeze > requirements.txt
+pip install -r requirements.txt
+pip uninstall
+pip show 包名
+
+python -m venv .venv
+./.venv/Scripts/activate
+deactivate
+
+__init__.py
+# 声明
+__version__ = "1.0.0"
+__author__ = "XiaoYi --NieJianbing"
+__email__ = "..."
+__description__ = "描述"
+__license__ = "MIT"
+__all__ = [
+    "包"
+]
+# testCode
+
+# 关键词
+print(help('keywords'))
+
+abs() round() sum() min() max()
+
+len() range() map() filter() sorted() reversed()
+type() isinstance() id() eval() exec() all() any()
+
+string.find(subStr)
+string.split(sep, num)
+string.join(iterable)
+string.replace(old, new)
+string.count(val)
+string.index(val)
+
+list -> append pop insert(idx, val) remove reverse
+set -> frozonset(setObj) add discard
+dict -> get .values() .keys() .items()
+
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
+
+@abstractmethod
+def demo(self):
+    pass
+
+@dataclass
+class Person:
+    name: str = 'xiaoyi'
+    age: int = 19
+    city: str = 'HongHe'
+
+with open('file', 'wb+') as file: # r a
+    file.read(byteNums)
+    file.readline()
+    file.readlines()
+    file.write(data)
+    file.writelines(iterable)
+
+import time
+time.strftime("%Y-%m-%d, %H:%M:%S", time.localtime(time.time())
+time.sleep(n)
+
+import datetime
+expiresTime = datetime(Y, m, d, H, M, S)
+
+import json
+json.dumps(data, ensure_ascii=False)
+json.loads(jsonStr)
+json.dump(data, file, ensure_ascii=False, indent=4)
+json.load(file)
+
+import re
+mode = re.IGNORECASE | re.DOTALL
+pattern = re.compile(patternStr, mode)
+pattern.search(text).group(n) # 找第一个匹配，提取分组
+pattern.findall(text) # 找所有匹配，返回列表
+
+from enum import Enum
+class Color(Enum):
+    RED = 1
+    GREEN = 2
+    BLUE = 3
+print(Color.RED.name)
+print(Color.RED.value)
+
+import random
+nums = [1, 3, 5, 7, 9]
+randomInt = random.randrange(start, end) # 包前无后
+randomFloat = random.uniform(start, end) # 包前包后
+randomChoice = random.choice(nums)
+randomChoices = random.choices(nums, k=n)
+randomSample = random.sample(nums, n)
+random.shuffle(nums)
+
+import qrcode
+from PIL import Image
+url = 'url'
+logoPath = 'path'
+outputPath = 'pathName'
+
+qr = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_Q)
+qr.add_data(url)
+qrImage = qr.make_image().convert("RGB")
+
+logo = Image.open(logoPath)
+qrWidth, qrHeight = qrLogo.size
+logoSize = qrWidth // 5
+logo = logo.resize((logoSize, logoSize))
+
+centerX = (qrWidth - logoSize) // 2
+centerY = (qrHeight - logoSize) // 2
+
+qrImage.paste(logo, (centerX, centerY))
+qrImage.save(outputPath)
+
+# 不可逆哈希md5
+import hashlib
+text = 'secretTextTarget'
+md5 = hashlib.md5()
+md5.update(text.encode('utf-8'))
+result = md5.hexdigest() # 16进制32位哈希码
+
+# 因导入即将加载到代码执行一次 为了实现模块既能作工具又能自执行
+if __name__ == '__main__':
+    pass
+
+

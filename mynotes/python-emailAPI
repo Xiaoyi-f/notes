@@ -1,0 +1,63 @@
+import smtplib
+from email.mime.text import MIMEText
+import random
+import string
+import dotenv
+import os
+
+dotenv.load_dotenv()
+
+def createCode():
+    template = string.digits + string.ascii_letters
+    code = random.sample(template, k=4)
+    return "".join(code)
+
+
+def initemail(app):
+    account = os.getenv("EMAIL_ACCOUNT")
+    password = os.getenv("EMAIL_PASSWORD")
+
+    def sendEmail(title, target, pwd=None):
+        code = createCode()
+        html_content = f"""
+        <!DOCTYPE html>
+        <html>
+        <head><meta charset="UTF-8"></head>
+        <body>
+            <div style="text-align: center;">
+                <h2>【XiaoyiBlog】验证码</h2>
+            </div>
+            <div style="text-align: center;">
+                <h1 style="color: green;">{code}</h1>
+            </div>
+            <p style="text-align: center;">验证码<strong style="color: red;">5分钟</strong>内有效</p>
+            <p style="color: red; text-align: center;">请勿将此验证码告知他人</p>
+        </body>
+        </html>
+        """
+
+            def send():
+                try:
+                    msg = MIMEText(html_content, 'html', 'utf-8')
+                    msg['Subject'] = title
+                    msg['From'] = f"XiaoyiBlog <{sender_email}>"
+                    msg['To'] = target
+
+                    with smtplib.SMTP_SSL('smtp.163.com', 465) as server:
+                        server.login(account, password)
+                        server.send_message(msg)
+                    print(f"✅ 发送成功: {target}")
+                except Exception as err:
+                    print(f"❌ 发送失败: {err}")
+
+            return code
+
+        return sendMail
+
+
+
+
+
+
+
+

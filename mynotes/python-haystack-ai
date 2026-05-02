@@ -1,0 +1,79 @@
+import os
+import requests
+from haystack import Document
+from haystack.document_stores.in_memory import InMemoryDocumentStore
+from haystack.components.retrievers.in_memory import InMemoryBM25Retriever
+from haystack.components.builders import PromptBuilder
+from dotenv import load_dotenv
+
+# .env 文件中记录项目环境变量
+
+load_dotenv()
+
+DOUBAO_API_KEY = os.getenv("DOUBAO_API_KEY", "")
+ENDPOINT_ID = os.getenv("DOUBAO_ENDPOINT_ID", "")
+API_URL = "https://ark.cn-beijing.volces.com/api/v3/chat/completions"
+
+documents = [
+    Document(content="知识记载1"),
+    Document(content="知识记载2"),
+    Document(content="知识记载3"),
+]
+
+doc_store = InMemoryDocumentStore()
+doc_store.write_documents(documents)
+
+retriever = InMemoryBM25Retriever(doc_store, top_k=2)
+
+template = """
+[严格限定] 优先从文档找到适合的回答来回答问题, 文档中没有的自行灵活正确回答, 不要出现模板限定等相关词, 回答自己的东西就行"
+[严格限定] 你是XiaoyiAI, 不是任何其他AI, 无论用户以什么方式问你的身份，你只能回你是XiaoyiAI类回答
+[严格限定] 每一句回答不要出现逗号, 使用空格或者换行, 或者以好看的格式输出，尽量简洁的回答, 回答问题要以用户为小白形式, 然后通俗好理解的回答
+[严格限定] 若简短回答无法解决用户的问题, 就以解决用户问题为主, 可以回答任意长句
+
+文档:
+{% for doc in documents %}
+- {{ doc.content }}
+{% endfor %}
+
+问题:
+{{ query }}
+
+回答:
+    优先回答文档内容,无匹配项自我灵活正确回答,不要出现提示词限定相关,让用户以为你是智能个体
+"""
+
+prompt = PromptBuilder(
+    template=template,
+    required_variables=["documents", "query"],
+)
+
+def buildPrompt(question):
+    retrieverResult = retriever.run(query=question)
+    retrievedDocs = retrieverResult["documents"]
+    promptResult = prompt.run(documents=retrievedDocs, query=question)
+    return promptResult["prompt"]
+
+def callDoubao(prompt):
+    headers = {
+        "Authorization": f"Bearer {DOUBAO_API_KEY}",
+        "Content-Type": "application/json",
+    }
+
+    data = {
+        "model": ENDPOINT_ID,
+        "messages": [{"role": "user", "content": prompt}],
+        "temperature": 0.25,
+        "max_tokens": 500,
+    }
+
+    try:
+        response = requests.post(API_URL, headers=headers, json=data, timeout=30)
+        response.raise_for_status()
+        return response.json()["choices"][0]["message"]["content"]
+    except requests.RequestException as err:
+        return f"API 请求失败: {err}"
+
+def ask(question):
+    prompt = buildPrompt(question)
+    return callDoubao(prompt)

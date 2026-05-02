@@ -1,0 +1,41 @@
+npm install socket.io-client
+
+import { io } from 'socket.io-client'
+
+const socket = io('backEndUrl', {
+    reconnection: true,
+    reconnectionAttempts: 5,
+    reconnectionDelay: 1000,
+    timeout: 20000,
+    transports: ['websocket']
+})
+
+// 内置事件监听
+socket.on('connect', () => {
+    // pass
+})
+
+// 内置事件监听
+socket.on('connect_error', (err) => {
+    console.log('连接失败:', err.message)
+})
+
+// 内置事件监听
+socket.on('disconnect', (reason) => {
+    console.log('连接中断:', reason)
+})
+
+socket.emit('customEventName', {
+    // 发送数据对象
+})
+
+socket.on('customEventName', (data) => {
+    // pass
+})
+
+socket.once('welcome', (data) => {
+    // pass
+})
+
+socket.off('customEventName')
+

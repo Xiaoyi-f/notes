@@ -1,0 +1,59 @@
+import requests
+from bs4 import BeautifulSoup
+
+url = "http://127.0.0.1:5000"
+params = {"name": "Xiaoyi-f", "age": 18}
+headers = {
+    "User-Agent": "xxx"
+}
+# verify=False 忽略证书验证
+response = requests.get(url, params=params, headers=headers, timeout=10, verify=False)
+response.encoding = "utf-8"
+resCode = response.status_code
+resHeaders = response.headers
+resHistory = response.history
+text = response.text
+content = response.content
+resCookies = response.cookies
+resJson = response.json()
+payload = {"name": "Xiaoyi-f", "age": 18}
+file = open("filePath", "rb+")
+# post 请求的数据在payload或form中体现一般，url中不体现
+# post请求没有数据长度限制，但是get有
+# 如果API文档说 "Content-Type: application/json" → 用 json
+# 如果API文档说 "Content-Type: application/x-www-form-urlencoded" → 用 data
+response = requests.post(url, json=payload, headers=headers, files={"file": file}, verify=False)
+file.close()
+# 返回数据出现\u则使用
+response.content.decode("unicode-escape")
+
+
+html = response.text
+document = BeautifulSoup(html, "html.parser")
+
+tag = "a"
+element = document.find(tag)
+elements = document.find_all(tag)
+# 节点被解析为字典
+for ele in elements:
+    href = ele.get("href")
+    text = ele.text.strip()
+    print(href, text)
+
+# 最后一个节点为None
+
+def myFilter(ele):
+    # ele.children
+    # ele.descendants
+    checkParent = ele.parent == "div"
+    return checkParent
+
+response = document.find(myFilter)
+ele = document.select_one(".demo")
+elements = document.select(".demo")
+for ele in elements:
+    text = ele.text.strip()
+    print(text)
+
+
+

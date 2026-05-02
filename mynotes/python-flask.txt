@@ -1,0 +1,70 @@
+from flask import Flask, jsonify, request, make_response
+from flask_cors import CORS
+from sqlalchemy import and_, or_, not_, func, ForeignKey
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+app.debug = False
+# 签名传输的数据 记录下来
+app.config['SECRET_KEY'] = SECRET_KEY
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://userName:password@url:port/dbName"
+CORS(app, origins=["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    'url1',
+    'url2'
+])
+
+@app.route("/<int:num>/<float:decimal>/<string:name>", methods=["POST", "GET"]
+def demo(num, decimal, name):
+    """
+    request.method
+    request.args 字典
+    request.json 字典
+    request.cookies 字典
+    request.files 字典
+    files[key].save("path")
+    resp = make_response(data)
+    resp.set_cookie(
+        "key",
+        "value",
+        max_age=2592000,
+        domain="xxx.xx",
+        samesite="Strict",
+        httponly=True # 开启这个之后前端无法读取cookie，只能够通过后端来操作
+    )
+    """
+
+db = SQLAlchemy(app)
+
+class Table(db.Model):
+    """
+    field = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    ->
+        db.String(n) unique=True nullable=False
+        db.ForeignKey('table.field') default=val
+        db.Float db.Numeric(整体位数, 小数位数) db.Boolean db.JSON
+        数组和字典都属于json
+    """
+
+with app.app_context():
+    db.create_all()
+
+# 增
+demo = Table(*args, **kwargs)
+db.session.add(demo)
+db.session.commit()
+
+# 删
+demo = Table.query.get(id)
+db.session.delete(demo)
+db.session.commit()
+
+# 改
+demo = Table.query.get(id)
+demo.field = val
+db.session.commit()
+
+# 查
+demo = Table.query.filter(Table.field布尔表达式).all() # .first()
+
+
+

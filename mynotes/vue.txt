@@ -3,7 +3,7 @@ v-model 实现数据双向同步
 v-if v-else-if v-else 直接移除或添加节点
 v-show 设置节点的可见性
 v-for (content, index/key) in target :key
-v-on:事件 简写 @事件 .stop .prevent
+v-on:事件 简写 @事件 .stop .prevent .once
 v-once 只进行一次死渲染，之后不会动态渲染
 {{}} 插值表达式
 
@@ -177,3 +177,15 @@ export const useXxxStore = defineStore('name', () => {
 const xxxStore = useXxxStore()
 const { xxx } = storeToRefs(xxxStore)
 
+// 常用事件
+@click
+@dblclick
+@click.right
+@mouseenter
+@mouseleave
+@input
+@submit.prevent 阻止默认刷新
+@keyup.enter
+@keyup.esc
+@keydown -> 回调事件 event.key === 'F12' event.preventDefault
+@contextmenu.prevent 右键菜单事件
