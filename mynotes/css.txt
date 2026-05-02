@@ -79,10 +79,14 @@ dl {
 
 div {
     display inline inline-block block
-    position relative absolute sticky fixed
+    position relative(想象定住原体，间隔距离，视觉效果不脱离文档流) absolute(相对于上一层设置position的元素，脱离文档流) sticky(设置粘滞点，不脱离文档流) fixed(相对于窗口，脱离文档流)
     z-index
     pointer-events: none;
     filter: blur(npx);
+    background-image
+    background-color
+    background-size: cover;
+    background-position: center;
     opacity
     mask
 }
@@ -154,4 +158,5 @@ grid 适合二维布局 同时定义行和列:
 自动单位: auto
 计算函数: minmax(min, max)
 
+linear-gradient(xdeg, color1 x%, color2 x%)
 

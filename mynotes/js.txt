@@ -72,7 +72,11 @@ try {} catch(err) {} finally {}
 .shift()
 .push(val)
 .unshift(val)
+.slice(start, end)
+.splice(start, deleteCount, item1, item2, ...)
+.split() -> 'apple,banana,orange'.split(','); // ['apple', 'banana', 'orange']
 
-
+String(content).trim()
+window.scrollTo(x, y)
 
 
