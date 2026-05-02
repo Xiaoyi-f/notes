@@ -10,7 +10,9 @@
     --main-description: "value";
 }
 
-* {
+父选择器 选择器:nth-of-type(n) 选父盒子中同类第n个选择器
+
+*
     margin: 0;
     padding: 0;
     border: none;
@@ -119,3 +121,37 @@ animation animationName time infinite/具体次数
 @media (max-width: xpx) {
     // pass
 }
+
+display flex grid none
+flex/grid 中 子元素 不要使用 display: none;
+visibility: hidden; 隐藏但是保留占位
+
+flex 适合一维布局:
+    左 -> 右 上 -> 下
+    flex-direction row(默认) column
+    flex-wrap nowrap(默认) wrap wrap-reverse(新行出现在上方)
+    主轴: justify-content(整体元素)  align-item(管理多行并且真实换行) 对齐类: flex-start flex-end center 分布类: space-between space-around space-evenly
+    交叉轴: align-items(管理单行) stretch(默认,没给高度或为auto则被拉伸与容器同一高度) flex-start flex-end center
+    flex: flex-basis flex-grow flex-shrink; 基准参考值 扩展因子 收缩因子
+    比较计算容器宽度与flex-basis，容器宽度大则使用flex-grow，小则使用flex-shrink
+    flex: auto 0 1; (默认值)
+    align-self flex-start flex-end center baseline stretch
+    order 排列顺序 数值越小排列越靠前 只改变视觉 不改变DOM -> 键盘Tab键焦点跳动问题、对于视觉障碍/使用屏幕阅读器的用户不友好
+grid 适合二维布局 同时定义行和列:
+    grid-template-areas:
+        "header header header"
+        "sidebar main aside"
+        "footer footer footer";
+    grid-template-rows // 决定网格线定义
+    grid-template-columns // 决定网格线定义
+    gap: x y; // 间隔
+    # n * n 网格 有 (n + 1) * (n + 1) 条网格线
+    grid-column: startNum / endNum;
+    grid-row: startNum / endNum;
+固定单位: px em rem
+剩余空间计算单位: fr repeat(n, xfr) n可以为 auto-fill(留白) auto-fit(充分利用空间)
+相对单位: % vw vh
+自动单位: auto
+计算函数: minmax(min, max)
+
+
