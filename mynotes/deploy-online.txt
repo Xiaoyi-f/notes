@@ -1,0 +1,7 @@
+准备项目附件:
+    sitemap.xml
+    robots.txt
+
+宝塔部署项目:
+    pass
+

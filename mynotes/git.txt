@@ -13,6 +13,10 @@ git remove add nickName url
 git remote rm nickName
 git merge branch
 
+# 代理 按顺序执行
+git config --global http.proxy 127.0.0.1:代理端口
+git config --global https.proxy 127.0.0.1:代理端口
+
 .gitignore
 ! --> 强制允许推送
 

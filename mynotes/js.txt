@@ -79,4 +79,6 @@ try {} catch(err) {} finally {}
 String(content).trim()
 window.scrollTo(x, y)
 
+# pattern
+input.validity.patternMismatch -> true 表示不匹配
 

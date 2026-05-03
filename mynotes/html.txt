@@ -8,6 +8,7 @@
         <meta name="renderer" content="webkit">
         <meta name="og:title" content="HTML">
         <meta name="og:description" content="HTML">
+        <meta name="og:url" content="url">
         <meta name="og:image" content="/path" type="image/png">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,7 +48,7 @@
         <iframe></iframe>
         <canvas></canvas>
         <form></form>
-        <input type id name autocomplete="off"></input>
+        <input type id name autocomplete="off" pattern required></input>
         <textarea style="resize: none;" rows cols placeholder ></textarea>
         <button type></button>
         <label for=id></label>
@@ -64,6 +65,7 @@
         <footer></footer>
         <template></template>
     </body>
+    <script src="pathUrl"></script>
 </html>
 
 
