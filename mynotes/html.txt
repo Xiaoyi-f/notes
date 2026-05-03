@@ -10,7 +10,6 @@
         <meta name="og:description" content="HTML">
         <meta name="og:url" content="url">
         <meta name="og:image" content="/path" type="image/png">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="/path">
         <title>HTML</title>
@@ -48,6 +47,7 @@
         <iframe></iframe>
         <canvas></canvas>
         <form></form>
+        <input type="radio/checkbox" name id value disabled>
         <input type id name autocomplete="off" pattern required></input>
         <textarea style="resize: none;" rows cols placeholder ></textarea>
         <button type></button>

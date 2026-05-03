@@ -6,6 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.debug = False
 # 签名传输的数据 记录下来
+app.config.from_object('配置类')
 app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://userName:password@url:port/dbName"
 CORS(app, origins=["SQLALCHEMY_TRACK_MODIFICATIONS"] = False

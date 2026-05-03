@@ -181,6 +181,9 @@ const { xxx } = storeToRefs(xxxStore)
 @click
 @dblclick
 @click.right
+@mousedown.prevent -> event.clientX event.clientY (px)
+@mousemove -> event.clientX event.clientY (px)
+@mouseup
 @mouseenter
 @mouseleave
 @input
