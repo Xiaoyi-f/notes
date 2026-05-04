@@ -73,4 +73,4 @@ socket.run(app, host='0.0.0.0', port=5000)
 # 对于不使用socket的项目
 app.run(app, host='0.0.0.0', port=5000)
 # 生产部署环境不要写这些，直接使用gunicorn管控
-
+gunicorn -k geventwebsocket.gunicorn.workers.GeventWebSocketWorker -w 1 -b 0.0.0.0:5000 app:app
