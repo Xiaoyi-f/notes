@@ -17,7 +17,7 @@
     <body>
         <div id class data-*></div>
         <span><p><strong></strong><em></em><ins></ins><del></del></p></span>
-        <h1></h1> ~ <h6></h6>
+        <h1></h1> &nbsp; ~ &nbsp; <h6></h6>
         <ul>
             <li></li>
         </ul>
@@ -40,18 +40,18 @@
             </tr>
         </table>
         <br> <hr>
-        <svg></svg>
+        <svg></svg> AI or 引用
+        <canvas></canvas> AI or 引用
         <img title src alt></img>
         <video controls muted autoplay loop poster>
         <audio controls muted autoplay loop>
         <iframe></iframe>
-        <canvas></canvas>
         <form></form>
         <input type="radio/checkbox" name id value disabled>
         <input type id name autocomplete="off" pattern required></input>
         <textarea style="resize: none;" rows cols placeholder ></textarea>
-        <button type></button>
-        <label for=id></label>
+        <button type->submit/reset/button></button>
+        <label></label>
         <el-select>
             <el-option label value />
         </el-select>
@@ -67,6 +67,37 @@
     </body>
     <script src="pathUrl"></script>
 </html>
+
+单词总结:
+zh-CN en
+charset
+name content
+rel href
+div id class data-* span p strong em ins del
+h1 &nbsp; ~ &nbap; h6
+ul li ol dl dt dd table border-collapse caption tr th td
+br hr
+svg
+canvas
+img title alt src
+video src controls muted autoplay loop poster
+audio controls muted autoplay loop
+iframe
+input type name value id radio checkbox password text
+textarea cols rows style="resize: none;" disabled required pattern
+button submit reset
+label
+el-select el-option label value
+el-badge value div
+header
+nav
+main
+aside
+section
+footer
+template
+script
+
 
 
 
