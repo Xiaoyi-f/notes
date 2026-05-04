@@ -18,6 +18,7 @@
         <div id class data-*></div>
         <span><p><strong></strong><em></em><ins></ins><del></del></p></span>
         <h1></h1> &nbsp; ~ &nbsp; <h6></h6>
+        <a src target _blank _self></a>
         <ul>
             <li></li>
         </ul>
