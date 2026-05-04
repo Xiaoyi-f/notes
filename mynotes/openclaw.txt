@@ -22,6 +22,9 @@ openclaw sessions list 列出所有会话进行管理
 openclaw skills install 技能
 openclaw skills list
 
+# qq开放平台中可以实现qq机器人接入openclaw
+# 微信官方开放 @tencent-weixin/openclaw-weixin-cli@latest node插件 可以实现微信接入openclaw
+
 
 
 
