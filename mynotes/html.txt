@@ -17,7 +17,7 @@
     <body>
         <div id class data-*></div>
         <span><p><strong></strong><em></em><ins></ins><del></del></p></span>
-        <h1></h1><h6></h6>
+        <h1></h1> ~ <h6></h6>
         <ul>
             <li></li>
         </ul>
