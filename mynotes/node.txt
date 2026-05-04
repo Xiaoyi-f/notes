@@ -5,6 +5,8 @@ nvm install [版本号]
 nvm uninstall [版本号]
 nvm use [版本号]
 
+npx 执行命令
+
 node 项目都需要有 package.json 以即 package-lock.json 作为 项目配置文件 其中 type 属性设置为 module
 npm create vue@latest [项目名] 创建 vue 项目
 npm list
