@@ -42,7 +42,7 @@ class Table(db.Model):
     ->
         db.String(n) unique=True nullable=False
         db.ForeignKey('table.field') default=val
-        db.Float db.Numeric(整体位数, 小数位数) db.Boolean db.JSON
+        db.Float db.Numeric(整体位数, 小数位数) db.Boolean db.JSON(使用copy.deepcopy操作)
         数组和字典都属于json
     """
 
@@ -66,6 +66,11 @@ db.session.commit()
 
 # 查
 demo = Table.query.filter(Table.field布尔表达式).all() # .first()
+demo = Table.query.filter(Table.field布尔表达式).order_by(func.random()).all()
 
-
+# 测试
+socket.run(app, host='0.0.0.0', port=5000)
+# 对于不使用socket的项目
+app.run(app, host='0.0.0.0', port=5000)
+# 生产部署环境不要写这些，直接使用gunicorn管控
 

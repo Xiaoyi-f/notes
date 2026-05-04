@@ -1,4 +1,4 @@
-pip install flask-socketio gevent gevent gevent-websocket
+pip install flask-socketio gevent gevent-websocket
 
 from gevent import monkey
 from flask_socketio import SocketIO, emit
