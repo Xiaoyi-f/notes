@@ -47,7 +47,10 @@ pointer-events
 filter blur
 opacity
 mask
-white-space nowrap pre-wrap normal wrap
+mask-image
+mask-position
+mask-size
+white-space nowrap normal wrap
 word-break break-word break-all
 text-overflow ellipsis
 text-align left center right
@@ -57,7 +60,6 @@ transition
 all
 transform
 translate
-rotate
 scale
 animation animationName time infinite/具体次数
 @keyframes animationName
@@ -74,7 +76,7 @@ animation animationName time infinite/具体次数
 
 display flex grid none
 flex/grid 中 子元素 不要使用 display: none;
-visibility: hidden; 隐藏但是保留占位
+visibility: hidden; 隐藏但是保留占位 visible
 
 flex 适合一维布局:
     左 -> 右 上 -> 下
@@ -105,4 +107,9 @@ grid 适合二维布局 同时定义行和列:
 计算函数: minmax(min, max)
 
 linear-gradient(xdeg, color1 x%, color2 x%)
+url(图片url)
 
+常规平台像素宽度:
+手机端 < 768px
+平板端 768px < x < 1024px
+电脑端 > 1024px
