@@ -17,6 +17,10 @@ git merge branch
 git config --global http.proxy 127.0.0.1:代理端口
 git config --global https.proxy 127.0.0.1:代理端口
 
+# 关闭代理
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+
 .gitignore
 ! --> 强制允许推送
 
