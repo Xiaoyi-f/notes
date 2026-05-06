@@ -1,3 +1,109 @@
+java下载配置环境变量 -> %JAVA_HOME%
+maven下载配置环境变量 -> %MAVEN_HOME% -> conf/settings.xml配置
+    1.配置镜像源
+        <mirror>
+          <id>idName</id>
+          <mirrorOf>*</mirrorOf>
+          <name>mirrorName</name>
+          <url>http://my.repository.com/repo/path</url>
+        </mirror>
+    2.配置JDK版本(编译版本)
+        <profiles>
+            <profile>
+                <id>jdk-config</id>
+                <activation>
+                    <activeByDefault>true</activeByDefault>
+                </activation>
+                <properties>
+                    <maven.compiler.source>版本号</maven.compiler.source>
+                    <maven.compiler.target>版本号</maven.compiler.target>
+                    <maven.compiler.compilerVersion>版本号</maven.compiler.compilerVersion>
+                </properties>
+            </profile>
+        </profiles>
+    3.不同版本JDK配置不同对应源
+           <profile>
+             <id>jdk-x.x</id>
+
+             <activation>
+               <jdk>x.x</jdk>
+             </activation>
+
+             <repositories>
+               <repository>
+                 <id>jdkxx</id>
+                 <name>特定JDK版本的特定使用源</name>
+                 <url>对应源URL</url>
+                 <layout>default</layout>
+                 <snapshotPolicy>always</snapshotPolicy>
+               </repository>
+             </repositories>
+           </profile>
+    4.配置本地仓库路径 -> maven下载的依赖存放在本地的位置
+        <localRepository>localPath</localRepository>
+    5.mvn help:effective-settings 检查配置是否生效
+maven项目结构:
+    my-maven-project/                    # 项目根目录
+    │
+    ├── pom.xml                          # Maven核心配置文件
+    │
+    ├── src/                             # 源代码目录
+    │   │
+    │   ├── main/                        # 主代码目录（最终要打包的）
+    │   │   ├── java/                    # Java源代码
+    │   │   │   └── com/
+    │   │   │       └── example/
+    │   │   │           └── App.java     # 主类
+    │   │   │
+    │   │   ├── resources/               # 资源文件（配置文件等）
+    │   │       ├── application.properties
+    │   │       ├── logback.xml
+    │   │       └── messages.properties
+    │   │
+    │   │
+    │   │
+    │   │
+    │   │
+    │   │
+    │   │
+    │   │
+    │   └── test/                        # 测试代码目录（不会被打包）
+    │       ├── java/                    # 单元测试代码
+    │       │   └── com/
+    │       │       └── example/
+    │       │           └── AppTest.java # JUnit测试类
+    │       │
+    │       └── resources/               # 测试专用资源文件
+    │           └── test-config.properties
+    │
+    ├── target/                          # 编译输出目录
+    │   ├── classes/                     # 编译后的.class文件
+    │   ├── test-classes/                # 测试编译后的.class文件
+    │   ├── my-app-1.0.0.jar            # 打包后的jar文件
+    │   ├── maven-status/                # Maven状态信息
+    │   └── surefire-reports/            # 测试报告
+    │
+    ├── .gitignore                       # Git版本控制忽略文件
+    ├── README.md                        # 项目说明文档
+    └── LICENSE                          # 开源许可证
+maven基本使用:
+    mvn -version
+
+    三大生命周期:
+        # Clean生命周期 - 清理
+        mvn clean          # 删除target目录
+
+        # Default生命周期 - 构建（最重要）
+        mvn compile        # 编译
+        mvn test          # 测试
+        mvn package       # 打包成jar/war
+        mvn install       # 安装到本地仓库（其他项目可以用）
+        mvn deploy        # 部署到远程仓库（公司内部共享）
+
+        # Site生命周期 - 生成报告
+        mvn site          # 生成项目文档网站
+
+
 内置模块:
     Random:
         import java.util.Random;
