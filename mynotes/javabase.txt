@@ -218,6 +218,8 @@ maven基本使用:
         Math.random()
     集合相关:
         Collection 单列集合 一个接口:
+        Collections.addAll(list, "val1", "val2" ... )
+        实例.stream()
         boolean -> 实例.add(element)
         boolean -> 实例.contains(element) 底层依赖equils方法进行判断存在与否，如果是自定义对象为元素，一般重写equils方法
         void -> 实例.clear()
@@ -225,11 +227,31 @@ maven基本使用:
         boolean -> 实例.isEmpty()
         int -> 实例.size()
             |_ List 添加的元素是有序、可重复、有索引的 实例.set(idx, element) 实例.get(idx) 实例.remove(idx)
-                |_ ArrayList(数组结构) LinkedList Vector
-            |_ Set 添加的元素是无序、可重复、无索引的
-                |_ HashSet TreeSet
-                    |_ LinkedHashSet
-        Map 双列集合:
+                |_ ArrayList(数组结构，查找快) LinkedList(双向链表，增删快) Vector
+            |_ Set 添加的元素是不重复、无索引的
+                |_ HashSet(无序 哈希表+链表+红黑树) TreeSet(自动排序 默认自然序或字典序)
+                    |_ LinkedHashSet(有序，默认依插入顺序 哈希表+双向链表+红黑树)
+        Map 双列集合(键值对，键唯一，值随意):
+        实例.put(key, val) 添加/修改 若是修改则返回最终值，若是添加则返回null
+        实例.remove(key) 返回被删除的键值对的值，若不存在对应key则返回null以示删除失败
+        void 实例.clear()
+        boolean 实例.containsKey(key)
+        boolean 实例.containsValue(val)
+        boolean 实例.isEmpty()
+        实例.keySet()
+        实例.get(key)
+        实例.forEach((xx key, xx value) -> { System.out.println(key + "=" + value) })
+        实例.entrySet() 返回包含entry实例的集合
+        entry实例.getKey()
+        entry实例.getValue()
+        int 实例.size()
+            |_ HashMap 哈希表+链表+红黑树 无序 允许key/value为null
+            |_ LinkedHashMap 哈希表+双向链表 有序(插入/访问顺序) 允许key/value为null
+            |_ TreeMap 红黑树 自然顺序 key/value不可以为null
+        不可变集合: List.of(), Set.of(), Map.of() 不能改动只能单纯使用
+            不可变集合不能包含null
+            元素本身是可变对象，对象内部数据可以改
+
     迭代器Iterator类与其他 集合专用的遍历方式:
         Iterator<E> 实例 = 集合实例.iterator() 返回迭代器对象，默认指向当前集合的0索引
         boolean 实例.hasNext() 判断当前位置是否有元素，有元素返回true，没有返回false
@@ -356,7 +378,7 @@ maven基本使用:
 61.java的箭头函数可以使用this
 62.只有实现Iterable接口的对象才有资格调用.forEach()
 63.java直接支持抽象类 abstract 和 接口 interface 以即 枚举 enum enum有.values() 可以获得枚举常量值数组
-64.java支持边长参数 类型... 参数名 实际本质就是一个数组
+64.java支持变长参数 类型... 参数名 实际本质就是一个数组
 65.面向对象除了理解基本的封装继承和多态之外还有一个组合是必须知道的
 66.java支持泛型,声明泛型之后就可以直接使用类型参数代类型，最终实际使用传递真实类型就可以
     泛型类: 在类名后面加 <T>，T 就是类型参数 这个不一定是要 T，也不是只能有一个类型参数，实例化时候在类名后面依次传递对应的类型就行

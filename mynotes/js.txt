@@ -82,3 +82,21 @@ window.scrollTo(x, y)
 # pattern
 input.validity.patternMismatch -> true 表示不匹配
 
+# URL 编码
+encodeURIComponent('content')
+encodeURI('content')
+
+# URL 解码
+decodeURIComponent('URL编码数据')
+decodeURI('URL编码数据')
+
+# URL 结构字符
+: 分隔协议和主机、分隔主机和端口
+/ 分隔路径各部分
+? 分隔路径和查询参数
+# 分隔查询参数和锚点
+& 分隔多个查询参数
+= 分隔查询参数的键和值
+
+
+
