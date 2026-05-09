@@ -6,6 +6,8 @@ from haystack.components.retrievers.in_memory import InMemoryBM25Retriever
 from haystack.components.builders import PromptBuilder
 from dotenv import load_dotenv
 
+# 可以实现提前接收用户输入进行一定判别，实现脚本控制
+# 利用RAG实现更加优化的排异提示与建议
 # .env 文件中记录项目环境变量
 
 load_dotenv()
