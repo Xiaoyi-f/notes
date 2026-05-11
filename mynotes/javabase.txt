@@ -153,8 +153,8 @@ maven基本使用:
         ...
     Pattern类:
         ...
-        Pattern pattern = Pattern.compile("regexExpr", mode) 预编译
-        Matcher matcher = pattern.matcher(matchObj) 获取匹配器
+        Pattern pattern = Pattern.compile("regexExpr", mode); 预编译
+        Matcher matcher = pattern.matcher(matchObj); 获取匹配器
             matcher.matches() 全量匹配
             matcher.find() 局部匹配
             matcher.group() 0 1 ...
@@ -276,6 +276,55 @@ maven基本使用:
         try catch finally
         throws 写在方法后，告诉调用者可能出现的异常
         throw 写在方法内，手动抛出异常对象
+    File类和FileWriter类 -> File指代文件/文件夹:
+        import java.io.File;
+        File file = new File("filename.txt");
+        基本方法:
+            boolean -> canRead()
+            boolean -> canWrite()
+            boolean -> createNewFile()
+            boolean -> delete()
+            boolean -> exists()
+            String -> getName()
+            String -> getAbsolutePath()
+            long -> length()
+            String[] -> list()
+            boolean -> mkdir()
+        import java.io.FileWriter;
+        # Windows 中文版 → GBK / ...
+        # Linux / Mac → 通常是 UTF-8
+        import java.nio.charset.StandardCharsets;
+        FileWriter writer = new FileWriter("filename.txt", StandardCharsets.UTF_8);
+        writer.write("文本内容");
+        writer.println("自动换行文本句");
+        writer.close();
+        # 使用Scanner读取文件内容
+        # System.lineSeparator() 系统换行符
+        File file = new File("filename.txt");
+        Scanner reader = new Scanner(file);
+        while (reader.hasNextLine()) {
+            String data = reader.nextLine();
+            System.out.println(data);
+        }
+        reader.close();
+        # 自动关闭
+        try (FileWriter writer = new FileWriter("test.txt", StandardCharsets.UTF_8)) {
+            writer.write("内容");
+        } // 自动 close
+    IO流:
+        字节流(InputStream / OutputStream)和字符流(Reader / Writer): 字节流可以操作各种文件，但是字节流只能操作文本文件
+        输入流（Input）：从文件/网络 → 程序（读）
+        输出流（Output）：从程序 → 文件/网络（写）
+        pass
+    并发:
+        多线程与多进程:
+        pass
+    网络编程:
+        pass
+    反射:
+        pass
+    动态代理:
+        pass
 
 1.万物皆对象
 2.一段程序实际上就是多个对象之间通过发送消息来通知彼此要干什么
