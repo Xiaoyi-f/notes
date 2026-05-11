@@ -1,5 +1,5 @@
 SSM
 ├── S - Spring        （核心容器，项目管理）
-├── S - Spring MVC    （Web 层，处理请求）
+├── S - Spring MVC (Model View Controller)  （Web 层，处理请求）
 └── M - MyBatis       （数据层，操作数据库）
 

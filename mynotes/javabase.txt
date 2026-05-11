@@ -216,6 +216,8 @@ maven基本使用:
         Math.sqrt(num)
         Math.abs(num)
         Math.random()
+        Math.pow()
+        Math.round()
     集合相关:
         Collection 单列集合 一个接口:
         Collections.addAll(list, "val1", "val2" ... )
