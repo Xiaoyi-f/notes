@@ -326,8 +326,63 @@ maven基本使用:
     反射:
         反射允许对成员变量(字段)、成员方法和构造方法的信息进行编程访问
         修饰符、异常、名字、类型、值、形参、创建对象、返回值、注解、运行方法
+
+        # 获取class对象的三种方式:
+        1.Class.forName("全类名");
+        2.类名.class
+        3.对象.getClass();
+
+        # class类中用于获取构造方法的方法
+        Constructor<?>[] getConstructors() 返回所有公共构造方法对象的数组
+        Constructor<?>[] getDeclaredConstructors() 返回所有构造方法对象的数组
+        Constructor<T> getConstructor(Class<?>...parameterTypes) 返回单个公共构造方法对象
+        Constructor<T> getDeclaredConstructor(Class<?>...parameterTypes) 返回单个构造方法对象
+
+        # demo
+        // 获取class字节码文件对象
+        Class classObj = Class.forName("全类名");
+        // 获取构造器对象
+        Constructor[] cons = classObj.getConstructors();
+        Constructor con = classObj.getDeclaredConstructor(String.class);
+        int modifiers = con.getModifiers();  // 对应的数字对应的修饰符 从API文档查reflect找
+        Parameter[] parameters = con.getParameters();
+        # 临时取消权限校验
+        con.setAccessible(true);
+        Student stu = (Student)con.newInstance("张三", 18);
+        System.out.println(stu);
+        // 获取成员变量
+        Field[] fields = classObj.getDeclaredFields();
+        Field name = classObj.getDeclaredField("name");
+        int modifiers = name.getModifiers();
+        Class<?> type = name.getType();
+        Student stu = new Student("张三", 18);
+        name.setAccessible(true);
+        String value = (String)name.get(stu);
+        System.out.println(value);
+        name.set(stu, "李四");
+        System.out.println(stu);
+        // 获取成员方法
+        Class classObj = Class.forName("全类名");
+        // 获取所有方法，包含父类
+        Method[] methods = classObj.getMethods();
+        for (Method method : methods) {
+            System.out.println(method);
+        }
+        // 获取所有方法，不含父类，但是可以获取本类中私有的
+        Method method = classObj.getDeclaredMethod("eat", String.class);
+        int modifiers = method.getModifiers();
+        String name = method.getName();
+        Parameter[] parameters = method.getParameters();
+        Class[] exceptionTypes = method.getExceptionTypes();
+        Student stu = new Student();
+        method.setAccessible(true);
+        String result = (String)method.invoke(stu, "汉堡包");
+        System.out.println(result);
     动态代理:
-        pass
+        代理可以无侵入式的给对象增强其他的功能
+        调用者 -> 代理 -> 对象
+        代理中就是对象需要被代理的方法
+        java中通过接口保证代理样子
 
 1.万物皆对象
 2.一段程序实际上就是多个对象之间通过发送消息来通知彼此要干什么
