@@ -34,6 +34,7 @@ def demo(num, decimal, name):
     )
     """
 
+# SQLAlchemy 技术 属于 ORM技术(实现编程语言与数据库相连的中间件技术) 之一
 db = SQLAlchemy(app)
 
 class Table(db.Model):
