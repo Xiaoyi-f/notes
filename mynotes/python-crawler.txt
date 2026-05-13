@@ -55,5 +55,7 @@ for ele in elements:
     text = ele.text.strip()
     print(text)
 
+# 代理池使用
+搜索代理池网站使用即可
 
 
