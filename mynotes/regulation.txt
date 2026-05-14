@@ -1,0 +1,75 @@
+REST[Representational State Transfer（表现层状态转移）] 规范 --> RESTful是一个形容词: 表示遵守REST规范的
+>= HTTP/1
+传输: TCP
+写好接口文档，方便接口连接:
+    URL
+    Method
+    Data
+将 REST 规范 类比为 "写信":
+信封地址: URL
+信封抬头 写上你要做的动作/行为:
+    GET：表示“我要获取信息”
+    POST：表示“我要提交数据”
+    PUT：表示“我要替换全部数据”
+    DELETE：表示“我要删除数据”
+信封内容: 主要以 Json 形式
+
+gRPC[gRPC Remote Procedure Calls（gRPC 远程过程调用）] 规范
+== HTTP/2 --> 多路复用: 一次网络传输可以携带多个请求/响应
+传输: TCP
+跨类型、跨语言、速度快
+基本规范:
+1. 服务定义规范（用 .proto 文件）
+你必须用 Protocol Buffers（Protobuf） 的语言来定义：
+有哪些 Service（服务）
+每个 Service 里有哪些 RPC 方法（函数）
+每个方法的请求参数和返回值的数据结构
+
+示例（.proto 文件片段）：
+protobuf
+service WeatherService {
+  rpc GetWeather (CityRequest) returns (WeatherResponse);
+}
+
+message CityRequest {
+  string city = 1;
+}
+
+message WeatherResponse {
+  int32 temperature = 1;
+  string condition = 2;
+}
+👉 这就是合同：任何语言实现的客户端和服务端，都必须遵守这个定义
+2. 消息格式规范
+数据在网络上传输时，必须编码成 Protobuf 二进制格式
+它比 JSON/XML 更小、更快，但人类不可读
+规范还约定了字段编号、类型映射（如 string、int32、repeated 等）
+3. 传输协议规范
+gRPC 规定必须使用 HTTP/2 作为底层传输协议
+HTTP/2 带来的约定：
+多路复用（一个连接并发处理多个请求）
+头部压缩
+支持服务器主动推送
+4. 四种通信模式规范
+模式	约定内容
+一元调用	客户端发一个请求，服务端回一个响应（最像普通函数调用）
+服务端流	客户端发一个请求，服务端可连续返回多个响应（类似下载流）
+客户端流	客户端可连续发多个请求，服务端最后回一个响应（类似上传）
+双向流	双方同时互相发送消息（类似 WebSocket，但有严格的消息边界）
+5. 错误处理规范
+使用标准的 gRPC 状态码（如 OK、NOT_FOUND、INVALID_ARGUMENT、DEADLINE_EXCEEDED 等）
+不同于 HTTP 状态码（200、404），gRPC 有自己的一套数字+语义
+6. 超时与取消规范
+客户端可以设置 deadline（截止时间），超时后服务端会主动停止处理
+支持取消正在进行的 RPC 调用（链式传播取消信号）
+7. 安全规范
+默认推荐使用 TLS/SSL 加密连接
+也支持不加密的纯文本（insecure），但生产环境强制要求加密
+
+websocket 规范 (无单一规范):
+>= HTTP/2
+持续连接，快速响应，占用资源(资源管控)
+协议分类: wss(安全型) ws
+
+
+

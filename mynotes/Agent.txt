@@ -1,0 +1,84 @@
+能够构建Agent是一个很大的加分项
+
+Agent 是一个使用大模型（LLM）作为“大脑”的自主系统，它能理解目标、规划步骤、调用工具、记忆上下文，并循环执行直到完成任务
+
+普通调用：一次性问答，无自主决策
+Agent：多步推理 + 行动 + 反馈循环
+
+核心循环：ReAct 模式
+ReAct = Reason（推理） + Act（行动）
+每个循环包含三步：
+Thought：Agent 思考当前状态，下一步该做什么
+Action：选择一个工具（或直接回答），执行动作（如调用 API、查数据库）
+Observation：观察工具返回的结果，作为下一轮输入
+
+Agent 四大核心组件
+组件	                作用
+LLM（大脑）	    理解、推理、生成
+Tools（工具）	Agent 能调用的外部能力
+Memory（记忆）	存储历史对话与中间步骤
+Planner（规划器）	决定执行步骤的顺序/策略
+
+LLM（大语言模型）
+Agent 的“决策核心”
+需要支持 function calling / tool use（GPT-4、Claude、文心、通义千问等均支持）
+在 Java 中可通过 Spring AI 的 ChatClient 统一调用，Python 则直接使用模型 SDK
+
+Tools（工具）
+任何 Agent 能调用的函数/API：搜索、计算器、数据库查询、发送邮件、代码执行等
+定义要求：清晰描述工具的功能、参数、返回值，LLM 才能正确选择
+
+Memory（记忆）
+短期记忆：当前会话的对话历史（滑动窗口或总结）
+长期记忆：向量数据库（Chroma、PGVector）存储的事实/经验，通过检索召回
+重要概念：ConversationBuffer、ConversationSummary、VectorStoreRetriever
+
+Planner（规划器）
+简单规划：ReAct 自带的逐步推理
+复杂规划：Plan-and-Solve（先列出步骤再执行）、LLMCompiler（并行调用）
+在 Java/Python 中通常由专门的 Agent 类型实现（如 PlanAndExecuteAgent）
+
+Agent 的类型（按复杂程度）
+类型	                              特点	                  适用场景
+SingleAgent	            一个 LLM + 一组工具，顺序执行	   客服、个人助理
+RouterAgent	            根据输入路由到不同的子 Agent	   多领域处理（如数学问题 → 计算Agent，闲聊 → 对话Agent）
+Multi-AgentSystem(MAS)	多个 Agent 协作/竞争，有通信机制   复杂任务分解（写代码 → 架构师Agent + 编码Agent + 测试Agent）
+
+Agent 工作流程(经典步骤)
+接收目标：用户输入或系统触发
+记忆检索：从短期/长期记忆中获取相关信息
+规划：LLM 生成步骤列表（或动态决定下一步）
+选择工具：根据计划调用合适的工具
+执行：运行工具代码（沙箱环境保证安全）
+观察结果：将工具输出反馈给 LLM
+判断是否完成：若未完成，回到步骤 2；若完成，生成最终答案
+记忆更新：将本次交互存入记忆
+
+关键技术概念（必须理解）
+1.Function Calling（函数调用）
+LLM 不直接执行代码，而是输出一个结构化的 “工具调用请求”（函数名 + 参数）
+宿主程序（你的代码）解析该请求，执行对应函数，再把结果返回 LLM
+这是 Agent 行动的“桥梁”
+2.思维链（Chain-of-Thought, CoT）
+让 LLM 在给出最终答案前，先输出中间推理步骤
+示例：“问题：张三比李四大5岁，李四比王二大3岁，张三比王大几岁？ → 推理：李四 = 王二+3，张三 = 李四+5 = 王二+8 → 答案：8岁。”
+3.自我反思 / 自我批评（Self-Reflection）
+Agent 检查自己的输出，发现错误并修正
+例如：生成代码后，再让一个“审查”Agent 跑测试并返回修改建议
+4.状态机（State Machine）
+很多 Agent 框架底层用状态机管理执行流程（如 LangGraph）
+状态 = { messages, current_step, intermediate_results, ... }
+5.沙箱执行（Sandbox）
+当 Agent 调用代码执行工具时，必须在隔离环境中运行，防止恶意操作
+方案：Docker、E2B、Deno Deploy
+
+评估与调试概念
+概念	                含义
+Trajectory	    Agent 执行全过程的轨迹（Thought/Action/Observation 序列）
+Success Rate	任务完成比例
+Step Cost	    完成任务所需的 LLM 调用次数 / Token 数
+Tool Selection  Accuracy	正确选择工具的比率
+Observability   使用 LangSmith、Phoenix 等工具追踪 Agent 内部状态
+
+Tip: 使用python高效性快速构建原型进行可行性验证、试错、探索方案，使用java实际生产和部署
+Tip: Demo指只是展示功能/核心样式，达到吸引用户/投资人、获取反馈的目的
