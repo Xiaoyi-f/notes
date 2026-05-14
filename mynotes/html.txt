@@ -29,7 +29,7 @@
         <ol>
             <li></li>
         </ol>
-        <table style="border-collapse: collapse;">
+        <table style="border-collapse: border-collapse;" border="1>
             <caption></caption>
             <tr>
                 <th></th>
@@ -45,7 +45,7 @@
         <canvas></canvas> AI or 引用
         <img title src alt></img>
         <video controls muted autoplay loop poster>
-        <audio controls muted autoplay loop>
+        <audio controls muted loop>
         <iframe></iframe>
         <form></form>
         <input type="radio/checkbox" name id value disabled minlength>
