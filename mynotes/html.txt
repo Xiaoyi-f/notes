@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="description" content="HTML">
-        <meta name="copyright" content="Copyright © [Year] [Author]. All Rights Reserved.">
+        <meta name="copyright" content="Copyright &copy; [Year] [Author]. All Rights Reserved.">
         <meta name="formate-detection" content="telephone=no, email=no">
         <meta name="renderer" content="webkit">
         <meta name="og:title" content="HTML">
