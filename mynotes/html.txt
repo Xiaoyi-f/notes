@@ -48,11 +48,11 @@
         <audio controls muted autoplay loop>
         <iframe></iframe>
         <form></form>
-        <input type="radio/checkbox" name id value disabled>
+        <input type="radio/checkbox" name id value disabled minlength>
         <input type id name autocomplete="off" pattern required></input>
         <textarea style="resize: none;" rows cols placeholder ></textarea>
-        <button type->submit/reset/button></button>
-        <label></label>
+        <button type reset/button></button>
+        <label for></label>
         <el-select>
             <el-option label value />
         </el-select>
