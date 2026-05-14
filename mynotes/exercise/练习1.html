@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>练习1: 理解并且抄10遍</title>
+</head>
+
+<body>
+  <form>
+    <div>
+      <label for="username">用户名:</label>
+      <input type="text" name="username" placeholder="请输入用户名" id="username">
+    </div>
+
+    <div>
+      <label for="password">密码:</label>
+      <input type="password" name="pwd" minlength="6" placeholder="请输入密码" 
+      required pattern="" autocomplete="off" id="password">
+    </div>
+
+    <div>
+      <span>性别:</span>
+      <label><input type="radio" name="gender" value="male">男</label>
+      <label><input type="radio" name="gender" value="female">女</label>
+    </div>
+
+    <div>
+      <span>兴趣爱好:</span>
+      <label><input type="checkbox" name="interest" value="read">阅读</label>
+      <label><input type="checkbox" name="interest" value="sports">运动</label>
+      <label><input type="checkbox" name="interest" value="music">音乐</label>
+    </div>
+
+    <el-badge value="*" disabled>
+      <div>
+        <el-select name="city" disabled>
+          <el-option laebl="北京" value="beijing"></el-option>
+          <el-option label="上海" value="shanghai"></el-option>
+          <el-option label="广州" value="guangzhou"></el-option>
+        </el-select>
+      </div>
+    </el-badge>
+
+    <div>
+      <label>自我介绍:</label>
+      <textarea style="resize: none;" name="intro" placeholder="说点什么吧..." cols="12" rows="4"></textarea>
+    </div>
+
+    <div>
+      <button type="button" @click="registry">注册</button>
+      <button type="reset">重置</button>
+    </div>
+  </form>
+
+</body>
+
+</html>
