@@ -1,5 +1,5 @@
 行内 > 内联 > 外接 (由内向外)
-!important > id > class : [] > element :: > * + > "守村人比外归人穷,id唯一身份高,物以稀为贵"
+!important > id > class : [] > element :: > * + >
 margin
 padding
 border
