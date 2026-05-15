@@ -1,16 +1,15 @@
-appearance: none;
-min-width max-height 
+min-width max-height line-height 
 cursor -> pointer text not-allowed grab grabbing
 vertical-align text-align
 white-space -> nowrap normal wrap
 word-break: break-all;
 position top right bottom left z-index
-relative absolute sticky fixed 
+relative absolute sticky(最近滚动容器) fixed 
 display inline inline-block block 
 display none -> DOM
 visibility hidden visible
 user-select pointer-events 
-overflow-x overflow-y  hidden 
+overflow-x overflow-y hidden 
 text-overflow: ellipsis;
 text-shadow box-shadow
 offset-x offset-y blur-radius color
