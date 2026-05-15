@@ -1,16 +1,18 @@
-特有类型: Null Undefined NaN Infinity
+Undefined Null Boolean Number String Symbol BigInt
+
 console.log()
 async await
+
 Object.keys()
 Object.values()
 Object.entries()
-`${}`
+
+`${}` ?.
 typeof
-?.
-instanceof
 arguments -> ...参数
 ...数据 展开运算符
 [key] 对象的动态键, key 变量
+
 防抖与节流
 timeout = setTimeout(() => {
     // pass
