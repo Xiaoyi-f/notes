@@ -5,6 +5,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>练习1: 理解并且抄10遍</title>
+  <style>
+    .radioChange {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 1px solid black;
+      border-radius: 0;
+      background-color: white;
+      cursor: pointer;
+      vertical-align: middle;
+      margin: 0 4px 0 0;
+    }
+
+    .radioChange:checked {
+      background-color: black;
+      position: relative;
+    }
+
+    .radioChange:checked::before {
+      content: "✓";
+      display: block;
+      text-align: center;
+      line-height: 14px;
+      color: white;
+      font-size: 12px;
+    }
+
+    label {
+      cursor: pointer;
+      margin-right: 15px;
+    }
+  </style>
 </head>
 
 <body>
@@ -23,7 +55,7 @@
     <div>
       <span>性别:</span>
       <label><input type="radio" name="gender" value="male">男</label>
-      <label><input type="radio" name="gender" value="female">女</label>
+      <label><input type="radio" name="gender" value="female" class="radioChange">女</label>
     </div>
 
     <div>
