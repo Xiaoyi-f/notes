@@ -14,10 +14,11 @@ text-overflow: ellipsis;
 text-shadow box-shadow
 offset-x offset-y blur-radius color
 
-filter: blur() opacity 
-mask-image
+/* 设置蒙层 */
+background-color
+filter: blur() opacity() 
+mask-image: linear-gradient(direction, black, transparent);
 mask-size: cover;
-mask-position
 
 object-fit 
 background-color 
@@ -27,6 +28,12 @@ background-position
 
 color 
 rgba
+transparent
+
+/* 文字渐变 */
+background: linear-gradient(direction, color1, color2, ...);
+background-clip: text;
+color: transparent;
 
 px em rem ch 
 % vw vh auto 
@@ -35,6 +42,7 @@ fr repeat(n, xfr) n --> auto-fill(留白) auto-fit(全取)
 
 xxx-image ->
 linear-gradient(direction, color1 positionpercent1, color2 positionpercent2, ...)
+direction -> 正上为零，顺时针转
 
 font-family 
 font-size
@@ -51,7 +59,8 @@ list-style
 :active
 
 transition: attribute time;  all 
-transform -> translate(x, y) scale 
+transform 可以配置同时多个值
+transform -> translate(x, y) scale(n) rotate(xdeg)
 animation: animationName time infinite;
 @keyframes animationName {
     0% {
@@ -61,7 +70,7 @@ animation: animationName time infinite;
         pass
     }
 }
-@media (max-width: 768px/1024px) {
+@media (max-width: 1024px) and (min-width: 768px) {
     pass 
 }
 
@@ -74,7 +83,8 @@ flex-direction row column
 flex-wrap nowrap wrap wrap-reverse
 justify-content align-item -> 对齐类: flex-start flex-end center 分部类: space-between space-around space-evenly
 align-items -> stretch(默认) flex-start flex-end center 
-flex: flex-basis flex-grow flex-shrink; 默认值: auto 0 1;
+flex: flex-basis flex-grow flex-shrink; 默认值: auto 0 1; --> 占自己份额,数字表示占比份数,100%表示占整个容器宽度
+flex-shrink设置为0，但是给flex-grow设置为1，flex-basis即可分别表示对应的剩余占比
 计算容器宽度 : flex-basis --> (> flex-grow) (= flex-basis) (< flex-shrink)
 align-self -> flex-start flex-end center baseline stretch 
 order 视觉排列顺序，DOM不改动
