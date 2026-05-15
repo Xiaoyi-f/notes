@@ -12,6 +12,14 @@ border-box(border内向)
 touch-action
 manipulation / pinch-zoom
 
+.radioChange {
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    border: 1px solid black;
+    border-radius: 0;
+}
+
 user-select
 min-height
 max-width
