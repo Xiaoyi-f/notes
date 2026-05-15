@@ -1,146 +1,91 @@
-行内 > 内联 > 外接 (由内向外)
-!important > id > class : [] > element :: > * + >
-margin
-padding
-border
-outline
-box-sizing
-none
-border-box(border内向)
+appearance: none;
+min-width max-height 
+cursor -> pointer text not-allowed grab grabbing
+vertical-align text-align
+white-space -> nowrap normal wrap
+word-break: break-all;
+position top right bottom left z-index
+relative absolute sticky fixed 
+display inline inline-block block 
+display none -> DOM
+visibility hidden visible
+user-select pointer-events 
+overflow-x overflow-y  hidden 
+text-overflow: ellipsis;
+text-shadow box-shadow
+offset-x offset-y blur-radius color
 
-# 关闭 / 打开双指缩放
-touch-action
-manipulation / pinch-zoom
+filter: blur() opacity 
+mask-image
+mask-size: cover;
+mask-position
 
-.radioChange {
-    appearance: none;
-    width: 18px;
-    height: 18px;
-    border: 1px solid black;
-    border-radius: 0;
-    background-color: white;
-    cursor: pointer;
-    vertical-align: middle;
-    margin: 0 4px 0 0;
-}
-
-.radioChange:checked {
-    background-color: black;
-    position: relative;
-}
-
-.radioChange:checked::before {
-    content: "✓";
-    display: block;
-    text-align: center;
-    line-height: 14px;
-    color: white;
-    font-size: 12px;
-}
-
-label {
-    cursor: pointer;
-    margin-right: 15px;
-}
-
-user-select
-min-height
-max-width
-overflow-x
-overflow-y
-hidden
-background-color
+object-fit 
+background-color 
 background-image
-background-size cover
-background-position center left right top bottom
-color
-font-family
+background-size: cover;
+background-position 
+
+color 
+rgba
+
+px em rem ch 
+% vw vh auto 
+minmax(min, max)
+fr repeat(n, xfr) n --> auto-fill(留白) auto-fit(全取)
+
+xxx-image ->
+linear-gradient(direction, color1 positionpercent1, color2 positionpercent2, ...)
+
+font-family 
 font-size
 font-weight
-letter-spacing
-scrollbar-width
-scrollbar-color
+letter-spacing 
+scrollbar-width 
+scrollbar-color 
 ::-webkit-scrollbar-track
 ::-webkit-scrollbar-thumb
-object-fit
-display block inline-block flex grid
-visibility
-text-decoration
-lv好 ->
+
+list-style 
 :visited
 :hover
 :active
-list-style
-position relative absolute sticky fixed
-z-index top bottom left right
-cursor pointer text not-allowed grab grabbing
-pointer-events
-filter blur
-opacity
-mask
-mask-image
-mask-position
-mask-size
-white-space nowrap normal wrap
-word-break break-word break-all
-text-overflow ellipsis
-text-align left center right
-box-shadow
-text-shadow
-transition
-all
-transform
-translate
-scale
-animation animationName time infinite/具体次数
-@keyframes animationName
-@media
 
-.el-message.no-icon-message .el-message__icon {
-    display: none;
+transition: attribute time;  all 
+transform -> translate(x, y) scale 
+animation: animationName time infinite;
+@keyframes animationName {
+    0% {
+        pass 
+    }
+    x% {
+        pass
+    }
+}
+@media (max-width: 768px/1024px) {
+    pass 
 }
 
 .el-message.xxx {
-    box-shadow
-    text-shadow
+    pass 
 }
 
-display flex grid none
-flex/grid 中 子元素 不要使用 display: none;
-visibility: hidden; 隐藏但是保留占位 visible
+display: flex;
+flex-direction row column 
+flex-wrap nowrap wrap wrap-reverse
+justify-content align-item -> 对齐类: flex-start flex-end center 分部类: space-between space-around space-evenly
+align-items -> stretch(默认) flex-start flex-end center 
+flex: flex-basis flex-grow flex-shrink; 默认值: auto 0 1;
+计算容器宽度 : flex-basis --> (> flex-grow) (= flex-basis) (< flex-shrink)
+align-self -> flex-start flex-end center baseline stretch 
+order 视觉排列顺序，DOM不改动
 
-flex 适合一维布局:
-    左 -> 右 上 -> 下
-    flex-direction row(默认) column
-    flex-wrap nowrap(默认) wrap wrap-reverse(新行出现在上方)
-    主轴: justify-content(整体元素)  align-item(管理多行并且真实换行) 对齐类: flex-start flex-end center 分布类: space-between space-around space-evenly
-    交叉轴: align-items(管理单行) stretch(默认,没给高度或为auto则被拉伸与容器同一高度) flex-start flex-end center
-    flex: flex-basis flex-grow flex-shrink; 基准参考值 扩展因子 收缩因子
-    比较计算容器宽度与flex-basis，容器宽度大则使用flex-grow，小则使用flex-shrink
-    flex: auto 0 1; (默认值)
-    align-self flex-start flex-end center baseline stretch
-    order 排列顺序 数值越小排列越靠前 只改变视觉 不改变DOM -> 键盘Tab键焦点跳动问题、对于视觉障碍/使用屏幕阅读器的用户不友好
-grid 适合二维布局 同时定义行和列:
-    grid-template-areas:
-        "header header header"
-        "sidebar main aside"
-        "footer footer footer";
-    grid-template-rows // 决定网格线定义
-    grid-template-columns // 决定网格线定义
-    gap: x y; // 间隔
-    # n * n 网格 有 (n + 1) * (n + 1) 条网格线
-    grid-column: startNum / endNum;
-    grid-row: startNum / endNum;
-固定单位: px em rem
-剩余空间计算单位: fr repeat(n, xfr) n可以为 auto-fill(留白) auto-fit(充分利用空间)
-相对单位: % vw vh
-自动单位: auto
-计算函数: minmax(min, max)
+display: grid;
+grid-template-areas:
+    "header header header"
+    "sidebar main aside"
+    "footer footer footer";
+grid-template-rows / grid-template-columns
+gap x y 
 
-linear-gradient(xdeg, color1 x%, color2 x%)
-url(图片url)
 
-常规平台像素宽度:
-手机端 < 768px
-平板端 768px < x < 1024px
-电脑端 > 1024px
