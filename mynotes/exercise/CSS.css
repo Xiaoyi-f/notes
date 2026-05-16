@@ -436,7 +436,7 @@ body {
   }
 }
 
-@media (max-width: 1024px) and (min-width: 768px) {
+/* @media (max-width: 1024px) and (min-width: 768px) {
   .features {
     flex-direction: column;
   }
@@ -444,7 +444,7 @@ body {
   .gallery-grid {
     grid-template-columns: 1fr 1fr;
   }
-}
+} */
 
 @media (max-width: 768px) {
   .dashboard {

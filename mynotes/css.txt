@@ -17,7 +17,7 @@ offset-x offset-y blur-radius color
 /* 设置蒙层 */
 background-color
 filter: blur() opacity() brightness()
-mask-image: linear-gradient(direction, black, transparent);
+mask-image: linear-gradient(direction, color1, color2);
 mask-size: cover;
 
 object-fit 
