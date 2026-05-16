@@ -180,7 +180,7 @@
       margin-top: 0.5rem;
     }
 
-    /* flex布局 */
+    /* flex 布局 */
     .features {
       display: flex;
       flex-wrap: wrap;
@@ -248,6 +248,7 @@
       margin: 2rem 0 1rem;
     }
 
+    /* grid 布局 */
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -287,13 +288,12 @@
       overflow-y: auto;
       background: #fff8f0;
       border-radius: 24px;
-      padding: 05rem 1rem;
+      padding: 0.5rem 1rem;
       border: 1px solid #ffe2bf;
     }
 
     .scrollable-list::-webkit-scrollbar {
       width: 6px;
-      height: 6px;
     }
 
     .scrollable-list::-webkit-scrollbar-track {
@@ -329,7 +329,6 @@
       pointer-events: none;
       background: #fff0e0;
       border-radius: 12px;
-      padding-left: 8px;
     }
 
     .cursor-playground {
@@ -471,6 +470,76 @@
         grid-template-columns: 1fr;
       }
     }
+
+    .rotate-move-light-right {
+      position: relative;
+      overflow: hidden;
+      min-height: 100px;
+      background: rgba(0, 0, 0, 0.03);
+      border-radius: 16px;
+      padding: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .moving-glow-child {
+      position: absolute;
+      left: -20%;
+      top: 0;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(90deg, #ffd966, #ff8c42);
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 0 12px 4px rgba(255, 140, 66, 0.8);
+      animation: scrollGlow 2.5s infinite ease-in-out;
+      z-index: 2;
+    }
+
+    @keyframes scrollGlow {
+      0% {
+        left: -20%;
+        opacity: 0.7;
+        box-shadow: 0 0 5px 2px rgba(255, 140, 66, 0.5);
+        transform: rotate(0deg);
+      }
+
+      40% {
+        left: 30%;
+        opacity: 1;
+        box-shadow: 0 0 20px 10px rgba(255, 200, 50, 1);
+        transform: rotate(180deg);
+      }
+
+      80% {
+        left: 80%;
+        opacity: 1;
+        box-shadow: 0 0 20px 10px rgba(255, 100, 0, 0.9);
+        transform: rotate(360deg);
+      }
+
+      100% {
+        left: 110%;
+        opacity: 0.6;
+        box-shadow: 0 0 5px 2px rgba(255, 80, 0, 0.4);
+        transform: rotate(540deg);
+      }
+    }
+
+    .rotate-move-light-right>span {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      background: rgba(255, 255, 240, 0.7);
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      backdrop-filter: blur(2px);
+    }
   </style>
 </head>
 
@@ -481,7 +550,7 @@
     <aside class="sidebar">
       <div class="profile-card">
         <div class="avatar-wrapper">
-          <img src=" " alt="avatar" class="avatar">
+          <img src="./CSSImage/头像.png" alt="avatar" class="avatar">
         </div>
         <h3 class="username">菜坤·前端练习生</h3>
         <p class="bio">热爱 CSS 艺术，布局与动画的魔法师</p>
@@ -506,19 +575,26 @@
         <div class="card card-1">
           <div class="card-icon">🎯</div>
           <h3>精准定位</h3>
-          <p>relative / absolute / sticky 混合使用</p>
+          <p>/relative /absolute /fixed /sticky</p>
           <div class="badge-abs">新</div>
         </div>
         <div class="card card-2">
           <div class="card-icon">🌀</div>
           <h3>变形过渡</h3>
-          <p>transform + transition 悬浮动效</p>
+          <p>transform + transition 动效</p>
           <button class="fake-drag">可抓取区域</button>
         </div>
         <div class="card card-3">
-          <div class="card-icon">✨</div>
-          <h3>动画庆典</h3>
-          <p>无限旋转 + 脉冲光效</p>
+          <div class="animation">
+            <div class="rotate-move-light-left">
+              <div class="card-icon">✨</div>
+              <h3>动画庆典</h3>
+              <p>无限旋转 + 脉冲光效</p>
+            </div>
+            <div class="rotate-move-light-right">
+              <div class="moving-glow-child">✨</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -526,19 +602,19 @@
         <h2>🎨 创意画廊 · 遮罩与覆盖</h2>
         <div class="gallery-grid">
           <div class="gallery-item">
-            <img src=" " alt="自然">
+            <img src="./CSSImage/自然.png" alt="自然">
           </div>
           <div class="gallery-item">
-            <img src=" " alt="城市">
+            <img src="./CSSImage/城市.png" alt="城市">
           </div>
           <div class="gallery-item">
-            <img src=" " alt="科技">
+            <img src="./CSSImage/科技.png" alt="科技">
           </div>
           <div class="gallery-item">
-            <img src=" " alt="艺术">
+            <img src="./CSSImage/艺术.png" alt="艺术">
           </div>
           <div class="gallery-item">
-            <img src=" " alt="未来">
+            <img src="./CSSImage/未来.png" alt="未来">
           </div>
         </div>
       </section>
