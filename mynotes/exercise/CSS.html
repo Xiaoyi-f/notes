@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS综合练习</title>
+  <style>
+    /*
+    规范: 
+      1.padding 单位 rem
+      2.margin 单位 rem
+      3.border 单位 px
+      4.radius 单位 px/%
+    */
+
+    * {
+      margin: 0;
+      padding: 0;
+      border: none;
+      outline: none;
+      box-sizing: border-box;
+      touch-action: manipulaton;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      background-color: #f0f2f5;
+      overflow-x: hidden;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+    }
+
+    .floating-chat {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+
+      background: linear-gradient(135deg, #43e97b, #38f9d7);
+      border-radius: 50%;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .floating-chat:hover {
+      transform: scale(1.2);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+    }
+
+    .dashboard {
+      display: flex;
+      gap: 1.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      align-self: flex-start;
+      min-width: 240px;
+      max-height: 95vh;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 32px;
+      padding: 1.5rem 1rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.02) 30%, skyblue 60%);
+      transition: all 0.2s;
+    }
+
+    .profile-card {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .avatar-wrapper {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 0.75rem;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+    }
+
+    .avatar {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .avatar:hover {
+      transform: scale(1.08);
+    }
+
+    .username {
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .bio {
+      font-size: 0.85rem;
+      color: #4a5568;
+      max-width: 30ch;
+      margin: 0.5rem auto;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #ff6b6b;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      color: white;
+    }
+
+    .nav-list {
+      list-style: none;
+      margin-top: 2rem;
+    }
+
+    .nav-list li {
+      padding: 0.75rem 1rem;
+      margin: 0.5rem 0;
+      border-radius: 60px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .nav-list li:hover {
+      background: #e2e8f0;
+      transform: translateX(6px);
+    }
+
+    .nav-list li:active {
+      background: #cbd5e1;
+    }
+
+    .hidden-tip {
+      visibility: hidden;
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #c084fc;
+    }
+
+    .sidebar:hover .hidden-tip {
+      visibility: visible;
+    }
+
+    .main-content {
+      flex-basis: 1;
+      min-width: 0;
+    }
+
+    .gradient-text {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      background-clip: text;
+      color: transparent;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+      letter-spacing: -0.5px;
+    }
+
+    .content-header p {
+      color: #475569;
+      margin-top: 0.5rem;
+    }
+
+    /* flex布局 */
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .card {
+      flex: 1 1 240px;
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      position: relative;
+      transition: all 0.3s;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .badge-abs {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      background: #ff9f4a;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      color: white;
+    }
+
+    .fake-drag {
+      margin-top: 1rem;
+      background: #eef2ff;
+      border: none;
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      cursor: grab;
+      transition: all 0.1s;
+    }
+
+    .fake-drag:hover {
+      cursor: grabbing;
+    }
+
+    @media (max-width: 768px) {
+      .card-3 {
+        order: -1;
+      }
+    }
+
+    .card-2 {
+      align-self: flex-end;
+    }
+
+    .gallery-section h2 {
+      margin: 2rem 0 1rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .gallery-item {
+      border-radius: 20px;
+      overflow: hidden;
+      aspect-ratio: 3 / 2;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: filter 0.3s;
+    }
+
+    .gallery-item:hover img {
+      filter: blur(0.6px) brightness(0.6);
+    }
+
+    .gallery-item:first-child {
+      mask-image: linear-grdient(to bottom, transparent, black 70%);
+      mask-size: cover;
+    }
+
+    .overflow-demo {
+      margin: 2rem 0;
+    }
+
+    .scrollable-list {
+      max-height: 180px;
+      overflow-y: auto;
+      background: #fff8f0;
+      border-radius: 24px;
+      padding: 05rem 1rem;
+      border: 1px solid #ffe2bf;
+    }
+
+    .scrollable-list::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    .scrollable-list::-webkit-scrollbar-track {
+      background: #f1e5d6;
+      border-radius: 10px;
+    }
+
+    .scrollable-list::-webkit-scrollbar-thumb {
+      background: #f97316;
+      border-radius: 10px;
+    }
+
+    .scrollable-list::-webkit-scrollbar-thumb:hover {
+      background: #ea580c;
+    }
+
+    .notice {
+      padding: 0.6rem 0;
+      border-bottom: 1px solid #ffe0bd;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      user-select: none;
+      pointer-events: auto;
+    }
+
+    .notice:nth-child(3) {
+      white-space: normal;
+      word-break: break-all;
+    }
+
+    .notice:last-child {
+      pointer-events: none;
+      background: #fff0e0;
+      border-radius: 12px;
+      padding-left: 8px;
+    }
+
+    .cursor-playground {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+      margin: 2rem 0;
+      background: #ffffffcc;
+      padding: 1rem;
+      border-radius: 48px;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    .cursor-btn {
+      padding: 0.5rem 1.5rem;
+      border: none;
+      background: #2d3748;
+      color: white;
+      border-radius: 40px;
+      font-size: 1rem;
+      transition: 0.1s;
+    }
+
+    .cursor-btn.pointer {
+      cursor: pointer;
+    }
+
+    .cursor-btn.not-allowed {
+      cursor: not-allowed;
+      background: #a0aec0;
+    }
+
+    .grab-area {
+      background: #cbd5e1;
+      padding: 0.5rem 1.2rem;
+      border-radius: 32px;
+      cursor: grab;
+      user-select: none;
+    }
+
+    .grab-area:active {
+      cursor: grabbing;
+    }
+
+    .extra-demo {
+      background: #ffffffaa;
+      border-radius: 28px;
+      padding: 1rem;
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .visibility-box,
+    .none-box {
+      padding: 0.75rem;
+      border-radius: 20px;
+      background: #eef2ff;
+      flex-basis: 1;
+      text-align: cneter;
+    }
+
+    .none-box {
+      display: none;
+    }
+
+    .extra-demo:hover .none-box {
+      display: block;
+    }
+
+    .visibility-box {
+      visibility: visible;
+    }
+
+    .el-message.custom-message {
+      position: fixed;
+      bottom: 138px;
+      right: 30px;
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      z-index: 99;
+      animation: slideInOut 3s infinite;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      pointer-events: none;
+      background: linear-gradient(90deg, skyblue, red);
+      background-clip: text;
+      color: transparent;
+    }
+
+    .tip {
+      bottom: 85px !important;
+    }
+
+    @keyframes slideInOut {
+      0% {
+        opacity: 0;
+        transform: translateX(40px);
+      }
+
+      10%,
+      80% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateX(40px);
+      }
+    }
+
+    @media (max-width: 1024px) and (min-width: 768px) {
+      .features {
+        flex-direction: column;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .dashboard {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        position: relative;
+        width: 100%;
+        max-height: auto;
+        margin-bottom: 1rem;
+      }
+
+      .gradient-text {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="floating-chat">💬</div>
+
+  <div class="dashboard">
+    <aside class="sidebar">
+      <div class="profile-card">
+        <div class="avatar-wrapper">
+          <img src=" " alt="avatar" class="avatar">
+        </div>
+        <h3 class="username">菜坤·前端练习生</h3>
+        <p class="bio">热爱 CSS 艺术，布局与动画的魔法师</p>
+        <div class="badge">PRO</div>
+      </div>
+      <ul class="nav-list">
+        <li>🏠 仪表盘</li>
+        <li>📊 数据看板</li>
+        <li>🖼️ 图库</li>
+        <li>⚙️ 设置</li>
+      </ul>
+      <div class="hidden-tip">✨ 隐藏彩蛋 (hover 可见)</div>
+    </aside>
+
+    <main class="main-content">
+      <header class="content-header">
+        <h1 class="gradient-text">CSS 完全体练习</h1>
+        <p>涵盖 Grid + Flex + 滤镜 + 动画 + 自定义滚动条等属性</p>
+      </header>
+
+      <div class="features">
+        <div class="card card-1">
+          <div class="card-icon">🎯</div>
+          <h3>精准定位</h3>
+          <p>relative / absolute / sticky 混合使用</p>
+          <div class="badge-abs">新</div>
+        </div>
+        <div class="card card-2">
+          <div class="card-icon">🌀</div>
+          <h3>变形过渡</h3>
+          <p>transform + transition 悬浮动效</p>
+          <button class="fake-drag">可抓取区域</button>
+        </div>
+        <div class="card card-3">
+          <div class="card-icon">✨</div>
+          <h3>动画庆典</h3>
+          <p>无限旋转 + 脉冲光效</p>
+        </div>
+      </div>
+
+      <section class="gallery-section">
+        <h2>🎨 创意画廊 · 遮罩与覆盖</h2>
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img src=" " alt="自然">
+          </div>
+          <div class="gallery-item">
+            <img src=" " alt="城市">
+          </div>
+          <div class="gallery-item">
+            <img src=" " alt="科技">
+          </div>
+          <div class="gallery-item">
+            <img src=" " alt="艺术">
+          </div>
+          <div class="gallery-item">
+            <img src=" " alt="未来">
+          </div>
+        </div>
+      </section>
+
+      <div class="overflow-demo">
+        <h3>通知中心(自定义滚动条 & 文本溢出)</h3>
+        <div class="scrollable-list">
+          <div class="notice">【系统】恭喜你完成了 min-width、max-height 的练习!</div>
+          <div class="notice">【警告】这个通知内容非常长, 长到需要展示省略号... white-space nowrap 配合 ellipsis 生效中...</div>
+          <div class="notice">【重要】word-break: break-all 用于打断超级无敌长单词supercalifragilisticexpialidocious演示</div>
+          <div class="notice">【提示】使用自定义滚动条样式 ::-webkit-scrollbar- 美化滚动区域</div>
+          <div class="notice">【交互】pointer-events: none 与 user-select 相关演示可在此区域感受</div>
+        </div>
+      </div>
+
+      <div class="cursor-playground">
+        <button class="cursor-btn pointer">Pointer</button>
+        <button class="cursor-btn not-allowed" disabled>Not allowed.</button>
+        <div class="grab-area">🤚 此处光标为 grab / grabbing (按下时改变)</div>
+      </div>
+
+      <div class="extra-demo">
+        <div class="visibility-box">可性切换(hover 父元素)</div>
+        <div class="none-box">display: none 演示</div>
+      </div>
+    </main>
+  </div>
+
+  <div class="el-message custom-message">🎉 你学会了文字渐变!</div>
+  <div class="el-message custom-message tip">持续进步哦~</div>
+</body>
+
+</html>
