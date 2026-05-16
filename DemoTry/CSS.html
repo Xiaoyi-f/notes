@@ -9,25 +9,31 @@
 </head>
 
 <body>
-  <aside class="left-aside">
-    <div class="intro">
-      <header>
-        <img src="CSSImage/头像.png" alt="用户头像" class="avatar">
-      </header>
+  <aside class="left">
+    <div class="left-aside">
+      <div class="intro">
+        <header>
+          <img src="CSSImage/头像.png" alt="用户头像" class="avatar">
+        </header>
 
-      <main>
-        <h2>菜坤·前端练习生</h2>
-        <p>热爱 CSS 艺术，布局与动画的魔术师</p>
-        <span>PRO</span>
-      </main>
+        <main>
+          <h2>菜坤·前端练习生</h2>
+          <p>热爱 CSS 艺术，布局与动画的魔术师</p>
+          <span>PRO</span>
+        </main>
+      </div>
+
+      <section>
+        <div class="option">🏠 仪表盘</div>
+        <div class="option">📊 数据看板</div>
+        <div class="option">🖼️ 图库</div>
+        <div class="option">⚙️ 设置</div>
+      </section>
     </div>
-
-    <section>
-      <div class="option">🏠 仪表盘</div>
-      <div class="option">📊 数据看板</div>
-      <div class="option">🖼️ 图库</div>
-      <div class="option">⚙️ 设置</div>
-    </section>
+    
+    <div class="giftbox">
+      <p class="visibility">✨隐藏彩蛋</p>
+    </div>
   </aside>
 
   <main class="main">
@@ -36,27 +42,28 @@
       <p>涵盖 Grid + Flex + 滤镜 + 动画 + 自定义滚动条等属性</p>
     </header>
     <section class="preface">
-      <div class="card card1">
+      <div class="card card1 content">
         <div class="new">新</div>
         <div class="icon">🎯</div>
         <h3>精准定位</h3>
         <p title="/relative /absolute /fixed /sticky">/relative /absolute /fixed /sticky</p>
       </div>
 
-      <div class="card card2">
+      <div class="card card2 content">
         <div class="icon">🌀</div>
         <h3>变形过渡</h3>
         <p title="transform + transition 动效">transform + transition 动效</p>
-        <br>
         <span>可抓取区域</span>
       </div>
 
       <div class="card card3">
-        <div class="icon">✨</div>
-        <h3>动画庆典</h3>
-        <p title="无限旋转 + 脉冲光效">无限旋转 + 脉冲光效</p>
+        <div class="content">
+          <div class="icon">✨</div>
+          <h3>动画庆典</h3>
+          <p title="无限旋转 + 脉冲光效">无限旋转 + 脉冲光效</p>
+        </div>
         <div class="animation">
-          <div class="box">CSS</div>
+          <div class="box"><span></span>CSS</div>
         </div>
       </div>
     </section>
