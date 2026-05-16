@@ -63,6 +63,7 @@ transition: attribute time;  all
 transform 可以配置同时多个值
 transform -> translate(x, y) scale(n) rotate(xdeg)
 animation: animationName time infinite;
+animation-play-state: paused;
 @keyframes animationName {
     0% {
         pass 
