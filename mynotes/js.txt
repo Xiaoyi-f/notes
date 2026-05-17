@@ -33,7 +33,8 @@ document.querySelector()
 document.querySelectorAll()
 
 obj.style.xxx -> 连字符全改写小驼峰
-obj.attr
+obj.getAttribute('key')
+obj.setAttribute('key', 'value')
 
 obj.addEventListener(eventType, (event) => {})
 event.target

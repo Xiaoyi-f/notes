@@ -62,7 +62,7 @@ with open('file', 'wb+') as file: # r a
     file.writelines(iterable)
 
 import time
-time.strftime("%Y-%m-%d, %H:%M:%S", time.localtime(time.time())
+time.strftime("%Y-%m-%d, %H:%M:%S", time.localtime(time.time()))
 time.sleep(n)
 
 import datetime
