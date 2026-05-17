@@ -9,12 +9,13 @@ app.debug = False
 app.config.from_object('配置类')
 app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://userName:password@url:port/dbName"
-CORS(app, origins=["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+CORS(app, origins= [
     'url1',
     'url2'
 ])
 
-@app.route("/<int:num>/<float:decimal>/<string:name>", methods=["POST", "GET"]
+@app.route("/<int:num>/<float:decimal>/<string:name>", methods=["POST", "GET"])
 def demo(num, decimal, name):
     """
     request.method

@@ -39,7 +39,7 @@ string.index(val)
 # 元组不可变，支持切片和基本读取
 list -> append pop insert(idx, val) remove reverse
 set -> frozonset(setObj) add discard
-dict -> get .values() .keys() .items()
+dict -> get .values() .keys() .items() update
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass

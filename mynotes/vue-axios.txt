@@ -100,21 +100,41 @@ instance.interceptors.response.use(
   }
 )
 
-export async function axiosGet(url, params) {
+export function axiosGet(url, params) {
   const res = await instance.get(url, {
     params: {
       ...params
     }
   })
-  console.log(`get 请求成功!`)
+  console.log(`get 获取信息成功!`)
   return res
 }
 
-export async function axiosPost(url, data) {
+export function axiosPost(url, data) {
   // 提高容错率
   const payload = typeof data === 'undefined' ? {} : data
   const res = await instance.post(url, payload)
-  console.log('post 请求成功!')
+  console.log('post 提交信息成功!')
   return res
 }
 
+export function axiosPut(url, data, params) {
+  const payload = typeof data === 'undefined' ? {} : data
+  const res = await instance.put(url, payload, {
+    params: {
+      ...params
+    }
+  })
+  console.log('put 替换数据成功!')
+  return res 
+}
+
+export function axiosDelete(url, params) {
+  const res = await instance.delete(url, {
+    params: {
+      ...params
+    }
+  })
+  console.log('delete 删除数据成功!')
+  return res
+}
