@@ -50,7 +50,7 @@ font-size
 font-weight
 letter-spacing 
 scrollbar-width 
-scrollbar-color 
+scrollbar-color 滑块色 背景色
 ::-webkit-scrollbar-track
 ::-webkit-scrollbar-thumb
 
