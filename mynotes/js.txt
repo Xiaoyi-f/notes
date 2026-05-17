@@ -25,16 +25,14 @@ clearInterval(interval)
 
 window.Theme -> 定义window全局属性示例
 window.dispatchEvent(new CustomEvent('eventName', { detail: detailData }))
+
 document.documentElement.getAttribute('key')
 document.documentElement.setAttribute('key', 'value')
-document.createElement(tag)
+
 document.querySelector()
 document.querySelectorAll()
-parent.appendChild()
-parent.insertBefore(newElement, referenceElement)
-element.remove()
+
 obj.style.xxx -> 连字符全改写小驼峰
-obj.textContent
 obj.attr
 
 obj.addEventListener(eventType, (event) => {})
