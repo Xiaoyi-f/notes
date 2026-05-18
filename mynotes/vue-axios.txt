@@ -13,17 +13,15 @@ let lastErrorToastKey = ''
 
 instance.interceptors.request.use(
   (config) => {
-    // pass
     const token = localStorage.getItem('token')
     if (token) {
-      // 在请求头中写校验
       config.headers.Authorization = `Bearer ${token}`
     }
     return config
   },
   (err) => {
     console.error('请求配置错误:', err)
-    return Promise.reject(err)  // 关键的数据操作,在组件层写好 catch 接住Promise对象,普通操作可以不用
+    return Promise.reject(err)  // 组件层接收
   }
 )
 
@@ -35,13 +33,11 @@ instance.interceptors.response.use(
       return res.data
     }
 
-    // 有 code 字段的风格规定同时应该有 message 字段
     const message = String(res.message || '操作失败')
-    ElMessage.error(message)  // 调试时候特别有用
+    ElMessage.error(message)  
     return Promise.reject(new Error(message))
   },
   (err) => {
-    // 处理用户中途主动取消的错误
     if (err.code === 'ERR_CANCELED') {
       return Promise.reject(err)
     }
@@ -87,16 +83,17 @@ instance.interceptors.response.use(
     const reqUrl = String(err.config.url || '')
     const reqLabel = `${method} ${reqUrl}`.trim()
     const toastKey = `${message}|${reqLabel}`
-    // 实现错误提示的防抖
+
+    // 错误提示的防抖
     const now = Date.now()
     if (!(toastKey === lastErrorToastKey && now - lastErrorToastAt < 3000)) {
       ElMessage.error(message)
       lastErrorToastKey = toastKey
       lastErrorToastAt = now
     }
-    // 调试时使用，生产环境请删除下面这条打印，避免接口暴漏
+    // 调试接口
     console.error('请求错误:', reqLabel || '(unknown request)', err)
-    return Promise.reject(err)  // 关键的数据操作,在组件层写好 catch 接住Promise对象,普通操作可以不用
+    return Promise.reject(err) // 组件层接收
   }
 )
 
@@ -112,14 +109,14 @@ export function axiosGet(url, params) {
 
 export function axiosPost(url, data) {
   // 提高容错率
-  const payload = typeof data === 'undefined' ? {} : data
+  const payload = data
   const res = await instance.post(url, payload)
   console.log('post 提交信息成功!')
   return res
 }
 
 export function axiosPut(url, data, params) {
-  const payload = typeof data === 'undefined' ? {} : data
+  const payload = data
   const res = await instance.put(url, payload, {
     params: {
       ...params
