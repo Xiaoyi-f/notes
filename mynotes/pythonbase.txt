@@ -41,6 +41,18 @@ list -> append pop insert(idx, val) remove reverse
 set -> frozonset(setObj) add discard
 dict -> get .values() .keys() .items() update
 
+生成器是一种特殊的迭代器，生成器和迭代器都遵循基本的迭代器协议:
+__iter__
+单纯实现迭代性但是不使用next()函数调用可以不用实现__next__协议
+__next__
+生成器在这个的基础之上使用yield来实现生成
+yield功能十分强大
+1.生成数据 -> next(generator_obj)
+2.引用数据 -> generator_obj.send(data) 
+3.永久关闭 -> generator_obj.close()
+口诀: 有值则生, 引用则等 -> yield -> 生成器函数是一个特殊的生成器对象
+
+
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
@@ -128,5 +140,4 @@ result = md5.hexdigest() # 16进制32位哈希码
 # 因导入即将加载到代码执行一次 为了实现模块既能作工具又能自执行
 if __name__ == '__main__':
     pass
-
 
