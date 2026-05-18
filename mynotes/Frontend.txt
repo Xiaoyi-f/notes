@@ -17,7 +17,7 @@ el-badge button type reset
 # CSS
 text-align color linear-gradient() rgba() 
 
-text-shadow box-shadow font-family font-size font-weight line-height 
+text-shadow box-shadow font-family font-size font-weight line-height(等盒高居中) 
 
 object-fit background-image background-color background-size background-position 
 
