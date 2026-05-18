@@ -378,11 +378,102 @@ maven基本使用:
         method.setAccessible(true);
         String result = (String)method.invoke(stu, "汉堡包");
         System.out.println(result);
-    动态代理:
+
+    代理:
         代理可以无侵入式的给对象增强其他的功能
         调用者 -> 代理 -> 对象
         代理中就是对象需要被代理的方法
         java中通过接口保证代理样子
+
+        静态代理:
+            静态代理（最简单，但笨重）
+
+
+            // 1. 接口（保证代理样子）
+            public interface BankService {
+                void transfer(String from, String to, int money);
+            }
+
+            // 2. 原始对象（被代理的）
+            public class BankServiceImpl implements BankService {
+                @Override
+                public void transfer(String from, String to, int money) {
+                    System.out.println("转账 " + money + " 元");
+                }
+            }
+
+            // 3. 代理类（手写，和原始类实现同一接口）
+            public class BankServiceProxy implements BankService {
+                private BankService target;  // 持有原始对象
+                
+                public BankServiceProxy(BankService target) {
+                    this.target = target;
+                }
+                
+                @Override
+                public void transfer(String from, String to, int money) {
+                    // 前置增强
+                    System.out.println("开始日志...");
+                    long start = System.currentTimeMillis();
+                    
+                    // 调用原始对象
+                    target.transfer(from, to, money);
+                    
+                    // 后置增强
+                    System.out.println("耗时: " + (System.currentTimeMillis() - start) + "ms");
+                }
+            }
+
+            // 4. 使用
+            BankService service = new BankServiceProxy(new BankServiceImpl());
+            service.transfer("A", "B", 100);
+
+            缺点：每个被代理的类都要手写一个代理类 → 代码冗余
+
+        动态代理:
+        public class JdkProxyDemo {
+        public static void main(String[] args) {
+            // 1. 原始对象
+            BankService target = new BankServiceImpl();
+            
+            // 2. 创建代理
+            BankService proxy = (BankService) Proxy.newProxyInstance(
+                target.getClass().getClassLoader(),  // 类加载器
+                target.getClass().getInterfaces(),   // 要代理的接口
+                new InvocationHandler() {             // 增强逻辑
+                    @Override
+                    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                        // 前置增强
+                        System.out.println("【JDK动态代理】方法: " + method.getName() + " 开始执行");
+                        long start = System.currentTimeMillis();
+                        
+                        // 调用原始方法
+                        Object result = method.invoke(target, args);
+                        
+                        // 后置增强
+                        System.out.println("【JDK动态代理】耗时: " + (System.currentTimeMillis() - start) + "ms");
+                        return result;
+                    }
+                }
+            );
+            
+            // 3. 调用代理
+            proxy.transfer("A", "B", 100);
+        }
+    }
+
+    执行流程：
+    调用 proxy.transfer()
+    → InvocationHandler.invoke() 
+        → 前置增强
+        → method.invoke(target, args)  // 真正调用原始对象
+        → 后置增强
+
+    关键点：
+    - Proxy.newProxyInstance 在内存中动态创建了一个类
+    - 这个类实现了你指定的接口
+    - 所有方法调用都会转发到 InvocationHandler.invoke()
+
 
 1.万物皆对象
 2.一段程序实际上就是多个对象之间通过发送消息来通知彼此要干什么
