@@ -1,6 +1,6 @@
 min-width max-height line-height 
 cursor -> pointer text not-allowed grab grabbing
-vertical-align text-align
+vertical-align text-align text-decoration 
 white-space -> nowrap normal wrap
 word-break: break-all;
 position top right bottom left z-index

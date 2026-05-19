@@ -15,7 +15,7 @@ el-badge button type reset
 
 
 # CSS
-text-align color linear-gradient() rgba() 
+text-align color linear-gradient() rgba() text-decoation list-style  
 
 text-shadow box-shadow font-family font-size font-weight line-height(等盒高居中) 
 
@@ -25,7 +25,7 @@ overflow hidden visibility visible display none block inline-block inline flex g
 
 width height user-select pointer-events cursor pointer text grab grabbing not-allowed 
 
-transition transform translate scale rotate animation infinite 
+transition transform translate scale rotate animfation infinite 
 
 position relative absolute fixed sticky top right bottom left 
 
