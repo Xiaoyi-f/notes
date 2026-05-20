@@ -27,6 +27,8 @@ background-image
 background-size: cover;
 background-position 
 
+::before ::after relative + absolute 
+
 color 
 rgba
 transparent

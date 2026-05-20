@@ -317,8 +317,22 @@ maven基本使用:
         字节流(InputStream / OutputStream)和字符流(Reader / Writer): 字节流可以操作各种文件，但是字节流只能操作文本文件
         输入流（Input）：从文件/网络 → 程序（读）
         输出流（Output）：从程序 → 文件/网络（写）
-        
-        pass
+        // true 表示开启 追加模式 
+        FileInputStream fis = new FileInputStream("path/filename", true);
+        int b = fis.read(); // 读取一个移动一下
+        System.out.println((char)b);
+        fis.close();
+        读取到末尾返回-1 
+        void write(int b) 一次写一个字节数据
+        void write(byte[] b) 一次写一个字节数组数据
+        void write(byte[] b, int startindex, int len) 一次写一个字节数组的部分数据
+        FileOutputStream fos = new FileOutputStream("path/filename", true);
+        String str = "str";
+        byte[] bytes = str.getBytes();
+        fos.write(butes);
+        // \r\n 为win的换行 \n 为linux/mac的换行
+        fos.close();
+        输入流输出流先后创建对象要规范，最后先创建对象的最后关闭
     并发:
         多线程与多进程:
         pass
