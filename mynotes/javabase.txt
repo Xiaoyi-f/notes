@@ -296,7 +296,7 @@ maven基本使用:
         # Windows 中文版 → GBK / ...
         # Linux / Mac → 通常是 UTF-8
         import java.nio.charset.StandardCharsets;
-        FileWriter writer = new FileWriter("filename.txt", StandardCharsets.UTF_8);
+        FileWriter writer = new FileWriter("filename.txt", Charset.forName("UTF-8"));
         writer.write("文本内容");
         writer.println("自动换行文本句");
         writer.close();
@@ -310,7 +310,7 @@ maven基本使用:
         }
         reader.close();
         # 自动关闭
-        try (FileWriter writer = new FileWriter("test.txt", StandardCharsets.UTF_8)) {
+        try (FileWriter writer = new FileWriter("test.txt", Charset.forName("UTF-8"))) {
             writer.write("内容");
         } // 自动 close
     IO流:
@@ -603,6 +603,17 @@ maven基本使用:
 61.java的箭头函数可以使用this
 62.只有实现Iterable接口的对象才有资格调用.forEach()
 63.java直接支持抽象类 abstract 和 接口 interface 以即 枚举 enum enum有.values() 可以获得枚举常量值数组
+抽象类和接口的区别:
+    快速对比表
+    维度	      抽象类	                                           接口
+    核心关系	“是什么” (is-a)	                           “能做什么” (can-do) / 具有某种特性
+    关键字	    abstract class	                                interface
+    继承/实现	只能被单继承	                                可以被多实现
+    成员变量	可以有实例变量、静态常量等	                 只能是 public static final (公开静态常量)，即只能定义常量
+    构造方法	有构造器（用于子类实例化）	                       没有构造器
+    普通方法	可以有非抽象方法（具体实现）                 早期只能是抽象方法，Java 8后可以有 default 和 static 方法
+    访问修饰符	方法可以是 public、protected、private 等	方法默认（且建议）是 public，Java 9 后可以有 private 方法
+
 64.java支持变长参数 类型... 参数名 实际本质就是一个数组
 65.面向对象除了理解基本的封装继承和多态之外还有一个组合是必须知道的
 66.java支持泛型,声明泛型之后就可以直接使用类型参数代类型，最终实际使用传递真实类型就可以
