@@ -405,6 +405,18 @@ maven基本使用:
         Object o = ois.readObject();
         System.out.println(o);
         ois.close();
+
+        // 打印流 只操作文件目的地，不操作数据源
+        // 字节打印流 
+        PrintStream ps = new PrintStream(new FileOutputStream("path/filename"), true, Charset.forName("UTF-8")); // true 表示 autoFlush
+        ps.println(data);
+        ps.close();
+        // 字符打印流 
+        System.out 其实是一个打印流对象，且在系统中是唯一的，所以不能关闭，关闭就不能用了
+        PrintWriter pw = new PrintWriter(new FileWriter("path/filename"), true);
+        pw.println(data);
+        pw.close(); 
+        // 记得释放资源哦！
     并发:
         多线程与多进程:
         pass
@@ -473,9 +485,6 @@ maven基本使用:
         java中通过接口保证代理样子
 
         静态代理:
-            静态代理（最简单，但笨重）
-
-
             // 1. 接口（保证代理样子）
             public interface BankService {
                 void transfer(String from, String to, int money);
@@ -637,7 +646,7 @@ maven基本使用:
 39.基本输出方式System.out.println() System.out.printf()
     自动换行输出只能使用+拼接
     格式化输出可以使用如下占位符:
-        %d %s %f(无论float或double) %c %b(boolean) %n(跨平台换行，\n是Unicode编码) %X %O %E %% （m.n）
+        %d %s %f(无论float或double) %c %b(boolean) %n(跨平台换行，\n是Unicode编码) %% （m.n）
 40.java字符串编码默认使用UTF-16，java17以即之前版本默认编码依赖操作系统，之后版本默认UTF-8
 41.基本条件控制:
     for for ( : )
