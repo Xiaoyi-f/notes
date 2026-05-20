@@ -334,7 +334,77 @@ maven基本使用:
         fos.close();
         输入流输出流先后创建对象要规范，最后先创建对象的最后关闭
         // 基本流与缓冲流 
-        
+        BufferedInputStream bis = new BufferedInputStream(new FileInputStream("path/filename"));
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("path/filename"));
+        byte[] bytes = new byte[1024];
+        int len;
+        while ((len = bis.read(bytes)) != -1) {
+            bos.write(bytes, start, len);
+        }
+        bos.close();
+        bis.close();
+        // 数据源(硬盘) -> 基本流 -> 缓冲输入流 -> 缓冲区(8192字节) -> 内存 -> 缓冲区(8192字节) -> 缓冲输出流 -> 基本流 -> 目的地(硬盘)
+        // 内存中速度非常快，节约了读和写与硬盘打交道的时间
+        BufferedReader br = new BufferedReader(new FileReader("path/filename"));
+        // readLine在读取时候一次读一整行，遇到回车换行结束，不会将回车换行符读到内存中 
+        String line;
+        while (((line = br.readLine()) != null)) {
+            System.out.println(line);
+        }
+        br.close();
+        BufferedWriter bw = new BufferedWriter(new FileWriter("path/filename", true));
+        bw.write("datatext");
+        bw.newline();
+        bw.write("datatext");
+        bw.newLine();
+        bw.close();
+         
+        FileReader fr = new FileReader("path/filename", Charset.forName("GBK"));
+        int ch; 
+        while ((ch = fr.read()) != -1) {
+            System.out.print((char) ch);
+        }
+        fr.close();
+        FileWriter fw = new FileWriter("path/filename", Charset.forName("GBK"));
+        fw.write("datatext");
+        fw.close();
+
+        // 序列化流 / 对象操作输出流 -> 可以将java中的对象写到本地文件
+        public class Student implements Serializable {
+            private static final long serialVersionUID = 1L; // 可以对idea进行配置，设置中搜索Serializable，之后点击类名就可以有辅助生成
+            // 避免程序中的版本号和文件中的版本号不一致问题
+            private String name;
+            private int age;
+
+            private transient String address; // 不会把当前属性序列化到本地文件当中 transient: 瞬态关键词 
+
+            public Student() {
+            }
+
+            public Student(String name, int age) {
+                this.name = name;
+                this.age = age;
+            }
+
+            public void setAge(int age) { this.age = age; }
+
+            @Override 
+            public String toString() {
+                return "Student{}" + 
+                       "name=" + name + 
+                       ", age=" + age;
+            }
+        }
+
+        Student stu = new Student("zhangsan", 18);
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("path/filename"));
+        oos.writeObject(stu);
+        oos.close();
+
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("path/filename"));
+        Object o = ois.readObject();
+        System.out.println(o);
+        ois.close();
     并发:
         多线程与多进程:
         pass
