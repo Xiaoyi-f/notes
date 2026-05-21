@@ -19,6 +19,11 @@ where子句优化数据库后可以更快速有效地对数据进行过滤。而
 布尔比较(操作)符: = <> != < <= > >= !< !> BETWEEN AND(优先于or) OR NOT (IS NULL)
 不同数据库操作符兼容问题需要注意 
 LIKE 模糊匹配子句 通配符: %表示任何字符出现任意次数 _:表示匹配任意单个字符
-
-
+select 列名 + '(' + 列名 + ')' from 表; 
++ 也可能用 || 以及 其他 
+大多数DBMS都支持RTRIM()（正如刚才所见，它去掉字符串右边的空格）、LTRIM()（去掉字符串左边的空格）以及TRIM()（去掉字符串左右两边的空格）
+Concat(RTrim(列名), Content)
+DISTINCT不能用于COUNT(＊)
+如果指定列名，则DISTINCT只能用于COUNT() 类似地，DISTINCT必须使用列名，不能用于计算或表达式
+提示：将DISTINCT用于MIN()和MAX()
 

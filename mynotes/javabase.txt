@@ -419,7 +419,44 @@ maven基本使用:
         // 记得释放资源哦！
 
         // 解压缩 / 压缩 流 java标准库只内置ZIP压缩包的原生支持 
-        
+        public static void toZip(File src, zipOutputStream zos, String name) throws IOException {
+            File[] files = src.listFiles();
+            for (File file : files) {
+                if (file.isFile()) {
+                    ZipEntry entry = new ZipEntry(name + "\\" + file.getName());
+                    zos.putNextEntry(entry);
+                    FileInputStream fis = new FileInputStream(file);
+                    int b;
+                    while ((b = fis.read()) != -1) {
+                        zos.write(b);
+                    }
+                    fis.close();
+                    zos.closeEntry();
+                } else {
+                    toZip(file, zos, name + "\\" + file.getName());
+                }
+            }
+        }
+
+        File src = new File("path/filename");
+        File destParent = src.getParentFile();
+        File dest = new File(destParent, src.getName() + ".zip");
+        ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(dest));
+        toZip(src, zos, src.getName());
+        zos.close();
+
+        Commons-io 库:
+            在项目文件夹中创建一个lib文件夹
+            将jar包放到里面，idea右键Add as Library 
+            在类中导包使用     
+            关键方法:
+                static void copyFile(File srcFile, File destFile)
+                static void copyDirectory(File srcDir, File destDir)
+                static void copyDirectoryToDirectory(File srcDir, File destDir)
+                static void deleteDirectory(File directory)
+                static void cleanDirectory(File directory)
+                static String readFileToString(File file, Charset encoding)
+                static void write(File file, CharSequence data, String encoding)
 
     并发与并行:
         多线程与多进程:
@@ -458,9 +495,19 @@ maven基本使用:
                 System.out.println(Thread.currentThread().getName() + "HelloWorld");
             }
             MyThread mt = new MyThread();
+            Thread t = new Thread(() -> {
+                // 线程指令
+                Thread.yield(); // 提示调度器当前线程愿意让出CPU资源 
+            })
+            t.setDaemon(true); // 设置为守护线程，主线程停止则立刻停止 
+            t.join(); // 主线程阻塞，等待当前线程执行完毕才继续(插入线程)
             mt.setName("线程demo");
             mt.sleep(1000);  // 单位是毫秒
+            // mt.isAlive(); 检测是否线程还活着
+            mt.setPriority(Thread.MAX_PRIORITY);  // 1~10 默认是5 MIN(1) / MAX(10)
+            // 注意: 优先级依赖操作系统，不要用它来精确控制执行顺序
             mt.start();
+            t.start();
         }
 
         // JVM 启动时候 就会自动启动多条线程 其中有一条 main 线程
