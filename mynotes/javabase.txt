@@ -421,9 +421,47 @@ maven基本使用:
         // 解压缩 / 压缩 流 java标准库只内置ZIP压缩包的原生支持 
         
 
-    并发:
+    并发与并行:
         多线程与多进程:
-        pass
+        线程是操作系统能够进行运算调度的最小单位，他被包含在进程中，是进程中的实际运作单位
+        进程是程序的基本执行实体
+        程序面快速理解: 
+            1.每一行代码执行之后假设都会有一段缓冲时间再执行下一行代码，但是如果有多个线程这个缓冲浪费的时间会越短，实现并发
+            2.并发: 在同一时刻有多个指令在单核上交替执行
+            3.并行: 在同一时刻有多个指令在多核上同时执行
+            4.操作系统上标明的硬件x核xx线程代表可以实现最多同时两个进程并行，xx线程并行，超过数量则会触发并发+并行
+            5.java中每个线程都有自己的优先级别
+
+        public class MyThread extends Thread {
+            @Override 
+            public void run() {
+                for (int i = 0; i < 100; i++) {
+                    System.out.println(getName() + "HelloWorld");
+                }
+            }
+        }
+
+        // 多线程的第二种实现方式: 实现 Runnable 接口 一样实现上面同方法 
+
+        /*
+        实现 Callable<T> public T call() {... return ...} 
+        MyCallable mc = new MyCallable();
+        FutureTask<T> ft = new FutureTask<>(mc);  // 管理多线程运行的结果 
+        Thread t = new Thread(ft);
+        t.start();
+        T result = ft.get();
+        System.out.println(result);
+        */
+
+
+        public static void main(String[] args) {
+            for (int i = 0; i < 100; i++) {
+                System.out.println(Thread.currentThread().getName() + "HelloWorld");
+            }
+            MyThread mt = new MyThread();
+            mt.setName("线程demo");
+            mt.start();
+        }
     网络编程:
         pass
     反射:
