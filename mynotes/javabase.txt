@@ -453,15 +453,19 @@ maven基本使用:
         System.out.println(result);
         */
 
-
         public static void main(String[] args) {
             for (int i = 0; i < 100; i++) {
                 System.out.println(Thread.currentThread().getName() + "HelloWorld");
             }
             MyThread mt = new MyThread();
             mt.setName("线程demo");
+            mt.sleep(1000);  // 单位是毫秒
             mt.start();
         }
+
+        // JVM 启动时候 就会自动启动多条线程 其中有一条 main 线程
+        // 在以前，我们写的所有的代码，其实都是运行在main线程当中
+
     网络编程:
         pass
     反射:
