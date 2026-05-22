@@ -1,3 +1,6 @@
+IDEA 使用技巧:
+    // pass 
+
 java下载配置环境变量 -> %JAVA_HOME%
 maven下载配置环境变量 -> %MAVEN_HOME% -> conf/settings.xml配置
     1.配置镜像源
@@ -161,7 +164,7 @@ maven基本使用:
             matcher.start() 包含
             matcher.end() 不包含
             matcher.reset(str)
-    StringBuilder类:
+    StringBuilder类(非线程安全) 另外有一个线程安全(内部方法都是有synchronized锁)的 StringBuffer类:
         可变字符串构造，非线程安全的，需要加锁
         ...
         字符数量 1024个
@@ -275,7 +278,7 @@ maven基本使用:
         有些数据是在运行时才能具体，然后有些异常是因这些而起
         编译时异常(javac命令): 编译时候就会报错，直接继承Exception类，大多本地数据引起
         运行时异常(java命令): 运行时才报错，继承RuntimeException
-        try catch finally
+        try catch finally Exception err.printStackTrace() --> 打印异常的堆栈跟踪信息
         throws 写在方法后，告诉调用者可能出现的异常
         throw 写在方法内，手动抛出异常对象
     File类和FileWriter类 -> File指代文件/文件夹:
@@ -513,8 +516,142 @@ maven基本使用:
         // JVM 启动时候 就会自动启动多条线程 其中有一条 main 线程
         // 在以前，我们写的所有的代码，其实都是运行在main线程当中
 
+        // 线程的生命周期 
+        1. 新建状态(new)
+        2. 就绪状态(start)
+        3. 运行状态(run) 直接交出去给操作系统管理 
+        4. 阻塞状态(锁...等问题) 
+        5. 等待状态(wait) 计时等待(sleep) sleep 方法让线程睡眠 时间到后 不会立马执行下面的代码 需要回到 就绪 状态 然后需要重新排队等待CPU分配时间片 
+        6. 死亡状态(dead) run 方法执行完毕 start 自动调用run方法
+        // 具体执行 拿到CPU资源 由操作系统调度决定 
+        // 同时运行的数量 ≤ CPU核心数 Java线程只是“可以竞争CPU”，但不保证同时执行
+        // java 默认是单进程多线程模型 进程之间是相对独立的，一个崩溃另外一个不受到影响 
+        // 除非实在要隔离资源，避免崩溃导致影响到整个项目的运作才需要使用多进程实现防止崩溃
+        // 当然，运维层面也是可以实现多进程管理的 JVM本身就是一个进程 通常需要真正隔离的话，一般将多个功能拆分成为多个服务进行独立部署(微服务)
+        // 如果是整的在代码中开多个进程，容易导致进程间通信复杂 资源开销大 调试、日志追踪等困难 
+        // 线程处理速度太块，处理内容不多，也可能出现一个线程快速就解决了所有问题的情况，如果要突出多线程一起执行，可以让线程睡眠一会 
+
+        static int ticket = 0;
+        static Object obj = new Object();
+        synchronized (obj) { // 代码块 } // 同步代码块 
+        synchronized 一般不要写在循环外面，因为synchronized是一个内置锁，需要等待内部代码都执行完才释放，避免多线程无意义
+
+        // MyRunnable.class	编译时确定，不依赖实例 即使没有创建任何对象也可以使用 具有唯一性
+        // .class 是初次编译类时候就会创建的一个java.lang.Class对象，用来代表对应类的运行时元信息 这个对象包含类的全限定名 父类 接口 所有方法、字段签名 构造器信息 注解信息 等等...
+        // 全限定名就是 包名 + 类名，中间用点 . 分隔，不含文件扩展名
+
+        public class MyRunnable implements Runnable {
+            
+            int ticket = 0;
+
+            @Override
+            public void run() {
+                while (true) {
+                    synchronized (MyRunnable.class) {
+                        if (ticket == 100) {
+                            break;
+                        } else {
+                            ticket++;
+                            System.out.println(Thread.currentThread().getName() + "正在卖第" + ticket + "张票");
+                        }
+                    }
+                }
+            }
+        }
+
+        MyRunnable mr = new MyRunnable();
+        Thread t1 = new Thread(mr);
+        Thread t2 = new Thread(mr);
+        Thread t3 = new Thread(mr);
+
+        t1.setName("窗口1");
+        t2.setName("窗口2");
+        t3.setName("窗口3");
+
+        t1.start();
+        t2.start();
+        t3.start();
+ 
+        // 同步方法
+        // 修饰符 synchronized 返回值类型 方法名(方法参数) {...} 
+        // 锁住方法里面的所有代码 
+        // 锁对象不能自己指定
+        // 非静态: this 静态: 当前类的字节码文件对象
+
+        // 手动锁 Lock 
+        // void lock() 获得锁 void unlock() 释放锁 
+        // Lock 是接口不能够直接实例化，这里采用实现类ReentrantLock来实例化
+
+        static Lock lock = new ReentrantLock();
+        lock.lock(); // 获取锁
+        lock.unlock(); // 释放锁 
+
+        /*
+        可重入 指的是：同一个线程，已经获得了这把锁，在锁还未释放的情况下，可以再次成功获得该锁，不会把自己阻塞住
+        synchronized 本身就是可重入的 ReentrantLock 同样也是可重入的
+        如果没有可重入性：线程在 methodA 中获得了锁，然后调用 methodB 时发现自己已经持有锁，却还要再等一次，就会死锁自己。所以可重入是锁的基本要求
+        */
+
+        /*
+        死锁 是指两个或多个线程互相持有对方需要的锁，并且都不释放自己手中的锁，导致所有线程都无法继续执行，永远阻塞下去
+        while (true) {
+            if ("线程A".equals(getName())) {
+                synchronized (objA) {
+                  System.out.println("线程A获取锁A,准备拿锁B");  
+                  // 等待锁B
+                  synchronized (objB) {
+                    System.out.println("线程A拿到了锁B,顺利执行完一轮");
+                  }
+                }
+            } else if ("线程B".equals(getName())) {
+                if ("线程B".equals(getName())) {
+                    synchronized (objB) {
+                        System.out.println("线程B拿到了锁B,准备拿锁A");
+                        // 等待锁A
+                        synchronized (objA) {
+                            System.out.println("线程B拿到了锁A,顺利执行完一轮");
+                        }
+                    }
+                }
+            }
+        }
+        */
+
+        // 线程池
+        ExecutorService poll = Executors.newCacheThreadPool();
+        pool.submit(new MyRunnable());
+        Thread.sleep(1000);
+        pool.submit(new MyRunnable());
+        pool.sleep(1000);
+        pool.submit(new MyRunnable());
+        pool.shutdown();
+
+        ExecutorService poll = Executors.newFixedThreadPool(3);  // 设置线程池最多3个线程
+        pool.submit(new MyRunnable());
+        Thread.sleep(1000);
+        pool.submit(new MyRunnable());
+        pool.sleep(1000);
+        pool.submit(new MyRunnable());
+        pool.shutdown();
+
+        /* 
+        异步
+        核心定义：异步是一种编程模式
+        它的核心思想是：当一个任务需要等待（比如等待网络响应、等待磁盘读取）时，程序不会阻塞在那里干等，而是继续去做其他事情
+        等那个等待的任务完成了，再通过“回调”“事件”或“Promise”等方式来通知你，并处理结果
+
+        消息队列:
+        消息队列是实现异步架构的工业级标准工具
+        “消息队列”是跨系统、跨服务的异步
+        核心模型：生产者 -> 队列 -> 消费者
+
+        生产者：发消息的人/程序。只管把消息扔进队列，不关心谁处理、何时处理
+        队列：一个有序的、持久化的（通常）缓冲区。消息先进先出
+        消费者：处理消息的人/程序。从队列里取消息，然后处理
+        */
+
     网络编程:
-        pass
+        
     反射:
         反射允许对成员变量(字段)、成员方法和构造方法的信息进行编程访问
         修饰符、异常、名字、类型、值、形参、创建对象、返回值、注解、运行方法
@@ -687,6 +824,7 @@ maven基本使用:
 21.java注释 /* 内容 */    // 内容
 22.作用域会决定变量的可见性和生命周期
 23.java中对象的生命周期和基本数据类型的不同
+    package 域名链路 声明包
     new创建的对象，即使是离开对应作用域，对应的标识符不再能使用，但是底层的内存还是没有清空，然而new创建的对象会被GC监控消除
 24.字段分为实例字段和类字段，对应python的实例变量和类变量，具体的使用范围可以使用关键词进行限定
 访问控制修饰符:
