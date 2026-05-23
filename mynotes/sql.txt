@@ -1,5 +1,14 @@
 数据库软件应称为数据库管理系统（DBMS）
 表列行 主键 外键 不同数据库注释可能不同
+
+子句书写顺序:
+SELECT 
+FROM 
+WHERE 
+GROUP BY
+HAVING 
+ORDER BY 
+
 select 列 from 表; 
 处理SQL语句时，其中所有空格都被忽略
 多数SQL开发人员认为，将SQL语句分成多行更容易阅读和调试
@@ -26,4 +35,7 @@ Concat(RTrim(列名), Content)
 DISTINCT不能用于COUNT(＊)
 如果指定列名，则DISTINCT只能用于COUNT() 类似地，DISTINCT必须使用列名，不能用于计算或表达式
 提示：将DISTINCT用于MIN()和MAX()
+GROUP BY 子句 HAVING 子句 
+WHERE 在分组之前过滤 HAVING 在分组之后过滤 
+支持嵌套查询 子查询只能单列查询 
 

@@ -461,6 +461,9 @@ maven基本使用:
                 static String readFileToString(File file, Charset encoding)
                 static void write(File file, CharSequence data, String encoding)
 
+        hutool 库:
+            // pass 
+
     并发与并行:
         多线程与多进程:
         线程是操作系统能够进行运算调度的最小单位，他被包含在进程中，是进程中的实际运作单位
@@ -634,6 +637,78 @@ maven基本使用:
         pool.submit(new MyRunnable());
         pool.shutdown();
 
+        // 任务拒接策略 
+        ThreadPoolExecutor.AbortPolicy() // 默认策略
+        ThreadPoolExecutor.DiscardPolicy() // 丢弃任务，不抛异常
+        ThreadPoolExecutor.DiscardOldestPolicy() // 丢弃队列最前面的任务，然后重新尝试执行任务
+        ThreadPoolExecutor.CallerRunsPolicy() // 运行任务，如果线程池已满，则直接在调用者线程中运行该任务
+
+        public ThreadPoolExecutor(
+            int corePoolSize,           // 核心线程数
+            int maximumPoolSize,        // 最大线程数
+            long keepAliveTime,         // 空闲线程存活时间
+            TimeUnit unit,              // 时间单位
+            BlockingQueue<Runnable> workQueue,  // 任务队列
+            ThreadFactory threadFactory,        // 线程工厂（可选）
+            RejectedExecutionHandler handler    // 拒绝策略（可选）
+        )
+
+        // 线程池参数
+        corePoolSize: 线程池核心线程数 >= 0
+        maximumPoolSize: 线程池最大线程数 >= 0 最大数量 >= 核心线程数
+        keepAliveTime: 线程空闲时间 >= 0
+        unit: 时间单位 TimeUnit指定
+        workQueue: 线程任务队列 不为 null 
+        threadFactory: 线程工厂 不为 null 
+        handler: 拒绝策略 不为 null 
+
+        // 线程池工作流程
+        1. 判断核心线程是否已满？
+        ├─ 否 → 创建核心线程执行任务
+        └─ 是 → 进入步骤2
+
+        2. 判断任务队列是否已满？
+        ├─ 否 → 将任务放入队列，等待空闲核心线程执行
+        └─ 是 → 进入步骤3
+
+        3. 判断线程总数（核心+非核心）是否达到 maximumPoolSize？
+        ├─ 否 → 创建非核心线程执行任务（临时线程）
+        └─ 是 → 进入步骤4
+
+        4. 执行拒绝策略（RejectedExecutionHandler）
+
+        有任务提交时，线程池会创建线程去执行任务，执行完毕归还线程 
+
+        线程池多大合适?
+        CPU 密集型运算: 最大并行数 + 1
+        I/O 密集型运算: 最大并行数 * 期望CPU利用率 * 总时间(CPU计算时间+等待时间) / CPU计算时间
+
+        // 它反映的是操作系统调度单位的个数(逻辑核心数)，而不是物理上真正能并行执行指令的单元数
+        public static void main(String[] args) {
+            int count = Runtime.getRuntime().availableProcessors();
+            System.out.println(count);
+        }
+
+        // IP对象
+        InetAddress address = InetAddress.getByName("主机名/ip");
+        System.out.println(address);
+        String name = address.getHostName();
+        String ip = address.getHostAddress();
+        System.out.println(ip); 
+
+        // 端口号
+        由两个字节表示的整数，取值范围: 0~65535
+        其中0~1023为保留端口，1024~5000为用户自定义端口，5000~65535为系统端口
+        一个端口号只能够被一个应用程序使用
+
+        // 协议
+        OSI模型 应用 表示 回话 传输 网络 数据链路 物理 
+        TCP/IP模型 应用(HTTP、FTP、DNS ...) 传输(TCP、UDP ...) 网络(IP、ICMP、ARP ...) 物理+数据链路(二进制 物理设备传输) 简短，节约资源
+        由上往下 由下往上
+
+        UDP协议: 面向无连接的通信协议(可能丢失传输资源) 速度快 有大小限制(<= 64K) 数据不安全 易丢失数据
+        TCP协议: 传输控制协议TCP 面向连接的通信协议 速度慢 无限
+
         /* 
         异步
         核心定义：异步是一种编程模式
@@ -655,6 +730,56 @@ maven基本使用:
         常见协议: UDP TCP http https ftp ssh smtp ...
         ipv4 采用 32 位 地址长度 分成 4 组 点分十进制 2^32
         ipv6 采用 128 位 地址长度 分成 8 组 16 进制 2^128
+
+        UDP:
+
+        // 发送端
+        DatagramSocket ds = new DatagramSocket();
+        String str = "Text";
+        byte[] bytes = str.getBytes();
+        InetAddress address = InetAddress.getByName("ip");
+        int port = xxx;
+        DatagramPacket dp = new DatagramPacket(bytes, bytes.lenght, address, port);
+        ds.send(dp);
+        ds.close();
+
+        // 接收端
+        DatagramSocket ds = new DatagramSocket(xxx);
+        byte[] bytes = new byte[1024];
+        DatagramPacket dp = new DatagramPacket(bytes, bytes.length);
+        ds.receive(dp);
+        byte[] data = dp.getData();
+        int len = dp.getLength();
+        InetAddress address = dp.getAddress();
+        int port = dp.getPort();
+        System.out.println("接收到数据" + new String(data, 0, len));
+        System.out.println("该数据是从" + address + "这台电脑中的" + port + "这个端口发出的");
+        ds.close();
+
+        // 单播
+        // 组播 224.0.0.0~239.255.255.255 其中 224.0.0.0~239.255.255.255 为预留的组播地址
+        // 广播 255.255.255.255
+
+
+        TCP 请求 响应 确认 -> 三次握手 / 请求 响应 确保 确认 -> 四次挥手:
+
+        // 服务端
+        ServerSocket ss = new ServerSocket(xxx);
+        Socket s = ss.accept();
+        InputStream is = s.getInputStream();
+        InputStreamReader isr = new InputStreamReader(is);
+        BufferedReader br = new BufferedReader(isr);
+        int b; 
+        while ((b = br.read()) != -1) {
+            System.out.print((char)b);
+        }
+
+        // 客户端
+        Socket s = new Socket("ip", xxx);
+        OutputStream os = s.getOutputStream();
+        os.write("Text".getBytes());
+        os.close();
+        socket.close();
 
     反射:
         反射允许对成员变量(字段)、成员方法和构造方法的信息进行编程访问
@@ -958,6 +1083,7 @@ maven基本使用:
         List<? super Integer>	List（擦除为 Object）
 67.java的箭头函数即java的lambda表达式，java的箭头函数的立即执行式和js的一个逻辑
 68.stream不是数据结构，他是数据处理的流水线，集合自带.stream() 获得 stream 对象，有一个东西叫做并行流...
-
+69.java内部类:
+    // pass 
 
 
