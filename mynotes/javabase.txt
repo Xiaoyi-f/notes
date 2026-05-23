@@ -763,7 +763,7 @@ maven基本使用:
 
         TCP 请求 响应 确认 -> 三次握手 / 请求 响应 确保 确认 -> 四次挥手:
 
-        // 服务端
+        // 服务端 先启动服务端
         ServerSocket ss = new ServerSocket(xxx);
         Socket s = ss.accept();
         InputStream is = s.getInputStream();
