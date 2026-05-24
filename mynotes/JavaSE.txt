@@ -1,0 +1,1293 @@
+    ┌─────────────────────┬───────────────────┬────────────────────────────────────────────┐
+  │       关键字        │       用途        │                    示例                    │
+  ├─────────────────────┼───────────────────┼────────────────────────────────────────────┤
+  │ public              │ 公开访问修饰符    │ public class Main {}                       │
+  ├─────────────────────┼───────────────────┼────────────────────────────────────────────┤
+  │ private             │ 私有访问修饰符    │ private String name;                       │
+  ├─────────────────────┼───────────────────┼────────────────────────────────────────────┤
+  │ protected           │ 受保护访问修饰符  │ protected void run() {}                    │
+  ├─────────────────────┼───────────────────┼────────────────────────────────────────────┤
+  │ static              │ 静态成员/方法     │ public static void main()                  │
+  ├─────────────────────┼───────────────────┼────────────────────────────────────────────┤
+  │ final               │ 不可修改/继承     │ public final class {}                      │
+  ├─────────────────────┼───────────────────┼────────────────────────────────────────────┤
+  │ class               │ 定义类            │ public class Person {}                     │
+  ├─────────────────────┼───────────────────┼────────────────────────────────────────────┤
+  │ interface           │ 定义接口          │ public interface Runnable {}               │
+  ├─────────────────────┼───────────────────┼────────────────────────────────────────────┤
+  │ void                │ 无返回值          │ public void method() {}                    │
+  ├─────────────────────┼───────────────────┼────────────────────────────────────────────┤
+  │ int String          │ 基本类型/引用类型 │ int age = 18;                              │
+  ├─────────────────────┼───────────────────┼────────────────────────────────────────────┤
+  │ return              │ 返回值/结束方法   │ return result; 或 return;                  │
+  ├─────────────────────┼───────────────────┼────────────────────────────────────────────┤
+  │ new                 │ 创建对象          │ new Person();                              │
+  ├─────────────────────┼───────────────────┼────────────────────────────────────────────┤
+  │ if else             │ 条件判断          │ if (x > 0) {} else {}                      │
+  ├─────────────────────┼───────────────────┼────────────────────────────────────────────┤
+  │ for while           │ 循环              │ for (int i = 0; i < 10; i++) {}            │
+  ├─────────────────────┼───────────────────┼────────────────────────────────────────────┤
+  │ switch case default │ 多分支选择        │ switch (day) { case 1: break; }            │
+  ├─────────────────────┼───────────────────┼────────────────────────────────────────────┤
+  │ break continue      │ 跳出循环/跳过本次 │ break; continue;                           │
+  ├─────────────────────┼───────────────────┼────────────────────────────────────────────┤
+  │ try catch finally   │ 异常处理          │ try {} catch (Exception e) {}              │
+  ├─────────────────────┼───────────────────┼────────────────────────────────────────────┤
+  │ this                │ 当前对象引用      │ this.name = name;                          │
+  ├─────────────────────┼───────────────────┼────────────────────────────────────────────┤
+  │ super               │ 父类引用          │ super.method();                            │
+  ├─────────────────────┼───────────────────┼────────────────────────────────────────────┤
+  │ extends             │ 继承              │ public class Dog extends Animal {}         │
+  ├─────────────────────┼───────────────────┼────────────────────────────────────────────┤
+  │ implements          │ 实现接口          │ class Dog implements Runnable {}           │
+  ├─────────────────────┼───────────────────┼────────────────────────────────────────────┤
+  │ throws throw        │ 声明/抛出异常     │ throws IOException / throw new Exception() │
+  └─────────────────────┴───────────────────┴────────────────────────────────────────────┘
+
+  ---
+  🔧 常用功能关键字
+
+  ┌───────────────────────────────────────────┬───────────────┬───────────────────────────────────────┐
+  │                  关键字                   │     用途      │                 示例                  │
+  ├───────────────────────────────────────────┼───────────────┼───────────────────────────────────────┤
+  │ abstract                                  │ 抽象类/方法   │ public abstract void run();           │
+  ├───────────────────────────────────────────┼───────────────┼───────────────────────────────────────┤
+  │ enum                                      │ 枚举类型      │ enum Color { RED, BLUE }              │
+  ├───────────────────────────────────────────┼───────────────┼───────────────────────────────────────┤
+  │ package                                   │ 声明包名      │ package com.example;                  │
+  ├───────────────────────────────────────────┼───────────────┼───────────────────────────────────────┤
+  │ import                                    │ 导入包/类     │ import java.util.*;                   │
+  ├───────────────────────────────────────────┼───────────────┼───────────────────────────────────────┤
+  │ boolean byte short long float double char │ 基本数据类型  │ boolean flag = true;                  │
+  ├───────────────────────────────────────────┼───────────────┼───────────────────────────────────────┤
+  │ true false null                           │ 字面量        │ boolean flag = true; String s = null; │
+  ├───────────────────────────────────────────┼───────────────┼───────────────────────────────────────┤
+  │ instanceof                                │ 类型判断      │ if (obj instanceof String) {}         │
+  ├───────────────────────────────────────────┼───────────────┼───────────────────────────────────────┤
+  │ do                                        │ do-while 循环 │ do {} while (condition);              │
+  └───────────────────────────────────────────┴───────────────┴───────────────────────────────────────┘
+
+  ---
+  🔒 多线程相关
+
+  ┌──────────────┬─────────────────────┬────────────────────────────────┐
+  │    关键字    │        用途         │              示例              │
+  ├──────────────┼─────────────────────┼────────────────────────────────┤
+  │ synchronized │ 同步锁              │ synchronized (lock) {}         │
+  ├──────────────┼─────────────────────┼────────────────────────────────┤
+  │ volatile     │ 可见性/禁止重排     │ private volatile boolean flag; │
+  ├──────────────┼─────────────────────┼────────────────────────────────┤
+  │ native       │ 声明本地方法（JNI） │ private native void method();  │
+  └──────────────┴─────────────────────┴────────────────────────────────┘
+
+  ---
+  ⚠️ 高级/少见关键字
+
+  ┌───────────┬────────────────────┬────────────────────────────────────┐
+  │  关键字   │        用途        │                说明                │
+  ├───────────┼────────────────────┼────────────────────────────────────┤
+  │ transient │ 序列化时忽略该字段 │ private transient String password; │
+  ├───────────┼────────────────────┼────────────────────────────────────┤
+  │ strictfp  │ 严格浮点运算       │ public strictfp class Main {}      │
+  ├───────────┼────────────────────┼────────────────────────────────────┤
+  │ assert    │ 断言（需启用）     │ assert x > 0 : "x必须大于0";       │
+  ├───────────┼────────────────────┼────────────────────────────────────┤
+
+   🎯 工作必考题
+
+  Q1: == 和 equals 的区别？
+
+  // == 比较的是内存地址（基本类型比较值）
+  String s1 = new String("abc");
+  String s2 = new String("abc");
+  s1 == s2;      // false（不同对象）
+  s1.equals(s2); // true（内容相同）
+
+  // 基本类型
+  int a = 5;
+  int b = 5;
+  a == b;  // true（值相同）
+
+  Q2: static 关键字的用法？
+
+  public class Test {
+      static int count = 0;           // 静态变量，所有实例共享
+      public static void method() {}  // 静态方法，通过类名调用
+      static {                        // 静态代码块，类加载时执行
+          System.out.println("静态代码块");
+      }
+  }
+  Test.method();  // 类名直接调用
+
+  Q3: final 关键字的用法？
+
+  final class A {}           // 类不能被继承
+  class B {
+      final void method() {} // 方法不能被重写
+      final int AGE = 18;    // 常量，值不能修改
+  }
+
+  Q4: volatile 的作用？
+
+  // 1. 保证可见性：一个线程修改，其他线程立即可见
+  // 2. 禁止指令重排
+  // 3. 不保证原子性（如 i++ 需要配合 synchronized）
+  private volatile boolean flag = true;
+
+  Q5: transient 的作用？
+
+  // 序列化时忽略该字段，不会被保存到文件/网络
+  public class User implements Serializable {
+      private String name;
+      private transient String password;  // 不序列化密码
+  }
+
+  ---
+  💡 常见错误用法
+
+  // ❌ 错误1：接口中的方法默认是 public abstract，不能是 private
+  interface A {
+      private void method();  // ❌ 编译错误（Java 9+ 允许私有辅助方法）
+  }
+
+  // ❌ 错误2：抽象方法不能是 static
+  abstract class B {
+      static abstract void method();  // ❌ 编译错误
+  }
+
+  // ❌ 错误3：final 类不能被继承
+  final class C {}
+  class D extends C {}  // ❌ 编译错误
+
+  // ❌ 错误4：接口中的变量默认是 public static final
+  interface A {
+      int count = 0;  // ❌ 不建议这样写，无法修改
+      int COUNT = 0;  // ✅ 全大写表示常量
+  }
+
+  一、基础语法
+
+  // 基本数据类型（字节数）
+  byte(1) char(2) short(2) int(4) long(8) float(4) double(8) boolean
+
+  // 包装类
+  Byte Character Short Integer Long Float Double Boolean
+
+  // 字面量
+  100L     // long
+  100F     // float
+  100D     // double
+  0B101    // 二进制
+  0xFF     // 十六进制
+  1_000    // 下划线分隔
+  1.2E3    // 科学计数法 (1200.0)
+
+  // 修饰符
+  public        // 公开，所有类可访问
+  protected     // 包内+子类可访问
+  default       // 包级私有（不写修饰符）
+  private       // 仅本类可访问
+  static        // 静态，属于类而非实例
+  final         // 最终，不可修改/继承
+
+  // 控制流
+  Test:
+  for (int x = 1; x <= 9; x++) {
+      for (int y = 1; y <= 9; y++) {
+          if (x == 9) {
+              break Test;  // 跳出外层循环
+          }
+      }
+  }
+
+  // printf格式化
+  System.out.printf("%% %d %s %5.2f %c %b%n",
+      10, "test", 666.666, 'c', true);
+
+  ---
+  二、类与对象
+
+  public class Person {
+      private String name;
+      private int age;
+
+      public Person() {
+          this("Person", 0);  // 构造器链式调用
+      }
+
+      public Person(String name, int age) {
+          this.name = name;
+          this.age = age;
+      }
+
+      public void introduce() {
+          System.out.println("Hi, I'm " + name);
+      }
+  }
+
+  Person p = new Person("张三", 18);
+  p.introduce();
+
+  抽象类
+
+  public abstract class AbstractClass {
+      private int instanceVar;
+      protected static String staticVar;
+      public static final double PI = 3.14;
+
+      public abstract void doSomething();  // 子类必须实现
+      protected abstract String getName(); // abstract 不能与 private/static 一起
+
+      public void concreteMethod() {
+          System.out.println("抽象类中的具体方法");
+      }
+
+      protected final void finalMethod() { // final 方法不可重写
+          System.out.println("final 方法");
+      }
+  }
+
+  接口
+
+  public interface InterfaceExample {
+      int DEFAULT_VALUE = 100;  // public static final 自动转换
+      String NAME = "default";
+
+      void doWork();
+      String getInfo();
+
+      default void defaultMethod() {  // Java 8+ 默认方法
+          System.out.println("接口中的默认方法");
+      }
+
+      static void staticMethod() {
+          System.out.println("接口中的静态方法");
+      }
+
+      private void privateHelper() {  // Java 9+ 私有方法
+          System.out.println("私有辅助方法");
+      }
+
+      enum Status { ACTIVE, INACTIVE }
+  }
+
+  继承与实现
+
+  public abstract class AbstractClass extends ParentClass implements Interface1, Interface2 {
+      // extends：单继承，implements：多实现
+  }
+
+  // 密封类（Java 17+）
+  sealed class Animal permits Dog, Cat {}
+  non-sealed class Dog extends Animal {}
+
+  ---
+  三、字符串处理
+
+  String str = "Hello World";
+
+  str.charAt(0);                    // 获取指定位置字符
+  str.length();                     // 字符串长度
+  str.substring(0, 5);              // 子字符串
+  str.split(",");                   // 分割字符串
+  str.replace("l", "L");            // 替换
+  str.replaceAll("regex", "new");   // 正则替换
+  str.matches("regex");             // 全量匹配
+  str.toCharArray();                // 转为字符数组
+
+  String.format("%d %s %5.2f", 10, "test", 66.6);
+
+  StringBuilder（非线程安全）
+
+  StringBuilder sb = new StringBuilder(1024);
+  sb.append("数据").append(1).append(",");
+  sb.insert(0, "开头");
+  sb.deleteCharAt(0);
+  sb.setLength(0);  // 清空
+
+  // StringBuffer 是线程安全版本（内部方法有 synchronized 锁）
+
+  Character 类
+
+  Character.isLowerCase('a');   // 是否小写
+  Character.isUpperCase('A');   // 是否大写
+  Character.isLetter('a');      // 是否字母
+  Character.isWhitespace(' ');  // 是否空白字符
+
+  // 字符转数字技巧
+  char c = '5';
+  int num = c - '0';  // num = 5
+
+  ---
+  四、集合框架
+
+  import java.util.*;
+  import java.util.Collections;
+
+  Collection<String> list = new ArrayList<>();
+  list.add("元素");
+  list.contains("元素");  // 底层依赖 equals 方法
+  list.remove("元素");
+  list.clear();
+  list.isEmpty();
+  list.size();
+  Collections.addAll(list, "a", "b", "c");
+  list.stream();
+
+  List（有序、可重复、有索引）
+
+  import java.util.List;
+  import java.util.ArrayList;
+  import java.util.LinkedList;
+
+  // ArrayList：数组结构，查找快
+  // LinkedList：双向链表，增删快
+
+  List<String> list = new ArrayList<>();
+  list.get(0);
+  list.set(0, "新值");
+  list.remove(0);
+
+  Set（无序、不重复、无索引）
+
+  import java.util.Set;
+  import java.util.HashSet;
+  import java.util.LinkedHashSet;
+  import java.util.TreeSet;
+
+  // HashSet：哈希表+链表+红黑树，无序
+  // LinkedHashSet：有序（插入顺序）
+  // TreeSet：自动排序（自然序/字典序）
+
+  Set<String> set = new HashSet<>();
+  set.add("元素");
+  Set.of("a", "b", "c");  // 不可变集合
+
+  Map（双列集合，键值对）
+
+  import java.util.Map;
+  import java.util.HashMap;
+  import java.util.LinkedHashMap;
+  import java.util.TreeMap;
+
+  // HashMap：无序，允许 key/value 为 null
+  // LinkedHashMap：有序（插入/访问顺序）
+  // TreeMap：自然顺序，key/value 不能为 null
+
+  Map<String, Integer> map = new HashMap<>();
+  map.put("key", 100);
+  map.get("key");
+  map.remove("key");
+  map.containsKey("key");
+  map.containsValue(100);
+  map.keySet();
+  map.isEmpty();
+  map.size();
+
+  // 遍历
+  map.forEach((k, v) -> System.out.println(k + "=" + v));
+  for (Map.Entry<String, Integer> entry : map.entrySet()) {
+      entry.getKey();
+      entry.getValue();
+  }
+
+  ---
+  五、迭代器
+
+  import java.util.Iterator;
+  import java.util.ListIterator;
+
+  Iterator<String> it = list.iterator();
+  while (it.hasNext()) {
+      String elem = it.next();
+      it.remove();  // 删除当前元素
+  }
+
+  // ListIterator（仅 List 可用）
+  ListIterator<String> lit = list.listIterator();
+  lit.hasPrevious();
+  lit.previous();
+  lit.set("新值");
+  lit.add("元素");
+
+  // 增强for循环
+  for (String s : list) {
+      System.out.println(s);
+  }
+
+  // forEach + Lambda
+  list.forEach(s -> System.out.println(s));
+  list.forEach(System.out::println);
+
+  ---
+  六、数组工具
+
+  import java.util.Arrays;
+  import java.util.Collections;
+
+  int[] arr = {3, 1, 4, 1, 5, 9};
+
+  Arrays.sort(arr);  // 升序
+  Arrays.sort(strArray, String.CASE_INSENSITIVE_ORDER);  // 不区分大小写
+  Arrays.sort(arr, Collections.reverseOrder());  // 降序
+
+  int index = Arrays.binarySearch(arr, 4);  // 二分查找，需先排序
+
+  Arrays.copyOf(arr, 10);        // 复制并扩容/截断
+  Arrays.copyOfRange(arr, 1, 3);
+  Arrays.fill(arr, 0);
+
+  Arrays.setAll(arr, i -> i * 2);
+  Arrays.parallelSetAll(arr, i -> i * 2);
+
+  Arrays.toString(arr);
+  Arrays.deepToString(arr2D);
+
+  Arrays.stream(arr)
+      .skip(1)
+      .limit(3)
+      .map(x -> x * 2)
+      .filter(x -> x > 5)
+      .distinct()
+      .forEach(System.out::println);
+
+  ---
+  七、异常处理
+
+  // 异常分类
+  // 编译时异常：继承 Exception，编译期检查
+  // 运行时异常：继承 RuntimeException，运行时才报错
+
+  try {
+      // 可能抛出异常的代码
+  } catch (Exception e) {
+      e.printStackTrace();  // 打印异常堆栈
+  } finally {
+      // 无论是否异常都会执行
+  }
+
+  // throws：声明方法可能抛出的异常
+  public void readFile() throws IOException {
+      // ...
+  }
+
+  // throw：手动抛出异常
+  if (age < 0) {
+      throw new IllegalArgumentException("年龄不能为负数");
+  }
+
+  ---
+  八、IO 流
+
+  File 类
+
+  import java.io.File;
+
+  File file = new File("filename.txt");
+  file.exists();
+  file.createNewFile();
+  file.mkdir();
+  file.delete();
+  file.getName();
+  file.getAbsolutePath();
+  file.length();
+  file.list();
+
+  字节流
+
+  import java.io.*;
+  import java.nio.charset.StandardCharsets;
+
+  FileInputStream fis = new FileInputStream("path/filename");
+  int b;
+  while ((b = fis.read()) != -1) {
+      System.out.print((char) b);
+  }
+  fis.close();
+
+  FileOutputStream fos = new FileOutputStream("path/filename", true);  // true 表示追加
+  String str = "Hello";
+  byte[] bytes = str.getBytes();
+  fos.write(bytes);
+  fos.close();
+
+  // 缓冲流
+  BufferedInputStream bis = new BufferedInputStream(new FileInputStream("path/filename"));
+  BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("path/filename"));
+
+  byte[] buffer = new byte[1024];
+  int len;
+  while ((len = bis.read(buffer)) != -1) {
+      bos.write(buffer, 0, len);
+  }
+  bos.close();
+  bis.close();
+
+  字符流
+
+  import java.io.*;
+  import java.nio.charset.StandardCharsets;
+
+  FileReader fr = new FileReader("path/filename", Charset.forName("GBK"));
+  int ch;
+  while ((ch = fr.read()) != -1) {
+      System.out.print((char) ch);
+  }
+  fr.close();
+
+  FileWriter fw = new FileWriter("path/filename", Charset.forName("GBK"));
+  fw.write("内容");
+  fw.close();
+
+  BufferedReader br = new BufferedReader(new FileReader("path/filename"));
+  String line;
+  while ((line = br.readLine()) != null) {
+      System.out.println(line);
+  }
+  br.close();
+
+  BufferedWriter bw = new BufferedWriter(new FileWriter("path/filename", true));
+  bw.write("内容");
+  bw.newLine();
+  bw.close();
+
+  对象序列化
+
+  import java.io.*;
+
+  public class Student implements Serializable {
+      private static final long serialVersionUID = 1L;
+      private String name;
+      private int age;
+      private transient String address;  // 不序列化
+  }
+
+  ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("path/filename"));
+  oos.writeObject(new Student("张三", 18));
+  oos.close();
+
+  ObjectInputStream ois = new ObjectInputStream(new FileInputStream("path/filename"));
+  Student stu = (Student) ois.readObject();
+  ois.close();
+
+  打印流
+
+  import java.io.*;
+  import java.nio.charset.StandardCharsets;
+
+  PrintStream ps = new PrintStream(new FileOutputStream("path/filename"), true, Charset.forName("UTF-8"));
+  ps.println("内容");
+  ps.close();
+
+  PrintWriter pw = new PrintWriter(new FileWriter("path/filename"), true);
+  pw.println("内容");
+  pw.close();
+
+  自动关闭资源
+
+  import java.io.*;
+  import java.nio.charset.StandardCharsets;
+
+  try (FileWriter writer = new FileWriter("test.txt", Charset.forName("UTF-8"))) {
+      writer.write("内容");
+  } // 自动 close
+
+  ---
+  九、网络编程
+
+  IP 操作
+
+  import java.net.InetAddress;
+
+  InetAddress address = InetAddress.getByName("localhost");
+  String hostName = address.getHostName();
+  String hostAddress = address.getHostAddress();
+
+  UDP（无连接，速度快，数据可能丢失）
+
+  import java.net.*;
+
+  // 发送端
+  DatagramSocket ds = new DatagramSocket();
+  String str = "Hello";
+  byte[] bytes = str.getBytes();
+  InetAddress address = InetAddress.getByName("127.0.0.1");
+  DatagramPacket dp = new DatagramPacket(bytes, bytes.length, address, 8888);
+  ds.send(dp);
+  ds.close();
+
+  // 接收端
+  DatagramSocket ds = new DatagramSocket(8888);
+  byte[] bytes = new byte[1024];
+  DatagramPacket dp = new DatagramPacket(bytes, bytes.length);
+  ds.receive(dp);
+  String data = new String(dp.getData(), 0, dp.getLength());
+  ds.close();
+
+  TCP（面向连接，可靠）
+
+  import java.net.*;
+  import java.io.*;
+
+  // 服务端
+  ServerSocket ss = new ServerSocket(8888);
+  Socket s = ss.accept();
+  InputStream is = s.getInputStream();
+  BufferedReader br = new BufferedReader(new InputStreamReader(is));
+  String line;
+  while ((line = br.readLine()) != null) {
+      System.out.println(line);
+  }
+  br.close();
+  s.close();
+
+  // 客户端
+  Socket s = new Socket("127.0.0.1", 8888);
+  OutputStream os = s.getOutputStream();
+  os.write("Hello Server".getBytes());
+  os.close();
+  s.close();
+
+  ---
+  十、多线程
+
+  线程创建方式
+
+  // 方式1：继承 Thread
+  class MyThread extends Thread {
+      @Override
+      public void run() {
+          // 线程执行代码
+      }
+  }
+  MyThread mt = new MyThread();
+  mt.start();
+
+  // 方式2：实现 Runnable
+  MyRunnable mr = new MyRunnable();
+  Thread t = new Thread(mr);
+  t.start();
+
+  // 方式3：实现 Callable（可返回结果）
+  import java.util.concurrent.Callable;
+  import java.util.concurrent.FutureTask;
+
+  class MyCallable implements Callable<String> {
+      @Override
+      public String call() throws Exception {
+          return "结果";
+      }
+  }
+  MyCallable mc = new MyCallable();
+  FutureTask<String> ft = new FutureTask<>(mc);
+  Thread t = new Thread(ft);
+  t.start();
+  String result = ft.get();
+
+  线程控制
+
+  Thread.currentThread().getName();
+  mt.setName("线程名");
+  mt.setPriority(Thread.MAX_PRIORITY);  // 1-10，默认5
+  mt.sleep(1000);
+  mt.join();
+  mt.setDaemon(true);
+  Thread.yield();
+
+  同步机制
+
+  // 同步代码块
+  synchronized (锁对象) {
+      // 需要同步的代码
+  }
+
+  // 同步方法
+  public synchronized void method() {
+      // 锁对象：非静态为 this，静态为 类名.class
+  }
+
+  // 手动锁 Lock
+  import java.util.concurrent.locks.*;
+
+  ReentrantLock lock = new ReentrantLock();
+  lock.lock();
+  try {
+      // 同步代码
+  } finally {
+      lock.unlock();
+  }
+
+  等待唤醒机制（重点）
+
+  // 必须在同步代码块中使用同一个锁对象
+  synchronized (obj) {
+      while (条件不满足) {
+          obj.wait();  // 释放锁，进入等待状态
+      }
+      // 执行业务逻辑
+      obj.notifyAll();  // 唤醒其他线程
+  }
+
+  // Condition 接口（Lock 的等待唤醒）
+  import java.util.concurrent.locks.*;
+
+  private final Lock lock = new ReentrantLock();
+  private final Condition notFull = lock.newCondition();
+  private final Condition notEmpty = lock.newCondition();
+
+  lock.lock();
+  try {
+      while (队列已满) {
+          notFull.await();  // 类似 wait()，释放 lock
+      }
+      // 执行业务逻辑
+      notEmpty.signal();  // 唤醒消费者
+  } finally {
+      lock.unlock();
+  }
+
+  线程池
+
+  import java.util.concurrent.*;
+
+  // 缓存线程池
+  ExecutorService pool1 = Executors.newCachedThreadPool();
+
+  // 固定大小线程池
+  ExecutorService pool2 = Executors.newFixedThreadPool(3);
+
+  // 单线程线程池
+  ExecutorService pool3 = Executors.newSingleThreadExecutor();
+
+  // 提交任务
+  pool1.submit(() -> System.out.println("任务执行"));
+  pool1.shutdown();
+
+  // 自定义线程池
+  ThreadPoolExecutor pool = new ThreadPoolExecutor(
+      2,                          // corePoolSize：核心线程数
+      5,                          // maximumPoolSize：最大线程数
+      60,                         // keepAliveTime：空闲线程存活时间
+      TimeUnit.SECONDS,           // 时间单位
+      new ArrayBlockingQueue<>(10), // 任务队列
+      Executors.defaultThreadFactory(),
+      new ThreadPoolExecutor.AbortPolicy()
+  );
+
+  // 拒绝策略
+  // AbortPolicy：默认，抛异常
+  // DiscardPolicy：丢弃任务，不抛异常
+  // DiscardOldestPolicy：丢弃队列最前面的任务
+  // CallerRunsPolicy：在调用者线程中运行任务
+
+  ---
+  十一、常用工具类
+
+  Math 类
+
+  Math.max(a, b);
+  Math.min(a, b);
+  Math.abs(x);
+  Math.sqrt(x);
+  Math.pow(x, y);
+  Math.round(x);
+  Math.random();
+
+  Random 类
+
+  import java.util.Random;
+
+  Random r = new Random();
+  r.nextInt(10);     // [0, 10)
+  r.nextFloat();
+  r.nextDouble();
+  r.nextBoolean();
+
+  Scanner 类
+
+  import java.util.Scanner;
+
+  Scanner sc = new Scanner(System.in);
+  sc.next();
+  sc.nextLine();
+  sc.nextInt();
+  sc.nextDouble();
+  sc.hasNextInt();
+  sc.close();
+
+  ---
+  十二、正则表达式
+
+  import java.util.regex.*;
+
+  Pattern pattern = Pattern.compile("\\d{3}-\\d{4}", Pattern.CASE_INSENSITIVE);
+  Matcher matcher = pattern.matcher("123-4567");
+
+  matcher.matches();
+  matcher.find();
+  matcher.group();
+  matcher.start();
+  matcher.end();
+  matcher.reset("新字符串");
+
+  // String 中的正则方法
+  str.matches("\\d+");
+  str.split(",");
+  str.replaceAll("\\s+", "");
+
+  ---
+  十三、反射
+
+  import java.lang.reflect.*;
+
+  // 获取 Class 对象的三种方式
+  Class<?> cls1 = Class.forName("全类名");
+  Class<?> cls2 = Student.class;
+  Class<?> cls3 = new Student().getClass();
+
+  // 获取构造方法
+  Constructor<?>[] cons = cls.getConstructors();
+  Constructor<?> con = cls.getDeclaredConstructor(String.class, int.class);
+  con.setAccessible(true);
+  Student stu = (Student) con.newInstance("张三", 18);
+
+  // 获取成员变量
+  Field[] fields = cls.getDeclaredFields();
+  Field name = cls.getDeclaredField("name");
+  name.setAccessible(true);
+  String value = (String) name.get(stu);
+  name.set(stu, "李四");
+
+  // 获取成员方法
+  Method[] methods = cls.getMethods();
+  Method method = cls.getDeclaredMethod("方法名", 参数类型.class...);
+  method.setAccessible(true);
+  String result = (String) method.invoke(stu, "参数值");
+
+  ---
+  十四、注解
+
+  @Override          // 标记方法重写
+  @Deprecated        // 标记过时
+  @SuppressWarnings("unchecked")  // 抑制警告
+
+  ---
+  常用导入汇总
+
+  // 集合框架
+  import java.util.*;
+  import java.util.List;
+  import java.util.ArrayList;
+  import java.util.LinkedList;
+  import java.util.Set;
+  import java.util.HashSet;
+  import java.util.LinkedHashSet;
+  import java.util.TreeSet;
+  import java.util.Map;
+  import java.util.HashMap;
+  import java.util.LinkedHashMap;
+  import java.util.TreeMap;
+  import java.util.Collections;
+  import java.util.Arrays;
+  import java.util.Iterator;
+  import java.util.ListIterator;
+
+  // IO 流
+  import java.io.*;
+  import java.nio.charset.StandardCharsets;
+
+  // 网络编程
+  import java.net.*;
+
+  // 多线程与并发
+  import java.util.concurrent.*;
+  import java.util.concurrent.Callable;
+  import java.util.concurrent.FutureTask;
+  import java.util.concurrent.locks.*;
+
+  // 正则表达式
+  import java.util.regex.*;
+
+  // 反射
+  import java.lang.reflect.*;
+
+  // 工具类
+  import java.util.Random;
+  import java.util.Scanner;
+  import java.util.Formatter;
+  import java.util.Objects;
+
+  等待唤醒机制（详解）
+
+  核心概念
+
+  等待唤醒机制是多线程间通信的一种方式，让线程可以：
+  - 在某个条件不满足时等待（释放锁，进入等待状态）
+  - 在条件满足后被其他线程唤醒（重新获取锁，继续执行）
+
+  基本方法（Object 类）
+
+  import java.lang.*;
+
+  // 这些方法必须在同步代码块或同步方法中使用，且必须用同一个锁对象调用
+  obj.wait();          // 当前线程等待，释放锁对象
+  obj.wait(long timeout);  // 等待指定毫秒数，超时自动唤醒
+  obj.notify();        // 随机唤醒一个等待该锁对象的线程
+  obj.notifyAll();     // 唤醒所有等待该锁对象的线程
+
+  为什么必须在同步中使用？
+
+  // 错误示例 - 会抛出 IllegalMonitorStateException
+  Object lock = new Object();
+  lock.wait();  // ❌ 没有获取锁就调用 wait()
+
+  // 正确示例
+  synchronized (lock) {
+      lock.wait();  // ✅ 已获取锁，可以调用
+  }
+
+  原因：wait() 需要释放当前线程持有的锁，如果没有持有锁就无法释放，所以 Java 强制要求必须在同步代码中使用。
+
+  生产者消费者模式（经典案例）
+
+  import java.util.LinkedList;
+  import java.util.Queue;
+
+  public class ProducerConsumer {
+      // 共享数据容器
+      private static final Queue<String> queue = new LinkedList<>();
+      private static final int MAX_SIZE = 5;
+      private static final Object LOCK = new Object(); // 必须是同一个锁对象
+
+      public static void main(String[] args) {
+          // 生产者线程
+          Thread producer = new Thread(() -> {
+              for (int i = 1; i <= 20; i++) {
+                  synchronized (LOCK) {
+                      // 如果队列满了，生产者等待
+                      while (queue.size() >= MAX_SIZE) {
+                          try {
+                              System.out.println("队列已满，生产者等待...");
+                              LOCK.wait();  // 释放锁，进入等待状态
+                          } catch (InterruptedException e) {
+                              e.printStackTrace();
+                          }
+                      }
+
+                      // 生产产品
+                      String product = "产品" + i;
+                      queue.offer(product);
+                      System.out.println("生产: " + product + "，当前数量: " + queue.size());
+
+                      // 唤醒消费者
+                      LOCK.notifyAll();  // 唤醒所有等待该锁的线程
+                  }
+
+                  try {
+                      Thread.sleep(100);  // 模拟生产耗时
+                  } catch (InterruptedException e) {
+                      e.printStackTrace();
+                  }
+              }
+          }, "生产者");
+
+          // 消费者线程
+          Thread consumer = new Thread(() -> {
+              while (true) {
+                  synchronized (LOCK) {
+                      // 如果队列空了，消费者等待
+                      while (queue.isEmpty()) {
+                          try {
+                              System.out.println("队列为空，消费者等待...");
+                              LOCK.wait();  // 释放锁，进入等待状态
+                          } catch (InterruptedException e) {
+                              e.printStackTrace();
+                          }
+                      }
+
+                      // 消费产品
+                      String product = queue.poll();
+                      System.out.println("消费: " + product + "，当前数量: " + queue.size());
+
+                      // 唤醒生产者
+                      LOCK.notifyAll();  // 唤醒所有等待该锁的线程
+                  }
+
+                  try {
+                      Thread.sleep(200);  // 模拟消费耗时
+                  } catch (InterruptedException e) {
+                      e.printStackTrace();
+                  }
+              }
+          }, "消费者");
+
+          producer.start();
+          consumer.start();
+      }
+  }
+
+  为什么用 while 而不是 if？
+
+  // ❌ 错误写法 - 使用 if
+  synchronized (LOCK) {
+      if (queue.isEmpty()) {
+          LOCK.wait();  // 被唤醒后不会重新检查条件
+      }
+      // 如果被虚假唤醒（spurious wakeup），可能执行到此处时队列仍是空的
+      String product = queue.poll();  // 可能返回 null！
+  }
+
+  // ✅ 正确写法 - 使用 while
+  synchronized (LOCK) {
+      while (queue.isEmpty()) {  // 被唤醒后会重新检查条件
+          LOCK.wait();
+      }
+      // 保证队列一定有元素
+      String product = queue.poll();
+  }
+
+  原因：wait() 可能被虚假唤醒（spurious wakeup），操作系统可能会在没有 notify 的情况下唤醒线程。使用 while 循环可以确保被唤醒后重新检查条件是否满足。
+
+  wait() 与 sleep() 的区别
+
+  // sleep() - Thread 类的静态方法
+  Thread.sleep(1000);
+  // 1. 不释放锁（如果在同步代码块中）
+  // 2. 必须传入时间，不能被 notify 唤醒
+  // 3. 时间到自动唤醒
+
+  // wait() - Object 类的实例方法
+  synchronized (obj) {
+      obj.wait();           // 等待直到被 notify
+      obj.wait(1000);       // 等待最多 1000 毫秒
+  }
+  // 1. 会释放锁
+  // 2. 必须在同步代码中用同一个锁对象调用
+  // 3. 可以被 notify / notifyAll 唤醒，也可以超时自动唤醒
+
+  // 演示区别
+  public class WaitSleepDemo {
+      private static final Object LOCK = new Object();
+
+      public static void main(String[] args) {
+          // sleep 不释放锁
+          Thread t1 = new Thread(() -> {
+              synchronized (LOCK) {
+                  System.out.println("Thread1 获取锁，开始 sleep");
+                  try {
+                      Thread.sleep(2000);  // sleep 期间持有锁
+                  } catch (InterruptedException e) {
+                      e.printStackTrace();
+                  }
+                  System.out.println("Thread1 sleep 结束，释放锁");
+              }
+          });
+
+          // wait 释放锁
+          Thread t2 = new Thread(() -> {
+              try {
+                  Thread.sleep(100);  // 让 t1 先执行
+              } catch (InterruptedException e) {
+                  e.printStackTrace();
+              }
+              synchronized (LOCK) {
+                  System.out.println("Thread2 获取锁，开始 wait");
+                  try {
+                      LOCK.wait();  // wait 期间释放锁
+                  } catch (InterruptedException e) {
+                      e.printStackTrace();
+                  }
+                  System.out.println("Thread2 被唤醒");
+              }
+          });
+
+          Thread t3 = new Thread(() -> {
+              try {
+                  Thread.sleep(1500);  // 等待合适时机
+              } catch (InterruptedException e) {
+                  e.printStackTrace();
+              }
+              synchronized (LOCK) {
+                  System.out.println("Thread3 获取锁，唤醒 t2");
+                  LOCK.notifyAll();
+              }
+          });
+
+          t1.start();
+          t2.start();
+          t3.start();
+      }
+  }
+
+  Condition 接口（Lock 的等待唤醒机制）
+
+  import java.util.concurrent.locks.*;
+
+  public class ConditionDemo {
+      private static final Lock lock = new ReentrantLock();
+      private static final Condition notFull = lock.newCondition();  // 生产者等待条件
+      private static final Condition notEmpty = lock.newCondition(); // 消费者等待条件
+
+      private static final Queue<String> queue = new LinkedList<>();
+      private static final int MAX_SIZE = 5;
+
+      public static void main(String[] args) {
+          Thread producer = new Thread(() -> {
+              for (int i = 1; i <= 20; i++) {
+                  lock.lock();
+                  try {
+                      while (queue.size() >= MAX_SIZE) {
+                          System.out.println("队列已满，生产者等待...");
+                          notFull.await();  // 类似 wait()，但会释放 lock
+                      }
+
+                      String product = "产品" + i;
+                      queue.offer(product);
+                      System.out.println("生产: " + product + "，当前数量: " + queue.size());
+
+                      notEmpty.signal();  // 唤醒消费者（类似 notify）
+                  } catch (InterruptedException e) {
+                      e.printStackTrace();
+                  } finally {
+                      lock.unlock();
+                  }
+
+                  try {
+                      Thread.sleep(100);
+                  } catch (InterruptedException e) {
+                      e.printStackTrace();
+                  }
+              }
+          }, "生产者");
+
+          Thread consumer = new Thread(() -> {
+              while (true) {
+                  lock.lock();
+                  try {
+                      while (queue.isEmpty()) {
+                          System.out.println("队列为空，消费者等待...");
+                          notEmpty.await();
+                      }
+
+                      String product = queue.poll();
+                      System.out.println("消费: " + product + "，当前数量: " + queue.size());
+
+                      notFull.signal();  // 唤醒生产者
+                  } catch (InterruptedException e) {
+                      e.printStackTrace();
+                  } finally {
+                      lock.unlock();
+                  }
+
+                  try {
+                      Thread.sleep(200);
+                  } catch (InterruptedException e) {
+                      e.printStackTrace();
+                  }
+              }
+          }, "消费者");
+
+          producer.start();
+          consumer.start();
+      }
+  }
+
+  Condition 与 Object wait/notify 的优势
+
+  // Object wait/notify 的限制
+  // 1. 只能有一个等待队列（所有等待同一锁的线程都在一个队列）
+  // 2. notify() 随机唤醒一个，不能精确唤醒特定类型的线程
+  // 3. 不支持超时等待（需要用 wait(long timeout)）
+
+  // Condition 的优势
+  // 1. 可以创建多个 Condition，实现精确唤醒
+  // 2. 支持超时等待 await(long time, TimeUnit unit)
+  // 3. 支持响应中断 awaitUninterruptibly()
+
+  // 示例：精确唤醒
+  private final Lock lock = new ReentrantLock();
+  private final Condition conditionA = lock.newCondition();
+  private final Condition conditionB = lock.newCondition();
+
+  // 可以单独唤醒等待 conditionA 的线程
+  conditionA.signal();  // 只唤醒等待 conditionA 的线程
+
+  // 而 notifyAll 会唤醒所有等待该锁的线程
+  synchronized (lock) {
+      lock.notifyAll();  // 无法区分是哪类线程
+  }
+
+  等待唤醒机制工作流程图
+
+  ┌─────────────────────────────────────────────────────────────┐
+  │                        等待唤醒机制流程                         │
+  └─────────────────────────────────────────────────────────────┘
+
+  线程 A (生产者)                        线程 B (消费者)
+      │                                       │
+      ├─ 获取锁                               ├─ 获取锁
+      │                                       │
+      ├─ 检查条件：队列是否满？                ├─ 检查条件：队列是否空？
+      │                                       │
+      ├─ 满 → wait() 释放锁，进入等待状态      ├─ 空 → wait() 释放锁，进入等待状态
+      │    ↓                                    │    ↓
+      │  ┌─────┐                               │  ┌─────┐
+      │  │等待区│                               │  │等待区│ (WAITING 状态)
+      │  └─────┘                               │  └─────┘
+      │                                       │
+  线程 A (唤醒后) ← notifyAll() ←────────────┤
+      │                                       │
+      ├─ 重新获取锁                           ├─ 重新获取锁
+      │                                       │
+      ├─ 再次检查条件（while 循环）            ├─ 再次检查条件（while 循环）
+      │                                       │
+      ├─ 条件满足 → 继续执行                   ├─ 条件满足 → 继续执行
+      │                                       │
+      ├─ 生产产品                             ├─ 消费产品
+      │                                       │
+      ├─ 释放锁                               ├─ 释放锁
+      │                                       │
+      └─ notifyAll() 唤醒其他线程              └─ notifyAll() 唤醒其他线程
+
+  常见面试问题
+
+  // Q1: 为什么 wait/notify/notifyAll 定义在 Object 类中？
+  // A: 因为这些方法需要操作对象的监视器锁，而 Java 中任何对象都可以作为锁
+  //    如果定义在 Thread 类中，就只能用 Thread 对象作为锁，限制了灵活性
+
+  // Q2: wait() 方法释放锁后，什么时候重新获取锁？
+  // A: 被唤醒后，线程需要重新竞争获取锁，获取到锁后才能继续执行
+  //    这就是为什么被唤醒后不一定立即执行，还要和其他线程竞争锁
+
+  // Q3: notify() 和 notifyAll() 有什么区别？
+  // A: notify() 随机唤醒一个等待线程，notifyAll() 唤醒所有等待线程
+  //    通常建议使用 notifyAll()，因为 notify() 可能唤醒错误的线程导致信号丢失
+
+  // Q4: 什么是虚假唤醒（Spurious Wakeup）？
+  // A: 线程在没有被 notify 的情况下被唤醒，这是底层操作系统的特性
+  //    解决方法：使用 while 循环重新检查条件
+
+  // Q5: 如何避免死锁？
+  // A: 1. 锁的获取顺序一致（所有线程按相同顺序获取多个锁）
+  //    2. 设置超时（使用 tryLock(long timeout)）
+  //    3. 减小锁的粒度（只锁必要的代码）
+  //    4. 避免嵌套锁
+
+  ---
+  心得总结
+
+  核心要点
+
+  1. 集合选择：ArrayList 查找快，LinkedList 增删快，HashMap 无序，LinkedHashMap 有序
+  2. 异常处理：try-catch-finally，throws 声明，throw 手动抛出
+  3. IO 流：字节流可操作所有文件，字符流仅操作文本文件，记得关闭资源
+  4. 多线程：synchronized 同步，Lock 手动锁，wait/notify 等待唤醒
+  5. 网络编程：UDP 快但不可靠，TCP 慢但可靠
+
+  常见坑点
+
+  1. wait() 必须在同步代码块中用同一个锁对象调用
+  2. 迭代器遍历不能使用集合的 remove 方法
+  3. 字符串比较用 equals()，不用 ==
+  4. equals() 和 hashCode() 必须一起重写
+  5. finally 中不能有 return（会覆盖 try/catch 的返回值）

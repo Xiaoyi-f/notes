@@ -38,4 +38,72 @@ DISTINCT不能用于COUNT(＊)
 GROUP BY 子句 HAVING 子句 
 WHERE 在分组之前过滤 HAVING 在分组之后过滤 
 支持嵌套查询 子查询只能单列查询 
+select * from 订单表 left join 配送表 on 订单表.订单号 = 配送表.订单号;
+select student.name, scores.score from students left join scores on students.sid = scores.sid where scores.subject = '数学';
+
+操作符 作用 是否去重
+UNION 合并两个结果集 ✅ 去重
+UNION ALL 合并两个结果集 ❌ 不去重
+INTERSECT 返回两个结果集的交集 ✅ 去重
+EXCEPT / MINUS 返回第一个结果集有、第二个没有的行 ✅ 去重
+
+注意：MySQL 不支持 INTERSECT 和 EXCEPT（可用其他写法替代），但 PostgreSQL、SQL Server、Oracle 都支持
+
+硬性要求：
+1. 列数相同
+2. 对应列的数据类型兼容（能隐式转换）
+3. 最终结果的列名以第一个 SELECT 的列名为准
+4. 允许各自有 WHERE、GROUP BY，但不能在整个组合查询后统一用 ORDER BY（只能在最后对整个结果排序，且必须跟在最后一个 SELECT 后面）
+
+SELECT 列1, 列2 FROM 表A
+UNION [ALL | INTERSECT | EXCEPT]
+SELECT 列1, 列2 FROM 表B;
+
+-- 组合查询：把今年和去年的销售记录上下拼在一起
+SELECT 产品, 金额, 2023 AS 年份 FROM 销售额2023
+UNION ALL
+SELECT 产品, 金额, 2024 FROM 销售额2024;
+
+-- 联结：把产品表和订单表左右拼在一起查产品详情
+SELECT * FROM 订单 LEFT JOIN 产品 ON 订单.产品ID = 产品.ID;
+
+1. UNION 自动去重会排序，大数据量时慢；明确不需要去重用 UNION ALL
+2. ORDER BY 只能出现在最后，且必须使用第一个 SELECT 中的列名或别名
+   (SELECT 产品, 金额 FROM 2023) UNION (SELECT 产品, 金额 FROM 2024) ORDER BY 金额 DESC;
+
+3. 括号的作用：默认从左到右执行，但可以用括号改变顺序（尤其在混合 UNION 和 INTERSECT 时，推荐加括号明确优先级）
+4. MySQL 替代方案：
+   · INTERSECT → INNER JOIN 或 EXISTS
+   · EXCEPT → NOT EXISTS 或 LEFT JOIN ... WHERE B.ID IS NULL
+
+insert into 表 values (数据元组);
+
+省略的列必须满足以下某个条件
+该列定义为允许NULL值（无值或空值）
+在表定义中给出默认值。这表示如果不给出值，将使用默认值
+注意：省略所需的值
+如果表中不允许有NULL值或者默认值，这时却省略了表中的值，DBMS就会产生错误消息，相应的行不能成功插入
+
+insert into 表(列1, 列2, 列3, ...) select 列1, 列2, 列3, ... from 表2; 
+插入检索的数据 
+
+CREATE TABLE CustCopy AS SELECT * FROM Customers; 将表中内容复制到一个新表
+
+UPDATE Customers
+SET cust_contact = 'Sam Roberts',
+    cust_email = 'sam@toyland.com'
+WHERE cust_id = 1000000006;
+
+DELETE FROM Customers
+WHERE cust_id = 1000000006;
+
+CREATE TABLE Products
+(
+  prod_id        CHAR(10)            NOT NULL,
+  vend_id        CHAR(10)            NOT NULL,
+  prod_name      CHAR(254)           NOT NULL,
+  prod_price     DECIMAL(8,2)        NOT NULL,
+  prod_desc      VARCHAR(1000)       NULL
+);
+
 

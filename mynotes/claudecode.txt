@@ -26,15 +26,18 @@ claudecode 会将当前文件夹作为工作文件夹
 所以先进入到对应的文件夹之后再执行 claude 命令
 cd /D 盘符:/ 进入对应的盘
 
-配置AI模型:
-依旧进入 .claude.json 文件
-添加 
-"env": {
-  "ANTHROPIC_BASE_URL": "https://api.moonshot.cn/anthropic",
-  "ANTHROPIC_AUTH_TOKEN": "秘钥TOKEN",
-  "ANTHROPIC_MODEL": "模型以及版本" 
+配置模型:
+Mac/Linux: ~/.claude/settings.json
+Windows: C:\Users\你的用户名\.claude\settings.json
+进入以上文件进行配置，没有则手动创建
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://open.bigmodel.cn/api/anthropic",
+    "ANTHROPIC_AUTH_TOKEN": "your_api_key"
+  }
 }
-上面的URL是一个示例
+// 以上是使用智谱模型的示例
+// 购买智谱API 资源包之后直接填写好配置 即可
 
 命令行文本颜色含义:
 > 用户输入
@@ -57,4 +60,20 @@ auto 自动执行大多数操作，但带后台安全检查
 会话中按 Shift+Tab 切换到它 或 claude --permission-mode auto
 
 另外还有几个模式...
+
+Esc Esc 紧急回退 一键撤销Claude最近一次的文件改动 
+
+常用命令:
+claude "/<path>"
+/help 查看帮助
+/init 在项目根目录创建 CLAUDE.md 记忆文件 
+/compact 压缩/总结 对话历史 解决 Token 超限问题 
+/model 模型切换
+/cost 查看当前会话的Token消耗和预估费用
+/clear 清空对话
+
+ctrl + L 清屏
+ctrl + C 中断当前任务
+ctrl + D 退出
+ctrl + O 切换详细输出模式 查看AI的思考过程 
 
