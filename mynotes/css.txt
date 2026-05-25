@@ -3,7 +3,7 @@ cursor -> pointer text not-allowed grab grabbing
 vertical-align text-align text-decoration 
 white-space -> nowrap normal wrap
 word-break: break-all;
-position top right bottom left z-index
+position top right bottom left z-index inset
 relative absolute sticky(最近滚动容器) fixed 
 display inline inline-block block 
 display none -> DOM

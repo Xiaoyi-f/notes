@@ -84,7 +84,8 @@ onUnmounted(() => {
 import { useRouter, useRoute } from 'vue-router'
 const route = useRoute()
 const router = useRouter()
-console.log(route.path)
+console.log(route.path)  // 只包含 URL 路径部分，不含查询参数和hash(#后面的值称为哈希值 一般用来锚定页面中某个元素)
+console.log(route.fullPath) // URL 完全路径
 console.log(route.meta)
 console.log(route.params)
 console.log(route.query) // 查询参数是问号后面的参数
