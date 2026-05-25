@@ -1,0 +1,26 @@
+java支持泛型,声明泛型之后就可以直接使用类型参数代类型，最终实际使用传递真实类型就可以
+    泛型类: 在类名后面加 <T>，T 就是类型参数 这个不一定是要 T，也不是只能有一个类型参数，实例化时候在类名后面依次传递对应的类型就行
+    泛型接口: 定义接口时候在接口名后加 <T> 实现时候 在接口后面传递对应的类型就行，当然也可以不传递实际数据类型，依旧写明 T 标明依旧使用泛型，还未传递具体类型
+    泛型方法: 在方法的返回类型前面加 <T>，表示这是一个泛型方法
+    类型参数约定:
+        T	Type（类型）	一般类型
+        E	Element（元素）	集合中的元素，如 List<E>
+        K	Key（键）	Map 的键，如 Map<K, V>
+        V	Value（值）	Map 的值，如 Map<K, V>
+        N	Number（数字）	数字类型
+        R	Result（结果）	返回结果类型
+    泛型通配符:
+        无界通配符 <?> 表示任意类型，常用于只读场景
+        上界通配符 <? extends T> 表示T 或 T 的子类，用于生产者场景（只读）
+        下界通配符 <? super T> 表示T 或 T 的父类，用于消费者场景（写入）
+    PECS(Producer Extends, Consumer Super):
+        <? extends T>	生产者（提供数据）	✅ 可读为 T	❌ 不可写	生产（读）用 extends
+        <? super T>	消费者（接收数据）	✅ 可读为 Object	✅ 可写 T 及子类	消费（写）用 super
+        <?>	未知类型	✅ 可读为 Object	❌ 不可写（除 null）	任意类型
+    Java 的泛型是伪泛型。泛型信息只在编译阶段存在，编译成字节码后，泛型信息会被擦除
+    擦除规则:
+        原始代码	擦除后（字节码）
+        Box<T>	Box（T 擦除为 Object）
+        Box<T extends Number>	Box（T 擦除为 Number）
+        List<? extends Number>	List（擦除为 Number）
+        List<? super Integer>	List（擦除为 Object）
