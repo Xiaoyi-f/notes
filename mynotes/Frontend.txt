@@ -5,6 +5,11 @@
 4. js 统一 不使用分号
 
 # HTML
+
+- H4：依赖外部插件（Flash）实现多媒体，存储靠 Cookie，缺乏语义化
+- H5：原生支持多媒体、本地存储、语义化标签，更适合移动端和现代 Web 应用
+DOCTYPE html 声明 然后 使用 HTML5 语法即可 
+
 div span
 
 h1~h6 p strong em ins del &nbsp ;  pre code  
