@@ -1,6 +1,8 @@
 规范:
 1. CSS 类名 --> xxx-xxx__xxx
 2. 需要等待 接口开发 或 路由开发 在对应板块上面写 "接口" / "路由"
+3. 在 template 盒子基础上 再到里层 包 一个 div 盒子 并且 在盒子上写明关键表示类名
+4. js 统一 不使用分号
 
 # HTML
 div span
@@ -45,7 +47,7 @@ align-items align-item align-self order grid
 
 grid-template-areas grid-template-rows grid-template-columns gap 
 
-repeat auto-fill auto-fit minmax px rem ch % vh vw 
+repeat auto-fill auto-fit minmax px rem ch % vh vw dvh(动态 -> 减少/避免 抖动)
 
 @keyframes @media and or not 
 
@@ -71,7 +73,7 @@ localStorage sessionStorage ->
 
 document.cookie -> key1=value1; key2=value; key3=value
 
-.map(() => {})
+.map(() => {}) --> 返回数组
 
 .forEach(() => {})
 
@@ -124,6 +126,9 @@ v-show
 v-for (content, index/key) in traget :key
 v-on <-> @
 v-once {{}}
+
+<div v-for="d in 7" :key="d">{{ ['日','一','二','三','四','五','六'][d-1] }}</div>
+第一个中括号创建一个数组，之后的一个中括号就是从前面的数组中提取到对应的索引的值
 
 defineProps(['传值属性])
 const emit = defineEmits(['事件'])
