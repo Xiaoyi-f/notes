@@ -136,6 +136,7 @@
   访问内部类字段 -> this.x 
   访问外部类静态成员 -> Outer.x 
   方法中的内部类称为局部内部类 能够修改外部类的字段 不能修改方法中的局部变量(只读)  
+  方法内部定义的局部类不能够有访问修饰符 
 
   一、基础语法
 
@@ -243,8 +244,6 @@
 
   str.replaceAll("regex", "new");   // 正则替换
   str.matches("regex");             // 全量匹配
-
-  String.format("%d %s %5.2f", 10, "test", 666.666);
 
   StringBuilder（非线程安全）
 
@@ -392,7 +391,7 @@
       System.out.println(s);
   }
 
-  // forEach + Lambda
+  // forEach + Lambda(不允许与外层变量/函数重名)
   list.forEach(s -> System.out.println(s));
   list.forEach(System.out::println);
 
