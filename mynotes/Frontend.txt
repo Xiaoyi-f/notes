@@ -97,7 +97,7 @@ try {} catch(err) {} finally {}
 .push() 添尾
 .unshift() 添头
 .slice(start, end)
-.splice(start, deleteCount, item1, item2 ...)
+.splice(start, deleteCount, item1, item2 ...) --> 以数组形式返回删除的元素
 .split()
 
 String(content).trim()

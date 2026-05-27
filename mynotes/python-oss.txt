@@ -1,0 +1,126 @@
+通过阿里云创建OSS桶然后进入RAM控制台访问找到用户 创建/访问 RAM用户 即可访问对应的Key等信息 
+注意创建OSS相关Key和权限管理 对应桶的概览中有桶的对应信息
+domain = f"https://{bucket_name}.{endpoint}" 
+
+# config.py
+OSS_CONFIG = {
+    'access_key_id': '',
+    'access_key_secret': '',
+    'endpoint': '',
+    'bucket_name': '',
+    'domain': ''
+}
+
+# util/oss.py
+import oss2
+import uuid
+import os
+from config import OSS_CONFIG
+
+class OSSManager:
+    def __init__(self):
+        self.auth = oss2.Auth(
+            OSS_CONFIG['access_key_id'],
+            OSS_CONFIG['access_key_secret']
+        )
+        self.bucket = oss2.Bucket(
+            self.auth,
+            OSS_CONFIG['endpoint'],
+            OSS_CONFIG['bucket_name']
+        )
+        self.domain = OSS_CONFIG['domain']
+    
+    def upload_file(self, file_content, filename, folder='uploads'):
+        """
+        上传文件到 OSS
+        :param file_content: 文件二进制内容
+        :param filename: 原文件名
+        :param folder: 存储目录
+        :return: 文件访问URL
+        """
+        # 生成唯一文件名
+        ext = filename.rsplit('.', 1)[-1] if '.' in filename else ''
+        new_name = f"{uuid.uuid4().hex}.{ext}" if ext else uuid.uuid4().hex
+        oss_key = f"{folder}/{new_name}"
+        
+        # 上传
+        self.bucket.put_object(oss_key, file_content)
+        
+        # 返回访问URL
+        return f"{self.domain}/{oss_key}"
+    
+    def upload_file_from_path(self, local_path, folder='uploads'):
+        """
+        从本地路径上传文件
+        """
+        with open(local_path, 'rb') as f:
+            content = f.read()
+        filename = os.path.basename(local_path)
+        return self.upload_file(content, filename, folder)
+    
+    def delete_file(self, url):
+        """
+        删除 OSS 文件
+        """
+        if not url:
+            return
+        # 从 URL 提取 key
+        oss_key = url.replace(f"{self.domain}/", "")
+        self.bucket.delete_object(oss_key)
+    
+    def get_file_url(self, oss_key):
+        """
+        获取文件访问URL
+        """
+        return f"{self.domain}/{oss_key}"
+    
+    def file_exists(self, oss_key):
+        """
+        检查文件是否存在
+        """
+        return self.bucket.object_exists(oss_key)
+
+# 全局实例
+oss_manager = OSSManager()
+
+
+# app.py
+@app.route('/api/upload/avatar', methods=['POST'])
+def upload_avatar():
+    try:
+        user_id = request.json.get('user_id')
+        image_data = request.json.get('image')
+        
+        # 解码并上传到 OSS
+        file_content = base64.b64decode(image_data.split(',')[1])
+        
+        # 上传到 OSS，返回唯一 URL
+        url = oss_manager.upload_file(
+            file_content, 
+            f"avatar_{user_id}.jpg", 
+            folder='avatars'
+        )
+        
+        # URL 示例：
+        # https://xiaoyi-blog.oss-cn-hangzhou.aliyuncs.com/avatars/abc123.jpg
+        
+        # 保存 URL 到数据库
+        user = User.query.get(user_id)
+        if user:
+            # 删除旧头像
+            if user.avatar_url:
+                oss_manager.delete_file(user.avatar_url)
+            user.avatar_url = url  # 直接保存 URL
+            db.session.commit()
+        
+        # 返回 URL 给前端
+        return jsonify({
+            'code': 200,
+            'data': {'url': url}  # 前端直接用这个 URL
+        })
+    except Exception as e:
+        return jsonify({'code': 500, 'message': str(e)}), 500
+
+
+
+
