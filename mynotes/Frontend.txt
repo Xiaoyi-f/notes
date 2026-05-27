@@ -246,6 +246,11 @@ app.use(ElementPlus, { zIndex: 999999999 })
 
 rules: { "prettier/prettier": ["error", {endOfLine: "auto"}] }
 
+// 不要什么都直接扔到pinia中，容易导致全局状态爆炸，后期维护比较困难，数据混乱
+使用就近管理原则
+数据只在几个组件里用 → 组件通信
+数据在很多地方都要用 → Pinia
+
 import { defineStore } from 'pinia' 
 export const useXxxStore = defineStore('Xxx', () => {
   return {}
