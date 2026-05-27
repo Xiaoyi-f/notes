@@ -3,6 +3,7 @@
 2. 需要等待 接口开发 或 路由开发 在对应板块上面写 "接口" / "路由"
 3. 在 template 盒子基础上 再到里层 包 一个 div 盒子 并且 在盒子上写明关键表示类名
 4. js 统一 不使用分号
+5. ai还是只适合做Ui界面，千万不要使用ai写后端
 
 # HTML
 
@@ -24,6 +25,7 @@ el-select el-option value label
 
 el-badge button type reset 
 
+href="#id" --> 实现锚点跳转 
 
 # CSS
 text-align color linear-gradient() rgba() text-decoation list-style  
