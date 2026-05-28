@@ -4,7 +4,33 @@
 3. 在 template 盒子基础上 再到里层 包 一个 div 盒子 并且 在盒子上写明关键表示类名
 4. js 统一 不使用分号
 5. ai还是只适合做Ui界面，千万不要使用ai写后端
+6. vue文件夹规范:
+    - public 存放公开性静态资源 
+    - src 存放源代码
+    - assets 存放相关静态资源 main.css 等 
+    - components 存放自定义组件 
+    - router 存放路由文件 
+      - index.js 首层页面路由
+      - guard.js 路由守卫 
+      - children.js 子层页面路由文件夹
+        - 以首层页面views命名
+    - api 存放接口调用工具
+    - stores 存放pinia库相关文件 
+    - util 存放全局工具文件 例如: 配置好的axios 等
+    - views 存放页面文件 
+      - 以大驼峰形式XxxView.vue形式命名 
+    - App.vue 根组件 --> 一般就是把全局路由渲染模板写好 
+    - main.js 全局的script文件
+    - .env 环境变量文件 --> vite解析需要以VITE_XXX形式命名环境变量
+      - .env.development 开发环境变量
+      - .env.production 生产环境变量 
+    - index.html 入口文件 
+    - package.json 项目依赖包管理文件
+    - vite.config.js vite解析器配置文件
+    - node_modules 项目依赖包文件
+    - dist 可发布的项目打包文件夹
 
+    
 # HTML
 
 - H4：依赖外部插件（Flash）实现多媒体，存储靠 Cookie，缺乏语义化
