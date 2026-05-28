@@ -40,6 +40,7 @@ db = SQLAlchemy(app)
 
 外键就是自动引用外部表的某个列数据，并且不需要手动管理
 
+表名默认就是类名小写 如果是驼峰命名的话，默认就是使用_(下划线隔离)
 class Table(db.Model):
     """
     field = db.Column(db.Integer, primary_key=True, autoincrement=True)
