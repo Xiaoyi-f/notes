@@ -38,6 +38,8 @@ def demo(num, decimal, name):
 # SQLAlchemy 技术 属于 ORM技术(实现编程语言与数据库相连的中间件技术) 之一
 db = SQLAlchemy(app)
 
+外键就是自动引用外部表的某个列数据，并且不需要手动管理
+
 class Table(db.Model):
     """
     field = db.Column(db.Integer, primary_key=True, autoincrement=True)
