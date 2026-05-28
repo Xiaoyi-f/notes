@@ -48,6 +48,13 @@ class Table(db.Model):
         数组和字典都属于json
     """
 
+    def toDict(self):
+        data = {
+            "xx": self.xx 
+        }
+        
+        return data 
+
 with app.app_context():
     db.create_all()
 
