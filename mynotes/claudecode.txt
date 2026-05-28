@@ -4,6 +4,9 @@ claudecode会默认将当前目录作为工作目录
 Tip: 使用这类操控电脑的工具注意做好限制 
 上下文都是临时的, 将相关数据保存到文件里才能永久保存
 
+claudecode接国内模型，在控制台中运行的，claudecode只会调用文本模型
+AI Agent智能体 盒子 大多数都有模型的限制，不是什么品牌的模型都能够调用/什么版本的模型都能够调用 
+
 下载方式:
 cmd中原生安装
 winget install Anthropic.ClaudeCode 
