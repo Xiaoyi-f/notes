@@ -1,3 +1,18 @@
+项目文件夹规范:
+    - app.py 启动文件
+    - APIInner 文件夹 
+    - APIOuter 文件夹 
+      - AI 文件夹
+      - ... 相关工具模块文件夹
+    - config 文件夹 
+    - db 数据库相关文件夹 
+    - static 静态资源文件夹 
+    - util 自定义工具文件夹 
+    - .env 环境变量文件 
+    - .gitignore git忽略文件 
+    - requirements.txt 依赖包版本记录文件 
+    - README.md 项目说明文件 
+
 from flask import Flask, jsonify, request, make_response
 from flask_cors import CORS
 from sqlalchemy import and_, or_, not_, func, ForeignKey
