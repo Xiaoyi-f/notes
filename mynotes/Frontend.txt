@@ -32,6 +32,20 @@
     - .gitignore git忽略文件
     - README.md 项目说明文件 
 
+单页应用(SPA) + history 路由 刷新 404 原理:
+1.项目结构
+  vite等解析器打包之后，真实文件有:
+  index.html 入口文件 
+  js、css、图片等静态资源
+  Tip: 不存在/home /content /detail ... 这种真实文件(夹)
+2.页面跳转原理 
+  在页面点击跳转到某个路由，只是js修改了浏览器地址栏URL
+  组件进行切换，这个操作不是刷新页面，所以没有任何问题 
+  当在某页面点击刷新，浏览器向Nginx发送请求
+  但是请求的"路由文件"实际是不存在的，就会导致返回404
+  只用对Nginx进行配置 try_files $uri $uri/ /index.html; 
+  找不到文件时候，Nginx直接返回index.html给浏览器，然后路由不变，vue读取URL自动渲染当前页面
+
 # HTML
 
 - H4：依赖外部插件（Flash）实现多媒体，存储靠 Cookie，缺乏语义化
