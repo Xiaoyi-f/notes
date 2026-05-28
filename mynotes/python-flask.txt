@@ -1,7 +1,7 @@
 项目文件夹规范:
     - app.py 启动文件
-    - APIInner 文件夹 
-    - APIOuter 文件夹 
+    - APIinner 文件夹 
+    - APIouter 文件夹 
       - AI 文件夹
       - ... 相关工具模块文件夹
     - config 文件夹 

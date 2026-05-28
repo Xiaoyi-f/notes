@@ -1,3 +1,5 @@
+Tip: 内网链路更短、转发节点少、带宽独享、无公网限速 / 干扰，所以速度远快于外网 
+
 REST[Representational State Transfer（表现层状态转移）] 规范 --> RESTful是一个形容词: 表示遵守REST规范的
 >= HTTP/1
 传输: TCP
