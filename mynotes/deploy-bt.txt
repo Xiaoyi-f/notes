@@ -29,7 +29,7 @@
     17.为网站申请到SSL证书，实现https
     18.设置中开启宝塔面板的SSL
     19.在网站设置中设置配置文件，在下载Nginx的前提下，配置文件中写的即为Nginx配置文件
-        # Tip: 域名是不用写协议前缀的
+        # Tip: 域名是不用写协议前缀的 注意配置SSL证书
         server {
             listen 80;
             listen 443 ssl;
@@ -37,7 +37,7 @@
             server_name 域名1 域名2;
             root 网站的根目录(一般即前端文件夹绝对路径);
             include 额外配置文件绝对路径;
-            index index.html index.htm
+            index index.html index.htm;
 
             # SSL证书相关 宝塔默认的配置代码就有，保持原有就行
 
@@ -46,7 +46,6 @@
                 expires 30d;
                 add_header Cache-Control "public, immutable";
                 access_log off;
-                try_files $uri =404
             }
 
             # 前端路由
