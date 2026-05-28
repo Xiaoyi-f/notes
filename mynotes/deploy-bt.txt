@@ -2,6 +2,12 @@
     sitemap.xml
     robots.txt
 
+nginx -t 检查nginx配置文件是否有问题 
+nginx -s reload 重新加载nginx配置文件 
+systemctl reload nginx 重新加载nginx
+ss -tuln | grep 443 检查是否有nginx在监听 443 端口
+ss -tuln | grep 80 检查是否有nginx在监听 80 端口
+
 宝塔部署网站项目:
     1.准备好服务器并且装配好系统Linux
     2.准备好域名
@@ -30,6 +36,7 @@
     18.设置中开启宝塔面板的SSL
     19.在网站设置中设置配置文件，在下载Nginx的前提下，配置文件中写的即为Nginx配置文件
         # Tip: 域名是不用写协议前缀的 注意配置SSL证书
+        注意: 优先开启SSL再设置配置文件 SSL相关配置一定要使用自动生成的
         server {
             listen 80;
             listen 443 ssl;
