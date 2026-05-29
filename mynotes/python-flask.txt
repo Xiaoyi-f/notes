@@ -15,6 +15,11 @@
 
 python -m 模块名 --> 按照模块名运行 
 
+class Config:
+    SECRET_KEY = "secret key" 
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://userName:password@url:port/dbName"
+    SQLALCHEMY_TRACK_MODIFICATIONS = False 
+
 from flask import Flask, jsonify, request, make_response
 from flask_cors import CORS
 from sqlalchemy import and_, or_, not_, func, ForeignKey
