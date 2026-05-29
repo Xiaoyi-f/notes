@@ -177,6 +177,8 @@ v-for (content, index/key) in traget :key
 v-on <-> @
 v-once {{}}
 
+
+import { nextTick } from 'vue'
 nextTick(() => {
   // 等待组件渲染完执行
 })
