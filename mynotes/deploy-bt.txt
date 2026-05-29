@@ -2,9 +2,18 @@
     sitemap.xml
     robots.txt
 
+推荐使用Let's Encrypt的免费证书 
+删除站点重新设置则可恢复默认Nginx配置
+
+注意: 浏览器缓存可能导致网站持续显示为不安全状态，可以打开浏览器的无痕模式重新打开网站试试
+若显示为安全状态，就说明SSL生效 
+微软浏览器打开无痕模式快捷键: ctrl + shift + n 
+
+
 nginx -t 检查nginx配置文件是否有问题 
 nginx -s reload 重新加载nginx配置文件 
 systemctl reload nginx 重新加载nginx
+systemctl restart nginx 重启nginx
 ss -tuln | grep 443 检查是否有nginx在监听 443 端口
 ss -tuln | grep 80 检查是否有nginx在监听 80 端口
 
