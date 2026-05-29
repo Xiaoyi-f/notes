@@ -52,6 +52,13 @@ yield功能十分强大
 3.永久关闭 -> generator_obj.close()
 口诀: 有值则生, 引用则等 -> yield -> 生成器函数是一个特殊的生成器对象
 
+# 处理大数据时候使用生成器 
+def read_line_by_line():
+    with open('big_file.txt') as file:
+        for line in file:  # 文件对象本身就是迭代器
+            yield line  
+
+调用则会先返回一个迭代器对象 next(iterator) 或者 for 循环自动拿取
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
