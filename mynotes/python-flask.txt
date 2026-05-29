@@ -13,7 +13,7 @@
     - requirements.txt 依赖包版本记录文件 
     - README.md 项目说明文件 
 
-python -m 模块名 --> 按照模块名运行 
+python -m 模块名 --> 按照模块名运行  
 
 class Config:
     SECRET_KEY = "secret key" 
@@ -61,6 +61,9 @@ def demo(num, decimal, name):
 db = SQLAlchemy(app)
 
 外键就是自动引用外部表的某个列数据，并且不需要手动管理
+
+解决循环导入问题小妙招:
+    使用db.init_app(app)后来填充SQLAlchemy()参数 
 
 表名默认就是类名小写 如果是驼峰命名的话，默认就是使用_(下划线隔离)
 class Table(db.Model):
