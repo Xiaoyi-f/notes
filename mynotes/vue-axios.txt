@@ -135,3 +135,7 @@ export function axiosDelete(url, params) {
   console.log('delete 删除数据成功!')
   return res
 }
+
+增删改查 --> post delete put get 
+
+
