@@ -13,6 +13,8 @@
     - requirements.txt 依赖包版本记录文件 
     - README.md 项目说明文件 
 
+python -m 模块名 --> 按照模块名运行 
+
 from flask import Flask, jsonify, request, make_response
 from flask_cors import CORS
 from sqlalchemy import and_, or_, not_, func, ForeignKey
