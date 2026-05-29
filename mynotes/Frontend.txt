@@ -46,6 +46,8 @@
   只用对Nginx进行配置 try_files $uri $uri/ /index.html; 
   找不到文件时候，Nginx直接返回index.html给浏览器，然后路由不变，vue读取URL自动渲染当前页面
 
+注意: 缓存问题在前端中比较常见 
+
 # HTML
 
 - H4：依赖外部插件（Flash）实现多媒体，存储靠 Cookie，缺乏语义化
@@ -174,6 +176,10 @@ v-show
 v-for (content, index/key) in traget :key
 v-on <-> @
 v-once {{}}
+
+nextTick(() => {
+  // 等待组件渲染完执行
+})
 
 <div v-for="d in 7" :key="d">{{ ['日','一','二','三','四','五','六'][d-1] }}</div>
 第一个中括号创建一个数组，之后的一个中括号就是从前面的数组中提取到对应的索引的值
