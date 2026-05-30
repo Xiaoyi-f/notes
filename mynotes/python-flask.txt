@@ -20,7 +20,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI = "mysql+pymysql://userName:password@url:port/dbName"
     SQLALCHEMY_TRACK_MODIFICATIONS = False 
 
-from flask import Flask, jsonify, request, make_response
+from flask import Flask, jsonify, request, make_response, Blueprint
 from flask_cors import CORS
 from sqlalchemy import and_, or_, not_, func
 from flask_sqlalchemy import SQLAlchemy
@@ -36,6 +36,22 @@ CORS(app, origins= [
     'url1',
     'url2'
 ])
+
+xxxBp = Blueprint("xxx", __name__, url_prefix="/api/xxx")
+
+# 提示: 字典序 --> 从小到大 但是大写字母在小写字母之前 
+
+@xxxBp.route("/xx", methods=["POST", "GET", "PUT", "DELETE"])
+def demo():
+    pass 
+
+@app.before_request 
+def beforeRequest():
+    pass 
+
+@app.after_request 
+def afterRequest(resp):
+    pass 
 
 @app.route("/<int:num>/<float:decimal>/<string:name>", methods=["POST", "GET"])
 def demo(num, decimal, name):
