@@ -114,7 +114,7 @@ class Table(db.Model):
     field = db.Column(db.Integer, primary_key=True, autoincrement=True)
     ->
         db.String(n) unique=True nullable=False
-        db.ForeignKey('table.field') default=val
+        db.ForeignKey('table.field') default=val --> 通过当前标的主键和外键表的主键进行一一对应
         db.Float db.Numeric(整体位数, 小数位数) db.Boolean db.JSON(使用copy.deepcopy操作)
         数组和字典都属于json
     """
