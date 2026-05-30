@@ -108,6 +108,7 @@ db = SQLAlchemy(app)
 
 表名默认就是类名小写 如果是驼峰命名的话，默认就是使用_(下划线隔离)
 class Table(db.Model):
+    # 数据库内容采用蛇形命名规范
     __tablename__ = "table_name" 
     """
     field = db.Column(db.Integer, primary_key=True, autoincrement=True)
