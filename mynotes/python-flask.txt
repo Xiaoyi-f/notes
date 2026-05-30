@@ -22,7 +22,7 @@ class Config:
 
 from flask import Flask, jsonify, request, make_response
 from flask_cors import CORS
-from sqlalchemy import and_, or_, not_, func, ForeignKey
+from sqlalchemy import and_, or_, not_, func
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
