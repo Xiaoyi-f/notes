@@ -111,6 +111,7 @@ class Table(db.Model):
     # 数据库内容采用蛇形命名规范
     __tablename__ = "table_name" 
     """
+    # 可以手动传递第一个参数为字段名称 默认使用蛇形变量名作为字段名 
     field = db.Column(db.Integer, primary_key=True, autoincrement=True)
     ->
         db.String(n) unique=True nullable=False
