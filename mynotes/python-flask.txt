@@ -119,8 +119,9 @@ class Table(db.Model):
         db.ForeignKey('table.field', ondelete='CASCADE') default=val --> 通过当前标的主键和外键表的主键进行一一对应
         db.Float db.Numeric(整体位数, 小数位数)-->需要使用float()进行转换为json形式 db.Boolean db.JSON(使用copy.deepcopy操作)
         db.DateTime --> python datetime 
-        -- DateTime MySQL 类型实际存储格式
-        示例:2024-12-25 14:30:45
+        -- DateTime MySQL 类型实际存储格式 
+        self.publishTime.isoformat() if self.publishTime else None
+        示例:2024-12-25T14:30:45
         对象.year 
         对象.month
         对象.day
