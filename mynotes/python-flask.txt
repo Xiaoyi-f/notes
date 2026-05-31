@@ -119,7 +119,14 @@ class Table(db.Model):
         db.ForeignKey('table.field', ondelete='CASCADE') default=val --> 通过当前标的主键和外键表的主键进行一一对应
         db.Float db.Numeric(整体位数, 小数位数)-->需要使用float()进行转换为json形式 db.Boolean db.JSON(使用copy.deepcopy操作)
         db.DateTime --> python datetime 
-        数组和字典都属于json
+        -- DateTime MySQL 类型实际存储格式
+        示例:2024-12-25 14:30:45
+        对象.year 
+        对象.month
+        对象.day
+        对象.hour
+        对象.minute
+        对象.second
     """
 
     def toDict(self):
