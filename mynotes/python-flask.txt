@@ -119,16 +119,25 @@ class Table(db.Model):
         # ondelete= 'CASCADE' 表示级联删除 当对应的外键表行被删除 当前该行自动被删除 
         db.ForeignKey('table.field', ondelete='CASCADE') default=val --> 通过当前标的主键和外键表的主键进行一一对应
         db.Float db.Numeric(整体位数, 小数位数)-->需要使用float()进行转换为json形式 db.Boolean db.JSON(使用copy.deepcopy操作)
+
         db.DateTime --> python datetime 
         -- DateTime MySQL 类型实际存储格式 
         self.publishTime.isoformat() if self.publishTime else None
-        示例:2024-12-25T14:30:45
+        示例:2026-5-31T14:30:45
         对象.year 
         对象.month
         对象.day
         对象.hour
         对象.minute
         对象.second
+
+        db.Date --> python datetime 
+        -- Date MySQL 类型实际存储格式 
+        self.date.isoformat() if self.date else None 
+        示例:2026-5-31
+        对象.year 
+        对象.month 
+        对象.day 
     """
 
     def toDict(self):
