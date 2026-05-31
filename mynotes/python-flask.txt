@@ -113,6 +113,7 @@ class Table(db.Model):
     """
     # 可以手动传递第一个参数为字段名称 默认使用蛇形变量名作为字段名 
     field = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    db.BigInteger -> 针对于大量用户 
     ->
         db.String(n) unique=True nullable=False
         # ondelete= 'CASCADE' 表示级联删除 当对应的外键表行被删除 当前该行自动被删除 
