@@ -1,15 +1,15 @@
 # 全栈开发学习工作空间
 
-本工作空间包含 4 个完整的学习系列，共 55+ 篇笔记，覆盖从 AI 到 Java 全栈的核心技术栈。
+本工作空间包含 4 个完整的学习系列，共 **86 篇** 笔记，覆盖从 AI 到 Java 全栈的核心技术栈。
 
 ## 快速导航
 
 | 系列 | 目录 | 内容 | 文件数 |
 |------|------|------|--------|
-| AI 全栈学习 | [ai-fullstack-learning](./ai-fullstack-learning/) | Haystack RAG、LangChain Agent、知识图谱、NLP | 16 |
-| Java 全栈学习 | [java-fullstack-learning](./java-fullstack-learning/) | JavaSE、Spring Boot、微服务、Redis、MQ、项目实战 | 20 |
-| Spring 学习 | [SpringLearn](./SpringLearn/) | IoC/DI、AOP、Spring Boot、MVC、JPA、Security | 8 |
-| SQL 学习 | [SQLLearn](./SQLLearn/) | MySQL、PostgreSQL、MongoDB、索引、事务、面试题 | 11 |
+| AI 全栈学习 | [ai-fullstack-learning](./ai-fullstack-learning/) | Haystack RAG、LangChain Agent、知识图谱、NLP | 23 |
+| Java 全栈学习 | [java-fullstack-learning](./java-fullstack-learning/) | JavaSE、Spring、Spring Boot、微服务、Redis、MQ、并发、性能、项目 | 41 |
+| Spring 学习 | [SpringLearn](./SpringLearn/) | IoC/DI、AOP、Spring Boot、MVC、JPA、Security | 9 |
+| SQL 学习 | [SQLLearn](./SQLLearn/) | MySQL、PostgreSQL、MongoDB、索引、事务、面试题 | 12 |
 
 ## 目录结构
 
@@ -20,28 +20,30 @@ claudeworkspace/
 ├── ai-fullstack-learning/            ← AI 全栈学习
 │   ├── README.md                     # AI 学习路径总览
 │   ├── QUICKSTART.md                 # 15 分钟快速体验
-│   ├── haystack-ai/                  # Haystack RAG（5篇）
-│   ├── langchain-agent/              # LangChain Agent（4篇）
-│   ├── knowledge-graph/              # 知识图谱（3篇）
-│   └── nlp/                          # NLP 自然语言处理（4篇）
+│   ├── haystack-ai/                  # Haystack RAG（6篇）
+│   ├── langchain-agent/              # LangChain Agent（5篇）
+│   ├── knowledge-graph/              # 知识图谱（4篇）
+│   └── nlp/                          # NLP 自然语言处理（5篇）
 │
 ├── java-fullstack-learning/          ← Java 全栈学习
 │   ├── README.md                     # 部署与监控笔记
 │   ├── javase/                       # Java SE（6篇）
-│   ├── javaweb/                      # Java Web（1篇）
-│   ├── spring/                       # Spring Framework（2篇）
-│   ├── spring-boot/                  # Spring Boot（1篇）
-│   ├── spring-cloud-alibaba/         # 微服务（1篇）
-│   ├── redis/                        # Redis（1篇）
-│   ├── mq/                           # 消息队列（1篇）
-│   ├── mybatis/                      # MyBatis Plus（1篇）
-│   ├── performance/                  # 性能优化（1篇）
-│   ├── project/                      # 项目实战（1篇）
+│   ├── javaweb/                      # Java Web（3篇）
+│   ├── spring/                       # Spring Framework（3篇）
+│   ├── spring-boot/                  # Spring Boot（3篇）
+│   ├── spring-cloud-alibaba/         # 微服务（3篇）
+│   ├── concurrency/                  # 并发编程（3篇）
+│   ├── redis/                        # Redis（3篇）
+│   ├── mq/                           # 消息队列（3篇）
+│   ├── mybatis/                      # MyBatis + MP（3篇）
+│   ├── performance/                  # 性能优化（3篇）
+│   ├── project/                      # 项目实战（3篇）
 │   ├── system-design/                # 系统设计（1篇）
 │   ├── fundamentals/                 # 网络与操作系统（1篇）
 │   └── interview/                    # 面试指南（1篇）
 │
 ├── SpringLearn/                      ← Spring 面试学习
+│   ├── CHEATSHEET.md                 # 速查表
 │   ├── 第一课-Spring核心.md          # IoC、DI、Bean
 │   ├── 第二课-AOP面向切面编程.md      # AOP 原理与实践
 │   ├── 第三课-SpringBoot快速入门.md   # Spring Boot 基础
@@ -120,6 +122,10 @@ SQL 基础 → 高级查询 → 聚合分组 → 视图存储过程
 
 ## 更新记录
 
+- 2026-05-31：补充全部空缺笔记，完善课程体系至 85 篇
+  - ai-fullstack-learning: 新增 4 篇项目实战（RAG/Agent/图谱/NLP 生产系统）
+  - java-fullstack-learning: 新增 21 篇（javaweb/spring/spring-boot/microservices/concurrency/redis/mq/mybatis/performance/project）
+  - 所有笔记包含概念讲解、代码示例、面试考点、课后练习、自测题
 - 2026-05-29：完成全部 55+ 篇笔记的完善工作
   - 修复代码错误（Transformer 模型、位置编码等）
   - 为所有笔记添加实践练习和自测题
