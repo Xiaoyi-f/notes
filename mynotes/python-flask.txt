@@ -86,7 +86,7 @@ app.register_blueprint(xxxBp)
 @app.route("/<int:num>/<float:decimal>/<string:name>", methods=["POST", "GET"])
 def demo(num, decimal, name):
     """
-    request.args 字典
+    request.args 字典 --> 查询参数 
     request.json 字典
     request.cookies 字典
     request.files 字典

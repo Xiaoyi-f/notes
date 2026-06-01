@@ -73,22 +73,16 @@ claudeworkspace/
 Java SE 基础 → Spring 核心 → Spring Boot → Spring MVC
     → JPA/MyBatis → Redis → MQ → Spring Cloud → 项目实战 → 系统设计
 ```
-配合：[SpringLearn](./SpringLearn/) + [java-fullstack-learning](./java-fullstack-learning/)
-
 ### 路线 B：AI 开发工程师
 ```
 Python NLP 基础 → Haystack RAG → LangChain Agent
     → 知识图谱 → GraphRAG → Transformer 模型 → 项目实战
 ```
-配合：[ai-fullstack-learning](./ai-fullstack-learning/)
-
 ### 路线 C：数据库工程师/DBA
 ```
 SQL 基础 → 高级查询 → 聚合分组 → 视图存储过程
     → 索引触发器 → MySQL 深入 → PostgreSQL 深入 → Neo4j 基础
 ```
-配合：[SQLLearn](./SQLLearn/)
-
 ### 路线 D：全栈 AI 工程师（推荐）
 ```
 1. SQL 基础（1-2 周）→ SQLLearn 01-03
