@@ -1,17 +1,19 @@
 项目文件夹规范:
     - app.py 启动文件
-    - APIinner 文件夹 
-    - APIouter 文件夹 
+    - routes 文件夹 
+    - api 文件夹 
       - AI 文件夹
       - ... 相关工具模块文件夹
     - config 文件夹 
     - db 数据库相关文件夹 
     - static 静态资源文件夹 
-    - util 自定义工具文件夹 
+    - utils 自定义工具文件夹 
     - .env 环境变量文件 
     - .gitignore git忽略文件 
     - requirements.txt 依赖包版本记录文件 
     - README.md 项目说明文件 
+
+提示: 含有 __init__.py 文件的目录 将会被python标记为软件包 
 
 python -m 模块名 --> 按照模块名运行  
 
