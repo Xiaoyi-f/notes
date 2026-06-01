@@ -42,6 +42,7 @@ CORS(app, origins= [
     'url2'
 ])
 
+# 简单序列化实现Token 
 serializer = URLSafeTimedSerializer(os.getenv("SECRET_KEY", salt="auth"))
 
 # 依据用户账号生成token
