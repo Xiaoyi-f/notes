@@ -93,6 +93,14 @@ JWT 方式：
 3. 签名（Signature）
 Tip: 签名 = 加密(头部+载荷+密钥) 
 
+python 中 pip install pyjwt 工具 
+payload = {
+  'userId': userId,
+  'exp': exp,
+  'iat': iat 
+}
+jwt.encode(payload, current_app.config['SECRET_KEY'], algorithm='HS256')
+jwt.decode(token, current_app.config['SECRET_KEY'], algorithms=['HS256'])
 
 业务逻辑推理方法:
 1. 简单/小项目 直接依据UI一步一步关联思考需要的字段和关系以即处理 

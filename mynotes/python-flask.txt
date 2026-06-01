@@ -63,7 +63,7 @@ def requireAuth(func):
         return func(*args, **kwargs)
     return decorated
 
-xxxBp = Blueprint("xxx", __name__, url_prefix="/api/xxx")
+xxxBp = Blueprint("xxx", __name__)
 
 # 提示: 字典序 --> 从小到大 但是大写字母在小写字母之前 
 
