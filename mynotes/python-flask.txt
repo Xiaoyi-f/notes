@@ -173,6 +173,9 @@ db.session.commit()
 demo = Table.query.filter(Table.field布尔表达式).all() # .first()
 demo = Table.query.filter(Table.field布尔表达式).order_by(func.random()).all()
 
+# 提交但是不永久保存 
+db.session.flush() 让数据"能被查到"，但还没"永久存下来"
+
 # 测试
 socket.run(app, host='0.0.0.0', port=5000)
 # 对于不使用socket的项目
