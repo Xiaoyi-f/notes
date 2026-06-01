@@ -56,6 +56,9 @@ instance.interceptors.response.use(
         case 404:
           message = '请求资源不存在'
           break
+        case 409:
+          message = '请求与服务器数据冲突'
+          break 
         case 500:
           message = '服务器错误'
           break
