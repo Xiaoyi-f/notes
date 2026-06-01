@@ -923,4 +923,4 @@ ORDER BY pg_total_relation_size(schemaname||'.'||tablename) DESC;
 
 ---
 
-下一课：MongoDB 基础（→ `09-MongoDB基础.md`）
+下一课：Neo4j 基础（→ `09-Neo4j基础.md`）

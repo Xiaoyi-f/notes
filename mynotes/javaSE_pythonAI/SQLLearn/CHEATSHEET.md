@@ -122,19 +122,20 @@ WHERE name LIKE '%张'
 | 范围类型 | ❌ | ✅ |
 | RETURNING | ❌ | ✅ |
 
-## MongoDB 速查
+## Neo4j 速查
 
-| SQL 概念 | MongoDB 概念 |
+| SQL 概念 | Neo4j 概念 |
 |----------|-------------|
 | Database | Database |
-| Table | Collection |
-| Row | Document |
-| Column | Field |
-| WHERE | `$match` |
-| JOIN | `$lookup` |
-| GROUP BY | `$group` |
-| ORDER BY | `$sort` |
-| INSERT | `insertOne()` / `insertMany()` |
+| Table | Label |
+| Row | Node |
+| Column | Property |
+| JOIN | Relationship `-[r:TYPE]->` |
+| WHERE | `WHERE` / `{}` |
+| GROUP BY | `WITH...count()` |
+| ORDER BY | `ORDER BY` |
+| INSERT | `CREATE (:Label {props})` |
+| LEFT JOIN | `OPTIONAL MATCH` |
 
 ## 常用函数速查
 

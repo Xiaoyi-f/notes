@@ -101,7 +101,7 @@ def demo(num, decimal, name):
 # SQLAlchemy 技术 属于 ORM技术(实现编程语言与数据库相连的中间件技术) 之一
 db = SQLAlchemy(app)
 
-外键就是自动引用外部表的某个列数据，并且不需要手动管理
+外键是一种约束，需要手动填充值，外键可以实现关联 --> 限制填充的值应该是从关联列中获取的 
 
 解决循环导入问题小妙招:
     使用db.init_app(app)后来填充SQLAlchemy()参数 

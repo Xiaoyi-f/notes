@@ -9,7 +9,7 @@
 | AI 全栈学习 | [ai-fullstack-learning](./ai-fullstack-learning/) | Haystack RAG、LangChain Agent、知识图谱、NLP | 23 |
 | Java 全栈学习 | [java-fullstack-learning](./java-fullstack-learning/) | JavaSE、Spring、Spring Boot、微服务、Redis、MQ、并发、性能、项目 | 41 |
 | Spring 学习 | [SpringLearn](./SpringLearn/) | IoC/DI、AOP、Spring Boot、MVC、JPA、Security | 9 |
-| SQL 学习 | [SQLLearn](./SQLLearn/) | MySQL、PostgreSQL、MongoDB、索引、事务、面试题 | 12 |
+| SQL 学习 | [SQLLearn](./SQLLearn/) | MySQL、PostgreSQL、Neo4j、索引、事务、面试题 | 12 |
 
 ## 目录结构
 
@@ -62,7 +62,7 @@ claudeworkspace/
     ├── 06-索引与触发器.md            # Index、Trigger、性能优化
     ├── 07-MySQL特有功能.md           # 引擎、分区、JSON、MySQL 8.0
     ├── 08-PostgreSQL特有功能.md       # 数组、JSONB、UPSERT、CTE
-    ├── 09-MongoDB基础.md             # NoSQL、文档操作、聚合管道
+    ├── 09-Neo4j基础.md               # 图数据库、Cypher CRUD、关系查询
     └── 10-面试高频考点.md             # SQL 面试题汇总
 ```
 
@@ -85,7 +85,7 @@ Python NLP 基础 → Haystack RAG → LangChain Agent
 ### 路线 C：数据库工程师/DBA
 ```
 SQL 基础 → 高级查询 → 聚合分组 → 视图存储过程
-    → 索引触发器 → MySQL 深入 → PostgreSQL 深入 → MongoDB 基础
+    → 索引触发器 → MySQL 深入 → PostgreSQL 深入 → Neo4j 基础
 ```
 配合：[SQLLearn](./SQLLearn/)
 

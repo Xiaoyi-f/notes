@@ -1,6 +1,6 @@
 # 基本术语
 
-**DBMS 数据库管理系统 --> MySQL、PostgreSQL、MongoDB(NoSQL)**
+**DBMS 数据库管理系统 --> MySQL、PostgreSQL、Neo4j(NoSQL/图)**
 
 **数据库 表 列 行 主键(唯一标识) 外键(关联其他表的字段)**
 

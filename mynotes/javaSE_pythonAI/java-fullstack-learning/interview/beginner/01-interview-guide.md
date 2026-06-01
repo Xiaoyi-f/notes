@@ -98,7 +98,7 @@ GitHub：github.com/zhangsan
 ### 数据库
 - MySQL：精通 MySQL 索引优化、分库分表
 - Redis：熟悉 Redis 数据结构、集群、持久化
-- MongoDB：了解文档数据库特性
+- Neo4j：了解图数据库特性（Cypher、节点关系模型）
 
 ### 中间件
 - RocketMQ：熟悉消息队列的各种场景
