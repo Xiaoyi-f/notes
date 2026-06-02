@@ -86,7 +86,7 @@ app.register_blueprint(xxxBp)
 @app.route("/<int:num>/<float:decimal>/<string:name>", methods=["POST", "GET"])
 def demo(num, decimal, name):
     """
-    request.args 字典 --> 查询参数 
+    request.args.get("key", type=type) 字典 --> 查询参数 type->确保类型的转换 
     request.json 字典
     request.cookies 字典
     request.files 字典
@@ -172,6 +172,7 @@ db.session.commit()
 # 查
 demo = Table.query.filter(Table.field布尔表达式).all() # .first()
 demo = Table.query.filter(Table.field布尔表达式).order_by(func.random()).all()
+demo = Table.query.get(字段) --> 外键字段常用 
 
 # 提交但是不永久保存 
 db.session.flush() 让数据"能被查到"，但还没"永久存下来"
