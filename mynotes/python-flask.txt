@@ -43,6 +43,8 @@ CORS(app, origins= [
     'url2'
 ])
 
+# 注意: 后端一般不存储Token，后端生成并且返回Token之后应该立马存到前端
+
 # 简单序列化实现Token 
 serializer = URLSafeTimedSerializer(os.getenv("SECRET_KEY", salt="auth"))
 
