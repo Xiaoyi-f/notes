@@ -1,5 +1,10 @@
 通过阿里云创建OSS桶然后进入RAM控制台访问找到用户 创建/访问 RAM用户 即可访问对应的Key等信息 
 注意创建OSS相关Key和权限管理 对应桶的概览中有桶的对应信息
+使用OSS默认域名可能导致自动下载附件而不是展示对应的某些图片信息 
+Tip: A记录直接将域名指向一个IP地址，而CNAME记录将一个域名指向另一个域名
+--> 配置自定义域名 
+Bucket配置 -> 域名管理:
+
 domain = f"https://{bucket_name}.{endpoint}" 
 
 # config.py
