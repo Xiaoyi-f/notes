@@ -170,7 +170,7 @@ demo.field = val
 db.session.commit()
 
 # 查
-demo = Table.query.filter(Table.field布尔表达式).all() # .first()
+demo = Table.query.filter(Table.field布尔表达式).all() # .first() --> 没有对应的数据则返回空列表/空
 demo = Table.query.filter(Table.field布尔表达式).order_by(func.random()).all()
 demo = Table.query.get(字段) --> 用于外键和主键字段查询 
 
