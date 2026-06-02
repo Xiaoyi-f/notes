@@ -2,6 +2,9 @@
     sitemap.xml
     robots.txt
 
+域名备案查询网站: https://beian.miit.gov.cn/
+备案的话一般的服务器/域名销售商网站就可以备案
+
 推荐使用Let's Encrypt的免费证书 
 删除站点重新设置则可恢复默认Nginx配置
 
