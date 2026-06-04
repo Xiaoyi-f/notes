@@ -3,6 +3,8 @@
 
 Vibe（氛围感、感觉） coding -> 使用自然语言和AI对话，让AI来生成代码、修改代码和优化代码
 
+Tip: OCR 是 Optical Character Recognition（光学字符识别）的缩写
+
 推荐国产零代码编程平台 -> 百度秒哒
 
 处理图片推荐AI -> 百度文心助手/千问

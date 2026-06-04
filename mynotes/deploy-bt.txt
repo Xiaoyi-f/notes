@@ -2,6 +2,13 @@
     sitemap.xml
     robots.txt
 
+从开发环境到部署配置改动:
+    1.框架的debug模式切换为False状态、CORS配置修改 
+    2.前端VITE_API_BASE_URL类配置域名修改为https://部署域名:5000
+    3.后端数据库DATABASE_URL类配置修改为部署环境数据库相对应的配置
+    4.生产环境Nginx等配置以及监控运行 
+    5.其他...
+
 域名备案查询网站: https://beian.miit.gov.cn/
 备案的话一般的服务器/域名销售商网站就可以备案
 
@@ -39,7 +46,8 @@ ss -tuln | grep 80 检查是否有nginx在监听 80 端口
         MySQL Nginx phpMyAdmin PHP
         进程守护管理器 日志清理工具 Linux工具箱
     11.进入文件 上传项目文件夹/文件 一般是放在 /www/wwwroot/ 项目文件夹 内部文件夹/文件
-    12.进入到对应的文件夹，操作下载需要的额外环境，比如: python的venv和gunicorn
+    12.进入到对应的文件夹，操作下载需要的额外环境，比如: python的venv和gunicorn(关掉代码中的主函数转而使用这个) --> 可以使用python app.py 进行测试
+    source .venv/bin/activate
     13.在数据库项中管理数据库
     14.在网站项中添加站点 根目录选择前端文件夹
     15.设置进程守护管理器的守护进程，设置命令和操作目录
