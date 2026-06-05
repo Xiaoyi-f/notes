@@ -35,8 +35,15 @@ Windows: C:\Users\你的用户名\.claude\settings.json
 进入以上文件进行配置，没有则手动创建
 {
   "env": {
-    "ANTHROPIC_BASE_URL": "https://open.bigmodel.cn/api/anthropic",
-    "ANTHROPIC_AUTH_TOKEN": "your_api_key"
+    "ANTHROPIC_BASE_URL": "https://api.deepseek.com/anthropic",
+    "ANTHROPIC_AUTH_TOKEN": "key"
+  }
+}
+
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://api.moonshot.cn/anthropic",
+    "ANTHROPIC_AUTH_TOKEN": "key"
   }
 }
 // 以上是使用智谱模型的示例
