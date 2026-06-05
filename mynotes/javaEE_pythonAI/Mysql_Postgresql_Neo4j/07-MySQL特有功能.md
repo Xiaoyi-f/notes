@@ -1,5 +1,23 @@
 # SQL 学习笔记 - MySQL 特有功能
 
+## 了解与安装
+
+基本创建:
+drop database if exists XxxDB;
+create database XxxDB;
+use XxxDB;
+
+下载mysql --> 搜索mysql官网下载即可 
+cd mysql对应的bin文件夹 
+mysql --initialize-insecure 初始化命令(实现无密进入)
+mysqld --install MySQL 安装对应的服务 
+win+r services.msc 启动mysql对应的服务 
+-->
+登陆
+mysql -P 3306 -u root -p 
+输入密码 
+ALTER USER USER() IDENTIFIED BY '新密码'; 修改当前登录的密码 
+
 ## 一、MySQL 数据引擎
 
 ### 1.1 常用引擎对比

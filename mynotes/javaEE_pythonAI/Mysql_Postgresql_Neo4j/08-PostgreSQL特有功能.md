@@ -2,6 +2,27 @@
 
 ## 一、PostgreSQL 数据类型
 
+**PostgreSQL 简称 PGSQL**
+
+用 MySQL 应对高并发的用户前台，用 PG 应对复杂的后台分析和强一致性业务
+
+打个比方：MySQL像一辆轻量化跑车，普通道路跑得快；PostgreSQL像一辆重型卡车，装载能力、扩展性、可靠性更强
+
+**PostGIS**：世界上功能最强大的开源地理空间数据库扩展，让PostgreSQL能处理地理坐标、地图数据、空间查询（比如“查找半径5公里内的所有餐馆”）
+
+**Tip:** **GIS** 是 **Geographic Information System**（地理信息系统）的缩写,简单说，它是一个**能捕获、存储、分析、管理、展示一切与地理空间位置有关数据的计算机系统**
+
+如果你做地图、LBS、地理分析，**必须用PostgreSQL**
+
+简单查询MySQL可能快10%-20%，但复杂查询PostgreSQL反而更快，高并发写入场景PostgreSQL更稳定
+
+```
+你的应用需要处理地理空间数据（GIS）？ → 是 → PostgreSQL
+否 → 你的应用需要大量复杂查询（多表JOIN、子查询、CTE）？ → 是 → PostgreSQL
+否 → 你的应用对数据一致性要求极高（金融、订单）？ → 是 → PostgreSQL
+否 → 你的应用是经典的读多写少Web应用（博客、CMS）？ → 是 → MySQL
+```
+
 ### 1.1 数组类型
 
 ```sql
