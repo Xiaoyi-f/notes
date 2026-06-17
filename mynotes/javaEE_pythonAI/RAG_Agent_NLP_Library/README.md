@@ -54,7 +54,8 @@ ai-fullstack-learning/
 │   ├── intermediate/
 │   │   └── 04-rag-advanced.md
 │   └── advanced/
-│       └── 05-production-rag.md
+│       ├── 05-production-rag.md
+│       └── 06-document-stores.md
 │
 ├── langchain-agent/       # LangChain Agent
 │   ├── beginner/

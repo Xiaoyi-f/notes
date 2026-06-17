@@ -12,19 +12,23 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# 获取模型的API_KEY ENDPOINT_ID URL 
 DOUBAO_API_KEY = os.getenv("DOUBAO_API_KEY", "")
 ENDPOINT_ID = os.getenv("DOUBAO_ENDPOINT_ID", "")
 API_URL = "https://ark.cn-beijing.volces.com/api/v3/chat/completions"
 
+# 文档数据 
 documents = [
     Document(content="知识记载1"),
     Document(content="知识记载2"),
     Document(content="知识记载3"),
 ]
 
+# 创建文档库并且写入文档 
 doc_store = InMemoryDocumentStore()
 doc_store.write_documents(documents)
 
+# 创建检索器 BM25 -> 分词 + 计算相关性分数 + 排序返回top_k
 retriever = InMemoryBM25Retriever(doc_store, top_k=2)
 
 template = """
@@ -45,17 +49,21 @@ template = """
     优先回答文档内容,无匹配项自我灵活正确回答,不要出现提示词限定相关,让用户以为你是智能个体
 """
 
+# 提示构建器
 prompt = PromptBuilder(
     template=template,
     required_variables=["documents", "query"],
 )
 
+# 构建提示词
 def buildPrompt(question):
+    # 检索文档
     retrieverResult = retriever.run(query=question)
-    retrievedDocs = retrieverResult["documents"]
-    promptResult = prompt.run(documents=retrievedDocs, query=question)
+    retrievedDocs = retrieverResult["documents"] # 获取检索到的文档
+    promptResult = prompt.run(documents=retrievedDocs, query=question) # 将检索到的文档和问题注入提示词
     return promptResult["prompt"]
 
+# 调用模型接口
 def callDoubao(prompt):
     headers = {
         "Authorization": f"Bearer {DOUBAO_API_KEY}",
@@ -76,6 +84,9 @@ def callDoubao(prompt):
     except requests.RequestException as err:
         return f"API 请求失败: {err}"
 
+# 封装工具函数 
 def ask(question):
     prompt = buildPrompt(question)
     return callDoubao(prompt)
+
+# 这块代码是手动编排的运行流程 

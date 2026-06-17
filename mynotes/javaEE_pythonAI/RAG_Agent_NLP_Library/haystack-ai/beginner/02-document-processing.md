@@ -87,7 +87,7 @@ for doc in documents:
     print(doc.meta)  # 包含CSV的列信息
 ```
 
-### 6. 图片转文本（OCR）
+### 6. 图片转文本（OCR -> Optical Character Recognition光学字符识别）
 
 ```python
 from haystack.components.converters import TesseractConverter

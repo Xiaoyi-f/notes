@@ -23,7 +23,7 @@ Haystack 是一个开源的 NLP 框架，由 deepset 公司开发，专门用于
 
 ### 为什么需要 RAG？
 
-- **解决幻觉问题** - LLM可能会编造不存在的信息
+- **解决幻觉(AI可能胡说八道)问题** - LLM可能会编造不存在的信息
 - **知识更新** - 不需要重新训练模型就能获取新知识
 - **透明性** - 可以展示答案来源，提高可信度
 - **成本效益** - 相比训练大模型，成本更低
@@ -41,7 +41,7 @@ pip install haystack-ai[pgvector]          # PostgreSQL向量存储
 pip install haystack-ai[cohere,openai]     # 各种LLM模型
 ```
 
-## 快速开始
+## 快速开始(大概看下，下面有讲解)
 
 ### 1. 第一个简单的 RAG 系统
 
@@ -65,7 +65,7 @@ documents = [
 indexing_pipeline = Pipeline()
 indexing_pipeline.add_component("writer", DocumentWriter(document_store=InMemoryDocumentStore()))
 
-# 索引文档
+# 索引文档 把文档存入仓库 只需做一次
 indexing_pipeline.run({"writer": {"documents": documents}})
 
 # 创建查询管道
@@ -142,10 +142,10 @@ doc = Document(
     }
 )
 
-# 带嵌入的文档
+# 带嵌入的文档 -> 嵌入向量距离越接近进而判断语义的接近
 doc = Document(
     content="文档内容",
-    embedding=[0.1, 0.2, 0.3, ...]  # 384维向量
+    # embedding=[0.1, 0.2, 0.3, ...]  # 384维向量 --> 概念
 )
 ```
 
@@ -185,7 +185,7 @@ doc_store = PgvectorDocumentStore(
 from haystack.components.retrievers import InMemoryBM25Retriever
 retriever = InMemoryBM25Retriever(document_store=doc_store, top_k=5)
 
-# 嵌入检索器（语义检索）
+# 嵌入检索器（语义检索Embedding）
 from haystack.components.retrievers import InMemoryEmbeddingRetriever
 retriever = InMemoryEmbeddingRetriever(document_store=doc_store, top_k=5)
 
@@ -198,7 +198,7 @@ from haystack.components.retrievers import MultiVectorRetriever
 retriever = MultiVectorRetriever(document_store=doc_store, top_k=5)
 ```
 
-### 4. Embedder（嵌入器）
+### 4. Embedder（嵌入器 -> 语义向量计算器(数字密码计算器) 一种AI模型）
 
 ```python
 # SentenceTransformers（本地模型，免费）
@@ -220,7 +220,7 @@ from haystack.components.embedders import HuggingFaceAPITextEmbedder
 embedder = HuggingFaceAPITextEmbedder(model="BAAI/bge-small-en-v1.5")
 ```
 
-### 5. Generator（生成器）
+### 5. Generator（生成器 不要求和嵌入器使用同一个模型 嵌入器搭档 -> 生成文字）
 
 ```python
 # OpenAI
@@ -247,7 +247,7 @@ generator = AnthropicGenerator(
 )
 ```
 
-## Pipeline（管道）
+## Pipeline（管道） -- 工厂流水线
 
 Pipeline 是 Haystack 的核心概念，用于连接各个组件。
 
@@ -260,12 +260,13 @@ from haystack.components.generators import OpenAIGenerator
 # 创建管道
 pipeline = Pipeline()
 
-# 添加组件
+# 添加组件 每个流水线的工序就是一个组件
 pipeline.add_component("retriever", InMemoryBM25Retriever(document_store=doc_store))
 pipeline.add_component("prompt_builder", PromptBuilder(template=template))
 pipeline.add_component("llm", OpenAIGenerator(model="gpt-4"))
 
 # 连接组件
+# 把检索器的文档输出接入到提示构建器的文档上
 pipeline.connect("retriever.documents", "prompt_builder.documents")
 pipeline.connect("prompt_builder", "llm")
 
