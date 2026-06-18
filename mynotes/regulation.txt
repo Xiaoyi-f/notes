@@ -1,5 +1,17 @@
 Tip: 内网链路更短、转发节点少、带宽独享、无公网限速 / 干扰，所以速度远快于外网 
 
+前后端开发协作流程: 
+1. 前后端一起定义API接口文档（Swagger/YApi）
+   ├── 接口地址
+   ├── 请求参数
+   ├── 返回格式
+   └── 错误码
+2. 后端先开发Mock接口（返回假数据）
+3. 前端对接Mock接口，开发页面
+4. 后端开发真实业务逻辑
+5. 联调测试
+6. 前后端各自打包部署
+
 REST[Representational State Transfer（表现层状态转移）] 规范 --> RESTful是一个形容词: 表示遵守REST规范的
 >= HTTP/1
 传输: TCP
@@ -73,6 +85,31 @@ websocket 规范 (无单一规范):
 持续连接，快速响应，占用资源(资源管控)
 协议分类: wss(安全型) ws
 
+原理:
+先用 HTTP 打一声招呼（握手），然后双方保持一条"永远不会断"的 TCP 通道，随时可以互发消息
+握手基于 HTTP 协议，所以 WebSocket 默认端口也是 80（ws://）和 443（wss://）
+客户端发送一个特殊的 HTTP 请求，告诉服务端："我想升级成 WebSocket 连接，你同意吗？"
+示例: 
+GET /chat HTTP/1.1
+Host: example.com
+Upgrade: websocket                    ← 关键：告诉服务端我要升级协议
+Connection: Upgrade                    ← 关键：连接要升级
+Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==  ← 安全校验用的随机密钥
+Sec-WebSocket-Version: 13              ← WebSocket 版本号（必须是 13）
+Origin: http://example.com
+Tip: 
+先完成TCP三次握手（建立连接） → 然后才发送HTTP请求
+┌─────────────────────────┐
+│   应用层 (HTTP)          │  ← 你的业务数据（信的内容）
+├─────────────────────────┤
+│   传输层 (TCP)           │  ← 保证数据可靠传输（公路网络）
+├─────────────────────────┤
+│   网络层 (IP)            │  ← 寻址和路由（导航系统）
+├─────────────────────────┤
+│   数据链路层 + 物理层     │  ← 网线、WiFi信号（物理公路）
+└─────────────────────────┘
+Sec-WebSocket-Key	安全校验用的随机值	服务端用这个算出一个值返回给客户端，客户端校验，防止缓存代理等中间设备误升级
+Sec-WebSocket-Key 是一个 Base64 编码的 16 字节随机数，每次连接都不同
 
 JWT(JSON Web Token)
 传统方式（Session）：
