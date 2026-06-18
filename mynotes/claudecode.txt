@@ -17,6 +17,7 @@ claude 命令进入一般
 npm全局安装(Node.js 18+)
 npm install -g @anthropic-ai/claude-code 
 
+Tip: claude使用项目SKILL不需要压缩SKILL文件夹 
 Claude Code在首次启动时，会生成一个状态文件.claude.json，
 并读取其中的hasCompletedOnboarding字段来判断是否已完成初始化
 如果该字段为true，程序会跳过地域检测、登录引导等初始步骤
