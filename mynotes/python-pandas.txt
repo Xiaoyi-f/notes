@@ -1,0 +1,42 @@
+# Excel 的python版 数据清洗 
+# pip install pandas 
+# 若还需要处理Excel pip install openpyxl 
+import pandas as pd 
+
+# 导入数据表 
+df = pd.DataFrame(pd.read_excel('Excel文件名'))
+
+# 查看数据概况
+df.head() # 方法中可以传递整数参数n 返回数据的头部n行
+df.tail() # 方法中可以传递整数参数n 返回数据的尾部n行
+df.shape  # 返回数据表的行数和列数 (行数, 列数)
+df.columns  # 返回数据表的列名
+df.dtypes df['key'].dtypes # 返回数据表对应列的数据类型 object表示文本 int表示数字 
+df.describe()  # 返回数据表的描述性统计信息 --> 数字列才有用 
+df.info   # 返回数据表的信息
+
+# 取出列数据
+skill = df['技能']
+subdf = df[['技能', '技能等级']]
+
+# 筛选数据
+python_jobs = df[df['技能要求'].str.contains('Python', na=False)] # na 表示 Not Available 设置为False 避免空值返回NaN
+high_pay = df[df['薪资待遇'].str.extract('(\d+)').astype(float) > 20]
+
+condition1 = df['技能要求'].str.contains('Python', na=False)
+condition2 = df['技能要求'].str.contains('Flask', na=False)
+result = df[condition1 & condition2] # 使用 & | ~
+
+# 去重
+df_unique = df.drop_duplicates(subset=['岗位名称']) # 按"岗位名称"去重（只保留第一次出现的）
+df_unique = df.drop_duplicates(subset=['岗位名称', '公司']) # 按多列去重（岗位名称 + 公司）
+
+# 查看去重后的行数
+print(f"去重前: {len(df)} 条")
+print(f"去重后: {len(df_unique)} 条")
+
+# 创建数据表 
+df = pd.DataFrame()
+
+
+
