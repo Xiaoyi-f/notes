@@ -15,6 +15,7 @@
       - children.js 子层页面路由文件夹
         - 以首层页面views命名
     - api 存放接口调用工具
+    - mock 模拟数据文件夹
     - stores 存放pinia库相关文件 
     - util 存放全局工具文件 例如: 配置好的axios 等
     - views 存放页面文件 
