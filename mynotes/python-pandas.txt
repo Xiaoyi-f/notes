@@ -36,7 +36,12 @@ print(f"去重前: {len(df)} 条")
 print(f"去重后: {len(df_unique)} 条")
 
 # 创建数据表 
-df = pd.DataFrame()
+df = pd.DataFrame(
+  {
+    '列名1': [行1, 行2 ...],
+    'data列': pd.date_range('20260619', periods=6, freq='D') # nD(日) nH(时) nT(分) nS(秒) nW(周) 
+  }
+)
 
 
 
