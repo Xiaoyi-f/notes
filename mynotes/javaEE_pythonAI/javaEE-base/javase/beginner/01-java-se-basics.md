@@ -17,7 +17,6 @@ export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 # 系统属性 -> 环境变量
 # JAVA_HOME = C:\Program Files\Java\jdk-17
 # PATH = %JAVA_HOME%\bin
-# CLASSPATH = .;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar
 
 # 验证安装
 java -version
@@ -75,7 +74,7 @@ public class DataTypeDemo {
         int num4 = (int) num3;           // 99，小数部分丢失
 
         // 类型溢出
-        int max = Integer.MAX_VALUE;
+        int max = Integer.MAX_VALUE;     // MIN_VALUE
         int overflow = max + 1;          // -2147483648
     }
 }

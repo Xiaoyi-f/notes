@@ -116,7 +116,7 @@ maven基本使用:
         double doubleNum = randomObj.nextDouble();
         // Math.random() 等价类似于 randomObj.nextDouble();
         boolean randomBoolean = randomObj.nextBoolean();
-        ...
+        
     内置字符(串)相关方法/函数:
         .matches() 全量匹配，返回boolean
         .toCharArray()
