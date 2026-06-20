@@ -1108,6 +1108,37 @@ public class CharStreamDemo {
 }
 ```
 
+##  解压缩流
+
+```
+// 解压 / 压缩 流 java标准库只内置ZIP压缩包的原生支持 
+        public static void toZip(File src, zipOutputStream zos, String name) throws IOException {
+            File[] files = src.listFiles();
+            for (File file : files) {
+                if (file.isFile()) {
+                    ZipEntry entry = new ZipEntry(name + "\\" + file.getName());
+                    zos.putNextEntry(entry);
+                    FileInputStream fis = new FileInputStream(file);
+                    int b;
+                    while ((b = fis.read()) != -1) {
+                        zos.write(b);
+                    }
+                    fis.close();
+                    zos.closeEntry();
+                } else {
+                    toZip(file, zos, name + "\\" + file.getName());
+                }
+            }
+        }
+
+        File src = new File("path/filename");
+        File destParent = src.getParentFile();
+        File dest = new File(destParent, src.getName() + ".zip");
+        ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(dest));
+        toZip(src, zos, src.getName());
+        zos.close();
+```
+
 ## 五、NIO（New IO）
 
 ```java
