@@ -38,12 +38,13 @@ app.config.from_object('配置类')
 app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://userName:password@url:port/dbName"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-CORS(app, origins= [
+CORS(app, supports_credentials=True, origins= [
     'url1',
     'url2'
-])
-
+])  
 # 注意: 后端一般不存储Token，后端生成并且返回Token之后应该立马存到前端
+# 默认情况下的浏览器安全机制: 防止恶意网站诱导用户浏览器自动携带 Cookie 去访问别的接口
+# 所以当将JWT存储在Cookie中时，需要设置开启supports_credentials=True并且要明确指定origin，不可以设置为*
 
 # 简单序列化实现Token 
 serializer = URLSafeTimedSerializer(os.getenv("SECRET_KEY", salt="auth"))

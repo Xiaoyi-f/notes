@@ -58,7 +58,7 @@ Windows: C:\Users\你的用户名\.claude\settings.json
 红圈: 调用工具报错 
 橙圈: claude 运行中 
 
-基本模式:
+基本模式 -> 先plan模式思考再edit模式编辑:
 default 
 
 acceptEdits 自动接受文件编辑和常见文件系统命令 
