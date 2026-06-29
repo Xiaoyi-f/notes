@@ -2,7 +2,7 @@
 #include <math.h>
 #include <stdbool.h>
 
-// ĞòÁĞA¡¢B±¾ÉíÓĞĞò ´Ó´óµ½Ğ¡ ¹é²¢µ½ ĞÂĞòÁĞC 
+// åºåˆ—Aã€Bæœ¬èº«æœ‰åº ä»å¤§åˆ°å° å½’å¹¶åˆ° æ–°åºåˆ—C 
 void Merge(SqList A, SqList B, SqList &C) {
 	int i = 0, j = 0, k = 0;
 	while (i < A.length && j < B.length) {

@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-// Ïß -> Ë³ÐòÕ»¡¢Á´Õ»¡¢¹²ÏíÕ»(¶à¶Ë)
-// tip: ½øÖÆ×ª»» -> ·´È¡ÓàÃÝ 
+// çº¿ -> é¡ºåºæ ˆã€é“¾æ ˆã€å…±äº«æ ˆ(å¤šç«¯)
+// tip: è¿›åˆ¶è½¬æ¢ -> åå–ä½™å¹‚ 
 void DecToBin(int num) {
     int stack[N], top = -1;
     while(num > 0) {
@@ -12,5 +12,4 @@ void DecToBin(int num) {
         printf("%d", stack[top--]);
     }
 }
-
 
