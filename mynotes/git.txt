@@ -1,3 +1,7 @@
+git config --global --list 查看配置
+git config --global user.name "用户名"
+git config --global user.email "邮箱"
+
 cd xxx
 git init
 git clone url
@@ -27,5 +31,9 @@ git config --global --unset https.proxy
 Tip: 若子文件夹中有也有git配置文件，提交到仓库之后可能将对应的子文件夹视为子模块且点击打不开
 
 gitee github codeup --> 仓库
+
+codeup (云效) --> 阿里云:
+创建组织 -> 创建项目 -> 创建仓库 -> 手动关联项目管理与仓库 -> 拉人 -> 进行项目 -> 完结
+
 
 
