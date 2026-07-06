@@ -1,0 +1,87 @@
+package com.alibaba.example.util;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 类、类属性、类方法的注释使用 Javadoc 格式
+ * @author <创建者>
+ * @date 2026-07-06
+ */
+public class UserService {
+    // 类名使用 UpperCamelCase（大驼峰）风格
+    //  常量命名全部大写，单词间用下划线隔开
+    private static final int MAX_RETRY_COUNT = 3;
+
+    // POJO类属性必须使用包装数据类型
+    private Long userId;
+    private String userName;
+
+    /**
+     * 方法名使用 lowerCamelCase（小驼峰）风格
+     * 获取用户信息
+     * @param userId 用户ID
+     * @return 用户姓名
+     */
+    public String getUserNameById(Long userId) {
+        // 采用 4 个空格缩进
+        // if/for/while/switch/do 等保留字与括号之间都必须加空格
+        // 任何二目、三目运算符的左右两边都需要加一个空格
+        // 左小括号和字符之间不出现空格
+        if (userId == null) {
+            // 注释的双斜线与注释内容之间有且仅有一个空格 
+            return "默认用户";
+        }
+
+        // 方法参数在定义和传入时，多个参数逗号后边必须加空格 
+        String result = fetchUserFromDatabase(userId, "local");
+        return result;
+    }
+
+    /**
+     * 模拟从数据库获取用户
+     * @param userId 用户ID
+     * @param source 数据源
+     * @return 用户信息
+     */
+    private String fetchUserFromDatabase(Long userId, String source) {
+        // 大括号非空时：左大括号前不换行、后换行；右大括号前换行 
+        if (source.equals("local")) {
+            // 任何数据结构的构造或初始化，都应指定大小
+            List<String> tempList = new ArrayList<>(5);
+            tempList.add("Alice");
+            tempList.add("Bob");
+            return tempList.get(0);
+        } else {
+            return "Remote User";
+        }
+    }
+
+    public void printUserInfo() {
+        // 第2行相对第1行缩进4个空格，运算符随下文换行
+        String longStatement = "这是一个很长的字符串用于演示阿里规范中" 
+                + "关于单行字符数不超过120个时的换行规则，运算符（+）放在行首"; 
+        
+        // 点符号与下文一起换行
+        StringBuilder sb = new StringBuilder();
+        sb.append("User: ")
+          .append(userName)
+          .append(" (ID: ")
+          .append(userId)
+          .append(")");
+        
+        // 在使用 equals 方法时，推荐使用常量或确定值来调用，避免空指针
+        if ("admin".equals(userName)) {
+            System.out.println("管理员用户：" + sb.toString());
+        }
+    }
+
+    public static void main(String[] args) {
+        // 中括号是数组类型的一部分，应该 String[] args 而不是 String args[]
+        UserService service = new UserService();
+        System.out.println(service.getUserNameById(null));
+        service.printUserInfo();
+    }
+}
+
+
