@@ -1,0 +1,90 @@
+# 聂坚兵-暑期个人学习计划兼实习前技术栈规划
+
+**目标: 全栈 + Agent 开发** 
+
+**说明: 未必一个暑假都学掉，有些学过的**
+
+**暑假按照下面的技术栈规划跟随《多源异构项目》同步学习，优先学习当前急需使用的内容**
+
+## 全栈计划
+
+快速总结一遍《食愈》项目，提升flask接口与前端手写能力
+
+python基础再过一遍，能够纯手写，每天刷3道左右算法题目
+
+提升request库的熟悉度和使用能力，提升爬虫技术熟练度
+
+快速过一遍/补充学习 人才呀 平台 上的课程
+
+相关项目工程化部署
+
+《版本控制Git》
+
+《Web前端基础》
+
+《ECMAScript 6+基础》
+
+《班管小助手项目实战》
+
+《Vue3/基于Vue3 + ElementPlus项目实战》《vant》
+
+《WebSocket》
+
+《node.js服务端开发与项目实战》
+
+《Typescript》
+
+《uniapp跨平台技术与项目实战》
+
+《javaSE/EE+javaWeb/SSM+Log4j2+Junit+MybatisPlus+SpringBoot+SpringCloud与相关项目实战》
+
+《数据库应用技术->Mysql/Postgresql/Neo4j》
+
+《中间件->Redis/Elasticsearch/RabbitMQ》
+
+《Linux操作系统》
+
+《学习RPC之Dubbo》
+
+《Docker》
+
+## Agent计划
+
+学习使用低代码平台Coze
+
+学习提示词工程、流式输出、上下文窗口、Token计算与成本控制、会话管理
+
+关于Ollama的使用 自行了解与进展
+
+相关项目工程化部署
+
+MCP开发与RAG技术和记忆技术
+
+Agent理论与基础范式
+
+学习Workflow与人工介入
+
+多智能体、微调、本地化、多模态
+
+学习和了解Transformer架构(矩阵向量/关系向量/概率模型/文本推断/行为权重/特别计算函数)
+
+《LangChain + LangGraph》
+
+《SpringAI》
+
+《补充LangChain4j + LangGraph4j》 --> 冲击大厂Agent
+
+《Pydantic》
+
+《Pi框架》
+
+《Hermes框架》
+
+《SSE技术》
+
+依照《大语言模型应用开发与智能体进阶学习路线.md》文件学习Agent
+
+依照《知识图谱学习路线与计划.md》文件学习知识图谱
+
+
+
