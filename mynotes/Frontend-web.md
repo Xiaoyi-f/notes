@@ -6,11 +6,11 @@ src
   assets 
   components 
   views 
+  stores 
   router 
     index.js 
     guard.js 
     children.js 
-  stores 
   api
   mock
   util
@@ -63,7 +63,18 @@ repeat auto-fill auto-fit minmax px rem ch % vh vw dvh(动态 -> 减少/避免�
 ## JS 
 类型: Number String Boolean Null Undefined Symbol BigInt 
 
-console.log() async await Object.keys() Object.values() Object.entries() 
+async await 
+console.log() console.clear() console.error()
+Object.keys() Object.values() Object.entries() 
+
+_private 私有属性/方法约定 #private 私有属性/方法实现
+class User {
+  constructor(name) {
+    this.name = name
+    this.secret = 'xxx'
+  }
+}
+const user = new User('name')
 
 `${}` ? :  typeof [key] ...var
 

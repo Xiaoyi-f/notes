@@ -1,0 +1,45 @@
+## Git
+
+## HBuilderX
+
+## Vscode
+Chinese
+翻译
+Auto Close Tag
+Auto Rename Tag
+Dracula Theme Official
+Error Lens
+HTML CSS Support
+HTMLHint
+JavaScript and TypeScript Nightly
+Live Server
+MetaJump  ->  使用查看此插件设置项中键盘快捷方式
+Path Intellisense
+Vetur / Vue
+Markdown Preview Enhanced
+Markdown All in one
+
+## Pycharm / IDEA 
+AceJump 
+BlackConnect --> Python 代码格式化连接器
+CodeGlance Pro
+Indent Rainbow
+Inspection Lens 
+Material Theme UI lite
+Rainbow Brackets Lite
+Translation
+Chinese 
+
+## Postman / Apipost
+
+## 微信开发者工具
+
+## XShell + XFtp 
+
+## Clash for windows / Watt Toolkit 
+
+## Navicat 
+
+## Redis Insight ...
+ 
+
