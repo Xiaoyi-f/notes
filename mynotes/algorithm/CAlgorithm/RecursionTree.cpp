@@ -18,7 +18,7 @@ void handler(int start, int len) {
 			printf("%d", arr[i]);
 		}
 		printf("\n");
-        // 截断
+    // 截断
 		return ;
 	}
 	// 减枝
