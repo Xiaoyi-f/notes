@@ -4,7 +4,16 @@
 # __init__.py 包标识文件 自动本包提前导入使用__all__=[]声明
 # int float bool str list dict set tuple complex
 # help(keyword)
-class Stats:
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
+from enum import Enum
+
+class Base(ABC):
+    @abstractmethod
+    def show(self):
+        pass
+
+class Stats(Base):
     def __init__(self, num, digits):
         self.num = num
         self.digits = digits
@@ -30,11 +39,60 @@ class Stats:
 # isinstance(obj, match_type) 扩展支持继承
 print(type(Stats(True, False).show())) # return typeObj -> keyword
 
+class Color(Enum):
+    RED = 1
+    GREEN = 2
+    BLUE = 3
+
+print(Color.RED.name)
+print(Color.RED.value)
+
+@dataclass
+class Pythonista:
+    name: str = "Pythonista"
+    age: int = 10
+
+pythonista = Pythonista()
+print(pythonista.name, pythonista.age)
+
 string = "Hello Python"
 string.replace("Hello", "Great")
 print(string.count('o'), string.find("Python"), ''.join(string.split(' ', 1)))
 
 list_var = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+list_var.append(list_var.pop(-1))
+list_var.insert(0, 0)
+list_var.remove(0)
 
+set_frozen = frozenset({1, 2, 3, 4, 5, 6, 7, 8, 9, 10})
+set_var = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+print(set_var.union(set_frozen), set_var.intersection(set_frozen), set_var.difference(set_frozen), sep='\n')
+set_var.discard(9)
+set_var.add(9)
+
+tuple_fix = (1, 2, 3,)
+
+dict_var = {"name": "Python", "age": 10}
+dict_var.update({"author": "Python Authors"})
+print(dict_var.get("name"), dict_var.get("age"), dict_var.get("author"))
+print(dict_var.keys(), dict_var.values(), dict_var.items(), sep='\n')
+
+# 生成器函数与yield
+def gen():
+    print("1号执行")
+    yield 1
+    print("2号执行")
+    yield 2
+generator = gen()
+# StopIteration 相关异常
+print(next(generator), next(generator))
 # reversed() 返回一个迭代器对象
+
+with open('file', 'rwab+') as file:
+    file.write("Hello Python")
+    file.readline()
+    file.writelines(["Hello Python", "Great Python"])
+
+
+
 
