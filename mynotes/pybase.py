@@ -34,5 +34,7 @@ string = "Hello Python"
 string.replace("Hello", "Great")
 print(string.count('o'), string.find("Python"), ''.join(string.split(' ', 1)))
 
+list_var = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
 # reversed() 返回一个迭代器对象
 
