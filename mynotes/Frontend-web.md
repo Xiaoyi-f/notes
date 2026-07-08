@@ -42,7 +42,8 @@ textarea style="resize: none;" cols rows placeholder pattern minlength maxlength
 el-select el-option value label
 el-badge button type reset 
 href="#id" --> 实现锚点跳转 
-
+detail summary ul 
+progress link
 ## CSS基本语法 -> vibecoding 
 text-align color linear-gradient() rgba() text-decoration list-style 
 text-shadow box-shadow font-family font-size font-weight line-height(等盒高居中)
@@ -61,9 +62,10 @@ repeat auto-fill auto-fit minmax px rem ch % vh vw dvh(动态 -> 减少/避免�
 @keyframes @media and or not 
 
 ## JS 
-类型: Number String Boolean Null Undefined Symbol BigInt 
+类型: Number String Boolean Null Undefined Symbol BigInt NaN 
 
 async await 
+alert prompt 
 console.log() console.clear() console.error()
 Object.keys() Object.values() Object.entries() 
 
@@ -89,6 +91,9 @@ object.getAttribute() object.setAttribute(属性, 值)
 localStorage/sessionStorage -> setItem(key, value) getItem(key) removeItem(key)
 document.cookie = "keyOne=valueOne; keyTwo=valueTwo; keyThree=valueThree"
 
+new Object() 动态对象 函数对象
+
+array.length 动态数组 
 array.map((val, index) => {逐个操作}) // 返回新数组 
 array.forEach((val, index) => {逐个操作}) // 纯行为 
 array.filter((val, index) => {布尔表达式}) // 返回新数组 
@@ -106,6 +111,14 @@ encodeURIComponent(str) decodeURIComponent(str) --> 全编解码
 
 try {} catch(err) {} finally {}
 
+const now = new Date()
+// 分别获取各时间单位
+const year = now.getFullYear()        
+const month = now.getMonth() + 1     
+const day = now.getDate()            
+const hours = now.getHours()         
+const minutes = now.getMinutes()      
+const seconds = now.getSeconds()     
 
 
 ## 事件
