@@ -84,14 +84,16 @@ setTimeout setInterval clearTimeout clearInterval
 window.全局变量/常量  
 window.dispatchEvent(new CustomEvent('event', {detail: data}))
 
-document.documentElement 
+document.documentElement
+element.nextSibling element.previousSibling  
 document.querySelector() document.querySelectorAll()
 object.getAttribute() object.setAttribute(属性, 值) 
+
 
 localStorage/sessionStorage -> setItem(key, value) getItem(key) removeItem(key)
 document.cookie = "keyOne=valueOne; keyTwo=valueTwo; keyThree=valueThree"
 
-new Object() 动态对象 函数对象
+new Object() 动态对象 函数对象可new prototype原型属性 -> 关联
 
 array.length 动态数组 
 array.map((val, index) => {逐个操作}) // 返回新数组 

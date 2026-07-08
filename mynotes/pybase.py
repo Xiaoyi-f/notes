@@ -93,6 +93,7 @@ with open('file', 'rwab+') as file:
     file.readline()
     file.writelines(["Hello Python", "Great Python"])
 
-
+# 上下文协议与上下文管理器
+# __enter__ __exit__ with
 
 
