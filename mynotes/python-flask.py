@@ -1,28 +1,25 @@
-项目文件夹规范:
-    - app.py 启动文件
-    - routes 文件夹 
-    - api 文件夹 
-      - AI 文件夹
-      - ... 相关工具模块文件夹
-    - config 文件夹 
-    - db 数据库相关文件夹 
-    - static 静态资源文件夹 
-    - utils 自定义工具文件夹 
-    - .env 环境变量文件 
-    - .gitignore git忽略文件 
-    - requirements.txt 依赖包版本记录文件 
-    - README.md 项目说明文件 
-
-提示: 含有 __init__.py 文件的目录 将会被python标记为软件包 
-其他文件第一次导入对应的包时候，自动执行一次__init__.py中的代码 
-python的代码规范整体还是遵循蛇形的命名规范 但是我比较喜欢SQLAlchemy表类字段使用小驼峰规范
-
-python -m 模块名 --> 按照模块名运行  
+"""
+项目文件夹规范
+- app.py 启动文件
+- routes 文件夹 
+- api 文件夹 
+    - AI 文件夹
+    - ... 相关工具模块文件夹
+- config 文件夹 
+- db 数据库相关文件夹 
+- static 静态资源文件夹 
+- utils 自定义工具文件夹 
+- .env 环境变量文件 
+- .gitignore git忽略文件 
+- requirements.txt 依赖包版本记录文件 
+- README.md 项目说明文件  
+"""
 
 class Config:
     SECRET_KEY = "secret key" 
     SQLALCHEMY_DATABASE_URI = "mysql+pymysql://userName:password@url:port/dbName"
     SQLALCHEMY_TRACK_MODIFICATIONS = False 
+    
 
 from flask import Flask, jsonify, request, make_response, Blueprint
 from flask_cors import CORS
@@ -34,17 +31,10 @@ from functools import wraps
 app = Flask(__name__)
 app.debug = False
 # 签名传输的数据 记录下来
-app.config.from_object('配置类')
-app.config['SECRET_KEY'] = SECRET_KEY
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://userName:password@url:port/dbName"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-CORS(app, supports_credentials=True, origins= [
-    'url1',
-    'url2'
-])  
-# 注意: 后端一般不存储Token，后端生成并且返回Token之后应该立马存到前端
-# 默认情况下的浏览器安全机制: 防止恶意网站诱导用户浏览器自动携带 Cookie 去访问别的接口
-# 所以当将JWT存储在Cookie中时，需要设置开启supports_credentials=True并且要明确指定origin，不可以设置为*
+app.config.from_object('Config')
+# 前后端不同源,允许跨域携带凭证
+CORS(app, supports_credentials=False, origins= [])  
+# 后端生成并且返回Token之后应该立马存到前端
 
 # 简单序列化实现Token 
 serializer = URLSafeTimedSerializer(os.getenv("SECRET_KEY", salt="auth"))
@@ -55,7 +45,7 @@ serializer.dumps({"userAccount": userAccount})
 # 验证Token 解密token 如果未过期、未被篡改 就返回 userAccount 否则返回 None
 serializer.loads(token, max_age=xxx)["userAccount"]
 
-# token自动化实现装饰器 
+# token自动化装饰器 
 def requireAuth(func):
     @wraps(func)
     def decorated(*args, **kwargs):
@@ -105,15 +95,11 @@ def demo(num, decimal, name):
     )
     """
 
-# SQLAlchemy 技术 属于 ORM技术(实现编程语言与数据库相连的中间件技术) 之一
-db = SQLAlchemy(app)
+# SQLAlchemy 技术 属于 ORM 技术(实现编程语言与数据库相连的中间件技术) 之一
+db = SQLAlchemy()
+db.init_app(app) 
 
-外键是一种约束，需要手动填充值，外键可以实现关联 --> 限制填充的值应该是从关联列中获取的 
-
-解决循环导入问题小妙招:
-    使用db.init_app(app)后来填充SQLAlchemy()参数 
-
-表名默认就是类名小写 如果是驼峰命名的话，默认就是使用_(下划线隔离)
+# 表名默认就是类名小写 如果是驼峰命名的话，默认就是使用_(下划线隔离)
 class Table(db.Model):
     # 数据库内容采用蛇形命名规范
     __tablename__ = "table_name" 
@@ -187,4 +173,5 @@ socket.run(app, host='0.0.0.0', port=5000)
 # 对于不使用socket的项目
 app.run(host='0.0.0.0', port=5000)
 # 生产部署环境不要写这些，直接使用gunicorn管控
-gunicorn -k geventwebsocket.gunicorn.workers.GeventWebSocketWorker -w 1 -b 0.0.0.0:5000 app:app
+gunicorn -w 5 -b 0.0.0.0:5000 app:app
+gunicorn -k geventwebsocket.gunicorn.workers.GeventWebSocketWorker -w 5 -b 0.0.0.0:5000 app:app

@@ -93,7 +93,6 @@ df_clean.to_excel('清洗后的招聘数据.xlsx', index=False)
 
 # 保存为 JSON
 df_clean.to_json('清洗后的数据.json', orient='records', force_ascii=False, indent=4)
-------
 # orient='records' 字典列表形式 
 # orient='index' 索引键字典 
 # orient='columns' 列名键字典 

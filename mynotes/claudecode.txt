@@ -1,4 +1,5 @@
 claudecode会默认将当前目录作为工作目录
+国内deepcode属于同类产品
 进入 claude 按下 / 可以看到提示的各种命令 例如: /mcp /context 
 按 esc 可以返回上一级
 Tip: 使用这类操控电脑的工具注意做好限制 
@@ -14,9 +15,12 @@ winget install Anthropic.ClaudeCode
 
 claude 命令进入一般 
 
+支持hooks(钩子)功能 --> 让AI在特定时候做特定事情 
+
 npm全局安装(Node.js 18+)
 npm install -g @anthropic-ai/claude-code 
 
+vscode搜索claude code for vscode插件结合使用
 Tip: claude使用项目SKILL不需要压缩SKILL文件夹 
 Claude Code在首次启动时，会生成一个状态文件.claude.json，
 并读取其中的hasCompletedOnboarding字段来判断是否已完成初始化

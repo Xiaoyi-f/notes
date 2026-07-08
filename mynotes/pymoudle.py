@@ -151,7 +151,60 @@ class OSSManager:
     def file_exists(self, oss_key):
         return self.bucket.object_exists(oss_key)
 
-# Flask
+# flask-socketio
+from gevent import monkey
+monkey.patch_all()
+# gevent 是基于协程的异步库，想要实现高并发 WebSocket，必须替换掉 Python 原生阻塞 IO 底层 API
+from dotenv import load_dotenv
+from flask_socketio import SocketIO, emit, join_room, leave_room
+
+load_dotenv()
+
+# WebSocket核心实例，gevent协程异步
+# 协程是实现异步的一种技术载体
+socketio = SocketIO(
+    app,
+    async_mode="gevent",
+    cors_allowed_origins=["https://front.domain.com"],
+    path="/ws/socket"
+)
+
+sid_room_map = {}
+
+# 监听内置事件鉴权
+@socketio.on("connect")
+def ws_connect():
+    token = request.args.get("token")
+    if token != os.getenv("VALID_TOKEN"):
+        return False
+
+# 监听业务事件进入房间
+@socketio.on("join_session")
+def ws_join_room(room_id):
+    sid = request.sid # 每一条 WebSocket 连接的唯一身份证
+    sid_room_map[sid] = room_id # 底层将sid归入room_id分组
+    join_room(room_id)
+    emit("system_notice", {"msg": f"进入会话{room_id}"})
+
+# 监听业务事件接收任务
+@socketio.on("agent_task")
+def ws_recv_task(data):
+    room = sid_room_map[request.sid]
+    emit("task_ack", {"code":200}) # 单发当前连接
+    emit("task_broad", data, room=room) # 房间内推送
+
+# 监听内置事件断开连接
+@socketio.on("disconnect")
+def ws_disconnect():
+    sid = request.sid
+    if sid in sid_room_map:
+        room = sid_room_map.pop(sid)
+        leave_room(room)
+
+# 服务端主动推送WS消息
+def ws_push(room_id, chunk_data):
+    socketio.emit("ai_stream_chunk", chunk_data, room=room_id)
+
 
 
 
