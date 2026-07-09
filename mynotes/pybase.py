@@ -60,9 +60,15 @@ string.replace("Hello", "Great")
 print(string.count('o'), string.find("Python"), ''.join(string.split(' ', 1)))
 
 list_var = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+len(list_var)
 list_var.append(list_var.pop(-1))
 list_var.insert(0, 0)
 list_var.remove(0)
+list_var.index(10)
+# 支持列表+拼接
+
+for index, value in enumerate(list_var):
+    print(index, value)
 
 set_frozen = frozenset({1, 2, 3, 4, 5, 6, 7, 8, 9, 10})
 set_var = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
