@@ -62,6 +62,8 @@ repeat auto-fill auto-fit minmax px rem ch % vh vw dvh(动态 -> 减少/避免�
 @keyframes @media and or not 
 
 ## JS 
+高级特性 -> ES6 有些浏览器还不太支持所以有转 ES5 的概念
+
 类型: Number String Boolean Null Undefined Symbol BigInt NaN 
 
 async await 

@@ -36,7 +36,7 @@ gitee github codeup --> 仓库
 codeup (云效) --> 阿里云:
 创建组织 -> 创建项目 -> 创建仓库 -> 手动关联项目管理与仓库 -> 拉人 -> 设置项目参与者/管理员 -> 进行项目 -> 完结
 
-## Node 
+## Node -- 基于v8浏览器内核的服务端运行环境 脱离浏览器
 安装 nvm 管理 不同版本的 node
 nvm list
 nvm list available
