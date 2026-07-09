@@ -1,14 +1,15 @@
-准备项目附件 -> AI生成:
+## 准备项目附件 -> AI生成
     sitemap.xml
     robots.txt
 
-从开发环境到部署配置改动:
+## 从开发环境到部署配置改动:
     1.框架的debug模式切换为False状态、CORS配置修改 
     2.前端VITE_API_BASE_URL类配置域名修改为https://部署域名:5000
     3.后端数据库DATABASE_URL类配置修改为部署环境数据库相对应的配置
     4.生产环境Nginx等配置以及监控运行 
     5.其他...
 
+## 注意点
 Nginx有默认的代理访问超时限制以及上传文件大小限制，可能导致大文件上传失败 --> 需要自行更改对应的配置
 域名备案查询网站: https://beian.miit.gov.cn/
 备案的话一般的服务器/域名销售商网站就可以备案
@@ -21,6 +22,7 @@ Nginx有默认的代理访问超时限制以及上传文件大小限制，可能
 微软浏览器打开无痕模式快捷键: ctrl + shift + n 
 
 
+## nginx命令
 nginx -t 检查nginx配置文件是否有问题 
 nginx -s reload 重新加载nginx配置文件 
 systemctl reload nginx 重新加载nginx
@@ -28,7 +30,7 @@ systemctl restart nginx 重启nginx
 ss -tuln | grep 443 检查是否有nginx在监听 443 端口
 ss -tuln | grep 80 检查是否有nginx在监听 80 端口
 
-宝塔部署网站项目:
+## 宝塔部署网站项目
     1.准备好服务器并且装配好系统Linux
     2.准备好域名
     3.对域名进行解析，添加A记录，记录值为服务器公网ip
