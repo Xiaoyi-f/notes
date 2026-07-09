@@ -1,18 +1,13 @@
 """
 项目文件夹规范
-- app.py 启动文件
-- routes 文件夹 
-- api 文件夹 
-    - AI 文件夹
-    - ... 相关工具模块文件夹
-- config 文件夹 
-- db 数据库相关文件夹 
-- static 静态资源文件夹 
-- utils 自定义工具文件夹 
-- .env 环境变量文件 
-- .gitignore git忽略文件 
-- requirements.txt 依赖包版本记录文件 
-- README.md 项目说明文件  
+app.py 启动文件 
+.env 环境变量  .env.example 
+requirements.txt 依赖包文件 
+util 自定义工具 
+route 蓝图路由文件夹
+db 数据库相关文件夹
+service 特殊服务功能文件夹
+script 脚本文件夹 
 """
 
 class Config:
@@ -20,13 +15,13 @@ class Config:
     SQLALCHEMY_DATABASE_URI = "mysql+pymysql://userName:password@url:port/dbName"
     SQLALCHEMY_TRACK_MODIFICATIONS = False 
     
-
-from flask import Flask, jsonify, request, make_response, Blueprint
+from flask import Flask, jsonify, request, make_response, Blueprint, current_app 
 from flask_cors import CORS
 from sqlalchemy import and_, or_, not_, func
 from flask_sqlalchemy import SQLAlchemy
 from itsdangerous import URLSafeTimedSerializer 
 from functools import wraps 
+import datetime 
 
 app = Flask(__name__)
 app.debug = False
@@ -45,6 +40,19 @@ serializer.dumps({"userAccount": userAccount})
 # 验证Token 解密token 如果未过期、未被篡改 就返回 userAccount 否则返回 None
 serializer.loads(token, max_age=xxx)["userAccount"]
 
+# ws握手规则明确表明token只能拼接在url中传递,涉及ws的项目使用URLSafeTimedSerializer,纯HTTP项目使用jwt
+
+import jwt 
+
+payload = {"userId": "userId", "exp": datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=7), "iat": datetime.datetime.now(datetime.timezone.utc)}
+token = jwt.encode(payload, current_app.config["SECRET_KEY"], algorithm="HS256")
+
+try:
+    payload = jwt.decode(token, current_app.config["SECRET_KEY"], algorithms=["HS256"])
+except jwt.ExpiredSignatureError:
+    return None
+except jwt.InvalidTokenError:
+    return None
 # token自动化装饰器 
 def requireAuth(func):
     @wraps(func)
