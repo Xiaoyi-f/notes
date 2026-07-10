@@ -15,6 +15,7 @@ class Base(ABC):
 
 class Stats(Base):
     def __init__(self, num, digits):
+        super().__init__()
         self.num = num
         self.digits = digits
         self.list_var = [self.num, self.digits]
@@ -25,6 +26,7 @@ class Stats(Base):
         others return NumType
         """
         # 参数函数通常巧妙使用lambda函数
+        super().father_method()
         self.list_var = sorted(self.list_var, key=None, reverse=False) # / * 字典序
         print(self.list_var[0], self.list_var[1], self.list_var, # 警告则加\ 扩展f字符串
             all(self.list_var), any(self.list_var), sep=' and ', end='\n')

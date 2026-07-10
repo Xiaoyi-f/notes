@@ -82,14 +82,19 @@ array.sort(function(a, b) {
 })
 
 _private 私有属性/方法约定 #private 私有属性/方法实现
-class User {
-  constructor(name) {
+class User extends Object {
+  constructor(name, xxx) {
+    super() // 传递参数
     this.name = name
-    this.secret = 'xxx'
+    this.secret = xxx
+  }
+  superMethod() {
+    super.superMethod()
   }
 }
 const user = new User('name')
 
+只有默认导出的内容才可以导入时候不写花括号
 `${}` ? :  typeof [key] ...var ...args 
 // 箭头函数没有本身的this
 
@@ -106,6 +111,8 @@ element.nextSibling element.previousSibling
 document.querySelector() document.querySelectorAll()
 object.getAttribute() object.setAttribute(属性, 值) 
 
+JSON.stringify(obj)
+JSON.parse(str)
 localStorage/sessionStorage -> setItem(key, value) getItem(key) removeItem(key) clear()
 document.cookie = "keyOne=valueOne; keyTwo=valueTwo; keyThree=valueThree"
 
@@ -182,6 +189,36 @@ Reflect.set(user, 'age', 22)
 Reflect.has(user, 'age') // true
 // 删除
 Reflect.deleteProperty(user, 'age')
+
+// 异步 
+const promise = new Promise((resolve, reject) => {
+    // 行为
+    if (true) {
+        resolve("成功时传递的数据")
+    } else {
+        reject(new Error("失败时传递错误"))
+    }
+})
+
+// Promise 代码是异步执行的，等待过程中下面的代码不会被阻塞
+promise.then((data) => {
+    // 行为
+}, (error) => {
+    // 错误处理 
+})
+
+// 全部完成才触发then,一个错误整体结束,返回结果数组和传参数组严格对应
+Promise.all([promise1, promise2, ...]).then((data) => {}, (error) => {})
+
+// 生成器 
+function* generator() {
+    yield val 
+}
+
+const genObj = generator()
+genObj.next() 
+## TS 
+
 
 ## 事件
 @click @dbclick @click.right 
