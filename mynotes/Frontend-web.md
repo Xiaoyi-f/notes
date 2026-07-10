@@ -218,9 +218,9 @@ function* generator() {
 const genObj = generator()
 genObj.next() 
 
-// Ajax 底层实现 
+// Ajax 异步JS请求实现 
 const xhr = new XMLHttpRequest()
-// Ajax 对XMLHttpRequest的请求进行简化和封装 Axios 对Ajax的请求进行简化和封装
+// JQuery.ajax 对XMLHttpRequest的请求进行简化和封装 Axios 对Ajax的请求进行简化和封装
 
 ## TS 
 
