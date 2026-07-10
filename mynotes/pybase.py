@@ -67,6 +67,10 @@ list_var.remove(0)
 list_var.index(10)
 # 支持列表+拼接
 
+# 累加器 
+# from functools import reduce 
+# reduce(lambda acc, cur: acc + cur, nums, 0) 
+
 for index, value in enumerate(list_var):
     print(index, value)
 

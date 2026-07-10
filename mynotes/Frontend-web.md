@@ -66,10 +66,20 @@ repeat auto-fill auto-fit minmax px rem ch % vh vw dvh(动态 -> 减少/避免�
 
 类型: Number String Boolean Null Undefined Symbol BigInt NaN 
 
+Symbol 有独一无二特性,就算创建两个一模一样的Symbol,他们也不等
+// 迭代器 
+const array = [1, 2, 3]
+const iter = array[Symbol.iterator]()
+iter.next() // {value: 1, done: false} 
+
 async await 
 alert prompt 
 console.log() console.clear() console.error()
 Object.keys() Object.values() Object.entries() 
+
+array.sort(function(a, b) {
+    return a - b
+})
 
 _private 私有属性/方法约定 #private 私有属性/方法实现
 class User {
@@ -80,7 +90,12 @@ class User {
 }
 const user = new User('name')
 
-`${}` ? :  typeof [key] ...var
+`${}` ? :  typeof [key] ...var ...args 
+// 箭头函数没有本身的this
+
+# 变量的解构赋值
+let [a, b, c] = [1, 2, 3] 
+let {a, b, c} = {a: 1, b: 2, c: 3}
 
 setTimeout setInterval clearTimeout clearInterval
 window.全局变量/常量  
@@ -91,10 +106,12 @@ element.nextSibling element.previousSibling
 document.querySelector() document.querySelectorAll()
 object.getAttribute() object.setAttribute(属性, 值) 
 
-
-localStorage/sessionStorage -> setItem(key, value) getItem(key) removeItem(key)
+localStorage/sessionStorage -> setItem(key, value) getItem(key) removeItem(key) clear()
 document.cookie = "keyOne=valueOne; keyTwo=valueTwo; keyThree=valueThree"
 
+除了 Object.create(null) 生成的对象以外:
+自动继承原型对象内容
+所有普通对象、所有构造函数（自定义 / 内置）身上的 .prototype 对象，它们自身的隐式原型 __proto__ 全都指向 Object.prototype
 new Object() 动态对象 函数对象可new prototype原型属性 -> 关联
 
 array.length 动态数组 
@@ -103,6 +120,10 @@ array.forEach((val, index) => {逐个操作}) // 纯行为
 array.filter((val, index) => {布尔表达式}) // 返回新数组 
 array.find((val, index) => {布尔表达式}) // 返回第一个匹配的元素,无匹配项则返回undefined
 array -> pop() push() shift() unshift() slice(start, end) splice(start, deleteCount, item1, item2 ...)
+
+// 累加器 
+array.reduce(callback, initialValue) 
+// array.reduce((acc, cur) => acc + cur, 0) 
 
 String(val).trim()
 window.scrollTo(x, y) 
@@ -124,6 +145,43 @@ const hours = now.getHours()
 const minutes = now.getMinutes()      
 const seconds = now.getSeconds()     
 
+// Map对象
+const map = new Map()
+map.set("key", "value")
+map.get("key")
+map.delete("key")
+map.clear()
+
+// Set对象 
+const set = new Set()
+set.add("value")
+set.delete("value")
+set.size 
+
+// Proxy对象 响应监控
+const obj = { name: "name", age: "age" }
+const proxy = new Proxy(obj, {
+    // 读取属性时触发
+    get(target, attr, proxy) {
+        // 行为
+        return target[attr]
+    },
+    // 修改属性时触发 
+    set(target, attr, value, proxy) {
+        // 行为
+    }
+})
+
+// Reflect 对象 
+const user = { age: 20 }
+// 读取
+Reflect.get(user, 'age') // 20
+// 修改
+Reflect.set(user, 'age', 22)
+// 是否存在
+Reflect.has(user, 'age') // true
+// 删除
+Reflect.deleteProperty(user, 'age')
 
 ## 事件
 @click @dbclick @click.right 
