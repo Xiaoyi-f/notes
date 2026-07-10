@@ -18,6 +18,8 @@ python基础再过一遍，能够纯手写，每天刷3道左右算法题目
 
 RESTful API 
 
+前端核心组件库 element-plus vant 
+
 相关项目工程化部署
 
 《版本控制Git》
