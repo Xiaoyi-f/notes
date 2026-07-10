@@ -209,6 +209,7 @@ promise.then((data) => {
 
 // 全部完成才触发then,一个错误整体结束,返回结果数组和传参数组严格对应
 Promise.all([promise1, promise2, ...]).then((data) => {}, (error) => {})
+// 语法糖: async await 
 
 // 生成器 
 function* generator() {
