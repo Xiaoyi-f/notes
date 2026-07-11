@@ -1,9 +1,12 @@
 推荐网站: 
+各大厂公众号 GitHub Gitee 
 https://yun.itheima.com/subject/aiappmap/index.html 
 http://rencaiya.vip/college/postcourse
 https://xiaolincoding.com/
 https://www.codefather.cn/
 https://www.xiaolinnote.com/
 https://www.datawhale.cn/
-各大厂公众号 GitHub Gitee 
+https://pi-doc.com/docs/latest/index.html
+https://neo4j.ac.cn/docs/
+https://www.runoob.com/
 
