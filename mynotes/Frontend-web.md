@@ -64,6 +64,7 @@ repeat auto-fill auto-fit minmax px rem ch % vh vw dvh(动态 -> 减少/避免�
 ## JS 
 高级特性 -> ES6 有些浏览器还不太支持所以有转 ES5 的概念
 
+// 大写是包装类型 小写是基本类型 两者有所区别 
 类型: Number String Boolean Null Undefined Symbol NaN 
 
 Symbol 有独一无二特性,就算创建两个一模一样的Symbol,他们也不等

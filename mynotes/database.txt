@@ -169,4 +169,6 @@ SET GLOBAL general_log = ON;
 SHOW VARIABLES WHERE Variable_name = 'general_log_file';
 SET GLOBAL general_log_file = 'absolutePath';
 
+-- 拓张内容: 用户管理、权限管理、角色管理 请自行学习 
+
 
