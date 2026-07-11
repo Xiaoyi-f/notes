@@ -205,9 +205,65 @@ def ws_disconnect():
 def ws_push(room_id, chunk_data):
     socketio.emit("ai_stream_chunk", chunk_data, room=room_id)
 
+# redis 
+import redis 
+REDIS_CONFIG = {
+    "host": "127.0.0.1",
+    "port": 6379,
+    "db": 0,
+    "password": "password",
+    "decode_responses": True,
+    "socket_timeout": 5, # 设置超时报错,避免卡死 
+    "max_connections": 20
+}
 
+pool = redis.ConnectionPool(**REDIS_CONFIG) # 字典解包为键值参数 *List/Tuple列表/元组解包为位置参数 
+redis_cli = redis.Redis(connection_pool=pool)
 
+redis_cli.set("key", "value", ex=3600) # 单位: s
+redis_cli.setnx("key", "value") # 键不存在才执行 
 
+redis_cli.get("key")
+redis_cli.exists("key")
+redis_cli.ttl("key") # 获取剩余过期时间 -1表示永久 -2表示不存在 
+redis_cli.expire("key", 3600) # 重置过期时间
 
+redis_cli.delete("key1", "key2", ...)
 
+redis_cli.hset("hash_key", mapping={
+    "key1": "value1",
+    "key2": "value2"
+})
 
+# 有序双向列表
+redis_cli.hget("hash_key", "key")
+redis_cli.hgetall("hash_key") # 返回字典 
+redis_cli.hmget("hash_key", ["key1", "key2"]) # 取指定字段 
+redis_cli.hexists("hash_key", "key")
+redis_cli.hdel("hash_key", "key1", "key2")
+redis_cli.expire("hash_key", 3600) # 重置过期时间
+
+redis_cli.rpush("key", "value")
+redis_cli.lpush("key", "value")
+
+res = redis_cli.lrange("key", 0, -1) # 包头包尾
+
+# llen 获取列表总长度
+count = redis_cli.llen("key")
+
+pop_data = redis_cli.lpop("msg_queue")
+pop_data = redis_cli.rpop("msg_queue")
+
+# 集合
+redis_cli.sadd("key", "value1", "value2", ...)
+
+set = redis_cli.smembers("key")
+
+# 判断某个值是否存在集合内
+is_in = redis_cli.sismember("key", "value") # True
+
+# 删除集合里指定元素
+redis_cli.srem("key", "value")
+
+# 取两个集合的交集
+common = redis_cli.sinter("key1", "key2")

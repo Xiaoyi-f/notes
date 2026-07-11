@@ -1,7 +1,7 @@
 // 对比于python/java,node.js与客户创建连接不会新开线程浪费内存资源
 // node.js主线程永远只有一个 node 就是 node.js 记得配置环境变量
 // REPL环境(重点，Node / Python 天天用) 全称：Read - Eval - Print Loop
-// node js文件 执行 事件循环与循环队列 
+// node js文件 执行 事件循环与循环队列 npmjs.com 网站有node生态相关库/模块讲解
 // module代表当前文件本身,分离不同文件作用域避免全局变量污染 
 module.exports = {
   // xxx 导出的是对象,注意解构
@@ -150,5 +150,15 @@ module.exports = router
 const router = require("./router")
 app.use(router)
 
+const cookieParser = require("cookie-parser")
+app.use(cookieParser())
 
+app.get("/", (req, res, next) => {
+  if (req.cookies.isVisited) {
+    console.log(req.cookies)
+  } else {
+    res.cookie("isVisited", "true", { maxAge: 60 * 1000, httpOnly: true, sameSite: "Strict/Lax(Lax支持跨站get请求带cookies其他请求不可)", secure: true }) // 单位: ms
+  }
+  next()
+})
 

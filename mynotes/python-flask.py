@@ -93,13 +93,16 @@ def demo(num, decimal, name):
     request.files 字典
     files[key].save("path")
     resp = make_response(data)
+   后端在本次 HTTP 响应头里，添加一条 Set-Cookie 指令，命令浏览器在本地存储一条 Cookie 数据 
+   之后浏览器每一次向指定域名发请求，都会自动把这条 Cookie 带给后端
     resp.set_cookie(
         "key",
         "value",
-        max_age=2592000,
+        max_age=2592000, # 单位: s
         domain="xxx.xx",
-        samesite="Strict",
-        httponly=True # 开启这个之后前端无法读取cookie，只能够通过后端来操作
+        samesite="Strict/Lax", # 跨站请求不带cookies
+        httponly=True, # 开启这个前端无法读取cookie，只能够通过后端来操作
+        secure=True
     )
     """
 
