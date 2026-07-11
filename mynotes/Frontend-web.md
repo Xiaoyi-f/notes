@@ -102,8 +102,8 @@ const user = new User('name')
 let [a, b, c] = [1, 2, 3] 
 let {a, b, c} = {a: 1, b: 2, c: 3}
 
-setTimeout setInterval clearTimeout clearInterval
-window.全局变量/常量  
+// 所有变量全挂在window对象上
+setTimeout setInterval clearTimeout clearInterval  
 window.dispatchEvent(new CustomEvent('event', {detail: data}))
 
 document.documentElement
@@ -128,6 +128,13 @@ array.filter((val, index) => {布尔表达式}) // 返回新数组
 array.find((val, index) => {布尔表达式}) // 返回第一个匹配的元素,无匹配项则返回undefined
 array -> pop() push() shift() unshift() slice(start, end) splice(start, deleteCount, item1, item2 ...)
 
+for (const key in obj) {}
+
+for (const item in array) {}
+for (const item of string) {}
+for (const item of new Set()) {}
+for (const [key, val] of new Map())
+
 // 累加器 
 array.reduce(callback, initialValue) 
 // array.reduce((acc, cur) => acc + cur, 0) 
@@ -151,6 +158,9 @@ const day = now.getDate()
 const hours = now.getHours()         
 const minutes = now.getMinutes()      
 const seconds = now.getSeconds()     
+now.toLocaleString()
+now.toLocaleDateString()
+now.toLocaleTimeString()
 
 // Map对象
 const map = new Map()

@@ -1,0 +1,134 @@
+## 数据库体系结构
+
+三层模式
+外模式(External): 用户级 用户能够看到和处理的数据的结构描述,局部逻辑 
+模式: 概念级 数据库中全部数据的逻辑结构和特征
+内模式(Internal): 物理级 存储模式,存储在存储介质上的数据的结构描述,是一种存储结构 
+
+两层关联 
+外模式关联模式
+内模式关联模式
+
+逻辑数据和物理数据的独立性有利于数据库的安全性 
+
+单用户结构 在用户自己计算机上安装数据库,单用户使用自己的数据库 
+主从式结构 数据库安装在一个主机上关联其他计算机用户 
+分布式结构 C/S结构 B/S结构 数据在实际的物理分布上是分散的
+
+## 数据模型 
+概念模型: 面向用户、面向客观世界的概念化结构 
+逻辑模型: 面向数据库系统的模型,具体的DBMS所支持的数据模型 开发实现数据库
+物理模型: 面向计算机物理表示的模型,描述数据存储在介质上的组织结构 数据库底层实现
+
+
+层次(树状)模型 网状模型 关系型数据模型 
+
+实现ER图(实体联系图)有利于数据库的设计 --> 一对一、一对多、多对多
+分析需求 -> 分析业务 -> 确立类别与相关属性信息,建立类别和相关属性信息逻辑表 -> ERD实体联系图(注意用户也是使用,使用行为/联系进行实体关联) -> DFD数据流图 -> 建表/库与检查 -> 接入使用 
+Tip: 相关备注内容、细节和注意事项在做表/作图时候在表/图中适当位置标明
+
+## 数据库规范化 
+常见逻辑问题: 数据冗余、插入异常、更新异常、删除异常、属性冲突、命名冲突、结构冲突
+设计概念:
+自顶向下: 首先定义全局概念结构的框架,再逐步细化 
+自底向上: 首先定义各局部应用的概念结构,然后将他们集成起来,得到全局概念结构 
+逐步扩张: 首先定义最重要的核心概念结构,然后向外扩张,以滚雪球的方式逐步生成其他 
+混合策略: 自顶向下和自底向上相结合 
+
+## Mysql 数据库 
+搜索官网下载安装
+cd 下载的mysql文件夹中bin文件夹 
+mysqld --initialize-insecure 启动后台数据库系统并且创建root用户,默认没有密码 
+mysqld --install MySQL 给后台数据库系统安装MySQL服务 
+win + r 输入 services.msc 进入服务管理器可以找到这个服务并且进行管理 
+mysql -P 3306 -u root -p 回车输入密码 -P 3306 为默认端口  
+修改用户密码请进入MySQL后执行 ALTER USER USER() IDENTIFIED BY '密码';  
+-- 字符串务必使用单引号
+-- 库/表/字段名用反引号`
+exit; 退出 
+
+Mysql会自带几个数据库:
+mysql: 核心权限库 
+information_schema: 元数据虚拟库 
+performance_schema: 底层性能监控库 
+sys: 简化性能视图库 
+
+-- 查看全局引擎相关配置
+SHOW VARIABLES LIKE '%engine%'; 
+-- 另外_(下划线)表示单个任意字符 
+
+-- 查看数据库创建时候的编码和排序规则配置
+SHOW CREATE DATABASE database_name; 
+
+-- 设置数据库的编码和排序规则 
+ALTER DATABASE database_name 
+DEFAULT CHARACTER SET utf8mb4
+DEFAULT COLLATE utf8mb4_unicode_ci;
+
+## Mysql 基本使用 
+-- 删除数据库(不存在不报错)
+DROP DATABASE IF EXISTS `xxx_db`;
+-- 创建数据库
+CREATE DATABASE `xxx_db`;
+-- 切换使用数据库
+USE `xxx_db`;
+
+-- 查看所有数据库
+SHOW DATABASES;
+
+-- 创建表规范写法
+CREATE TABLE `table_name` (
+    `column_name` column_type [PRIMARY KEY | NOT NULL | DEFAULT value] AUTO_INCREMENT COMMENT 'column comment',
+    CONSTRAINT `constraint_name` 
+    FOREIGN KEY (`column_name`) 
+    REFERENCES `referenced_table_name` (`referenced_column_name`)
+    [ON DELETE CASCADE] [ON UPDATE CASCADE]
+);
+
+-- 删除外键约束
+ALTER TABLE `table_name` DROP FOREIGN KEY `constraint_name`;
+-- 修改表名
+ALTER TABLE `table_name` RENAME TO `new_table_name`;
+-- 删除字段
+ALTER TABLE `table_name` DROP COLUMN `column_name`;
+-- 修改字段类型与约束
+ALTER TABLE `table_name` MODIFY COLUMN `column_name` column_type; 
+-- 新增字段，可指定位置
+ALTER TABLE `table_name` ADD COLUMN `column_name` column_type [约束条件] [FIRST | AFTER `column_name`];
+
+-- 插入多条数据
+INSERT INTO `table_name` 
+(`column_name1`, `column_name2`, ...) 
+VALUES 
+('value1', 'value2', ...), 
+('value1', 'value2', ...), 
+...;
+
+-- 删除数据 
+DELETE FROM `table_name` WHERE `column_name` = 'value';
+
+-- 查询表全部字段
+SELECT * FROM `table_name`;
+-- 查询指定字段
+SELECT `column_name1`, `column_name2`, ... FROM `table_name`;
+-- 条件查询 条件符: = < > != <= >= BWTWEEN AND OR NOT IN(val1, val2, ...) LIKE REGEXP 
+SELECT * FROM `table_name` WHERE `column_name` 条件符 'value';
+-- 修改数据 
+UPDATE `table_name` SET `column_name` = 'value' WHERE `column_name` = 'value';
+
+-- SQL函数 
+SELECT AVG(`column_name`) AS '平均值' FROM `table_name` WHERE condition;
+SELECT COUNT(`column_name`) AS '数量' FROM `table_name` WHERE condition;
+SELECT MAX(`column_name`) AS '最大值' FROM `table_name` WHERE condition;
+SELECT MIN(`column_name`) AS '最小值' FROM `table_name` WHERE condition;
+SELECT SUM(`column_name`) AS '和' FROM `table_name` WHERE condition;
+SELECT DATE_FORMAT(`column_name`, '%Y-%m-%d %H:%i:%s')
+
+-- 数据类型 
+-- tinyint 1字节 smallint 2字节 mediumint 3字节 int 4字节 bigint 8字节
+-- float(alldigitsN, n)后7位 double(alldigitsN, n)后15位 decimal(m, n) 
+-- char(n)最多255个字节 varchar(n) tinytext最多255个字节 text六万五字节 mediumtext 16MB longtext 4GB
+-- year 1字节 date 3字节(年月日) time 3字节(时分秒) datetime 8字节(年月日时分秒)
+
+
+

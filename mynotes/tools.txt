@@ -42,4 +42,9 @@ Chinese
 
 ## Redis Insight ...
 
+## todesk 
+
+## claudecode/trae/coze ... 
+
+## drawio/xmind/processon 
 
