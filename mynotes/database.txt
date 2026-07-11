@@ -163,5 +163,10 @@ RELEASE SAVEPOINT savepoint_name; -- 释放保存点
 -- char(n)最多255个字节 varchar(n) tinytext最多255个字节 text六万五字节 mediumtext 16MB longtext 4GB
 -- year 1字节 date 3字节(年月日) time 3字节(时分秒) datetime 8字节(年月日时分秒)
 
+-- 日志查询 开启对性能有比较大影响 生产环境一般不开 
+SHOW VARIABLES WHERE Variable_name = 'general_log';
+SET GLOBAL general_log = ON;
+SHOW VARIABLES WHERE Variable_name = 'general_log_file';
+SET GLOBAL general_log_file = 'absolutePath';
 
 
