@@ -13,6 +13,8 @@ class Base(ABC):
     def show(self):
         pass
 
+# 君子协议: _var 表示protected形式 __var 表示private形式
+
 class Stats(Base):
     def __init__(self, num, digits):
         super().__init__()
