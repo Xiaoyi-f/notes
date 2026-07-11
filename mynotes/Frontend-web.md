@@ -127,6 +127,7 @@ array.forEach((val, index) => {逐个操作}) // 纯行为
 array.filter((val, index) => {布尔表达式}) // 返回新数组 
 array.find((val, index) => {布尔表达式}) // 返回第一个匹配的元素,无匹配项则返回undefined
 array -> pop() push() shift() unshift() slice(start, end) splice(start, deleteCount, item1, item2 ...)
+array.includes(val) 
 
 for (const key in obj) {}
 

@@ -150,6 +150,7 @@ module.exports = router
 const router = require("./router")
 app.use(router)
 
+// cookie中间件
 const cookieParser = require("cookie-parser")
 app.use(cookieParser())
 
@@ -162,3 +163,85 @@ app.get("/", (req, res, next) => {
   next()
 })
 
+// session中间件 
+const session = require("express-session")
+app.use(session({
+  secret: "secret", // 签名
+  saveUninitialized: false, // 是否保存未初始化的session
+  resave: false, // 是否每次请求都重新保存session
+  cookie: {
+    maxAge: 60 * 1000, // 单位: ms
+  }
+}))
+
+app.get("/", (req, res, next) => { 
+  req.session.user = { name: "name", age: 18 }
+  next()
+})
+
+// 文件上传
+const express = require('express')
+const { formidable } = require('formidable')
+const fs = require('fs')
+const path = require('path')
+
+const app = express()
+// 静态资源托管,访问上传后的图片
+app.use('/upload', express.static(path.join(__dirname, 'upload')))
+
+// 确保上传文件夹存在
+const uploadDir = path.join(__dirname, 'upload')
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true })
+}
+
+// 文件上传接口
+app.post('/upload', (req, res) => {
+  // 1. 创建实例，配置限制
+  const form = formidable({
+    uploadDir: uploadDir,    // 文件存放目录
+    maxFileSize: 5 * 1024 * 1024, // 单文件最大5MB
+    maxFields: 10,           // 最多10个普通表单字段
+    maxFieldsSize: 1024 * 1024, // 普通表单总大小1MB
+    keepExtensions: true,    // 保留原文件后缀 .png/.jpg
+    // 自定义文件名，避免重名覆盖
+    filename: (name, ext, part, form) => {
+      // 时间戳+随机数 防止重名
+      return Date.now() + '_' + Math.random().toString(36).slice(2) + ext
+    }
+  })
+
+  // 2. 解析请求 req
+  form.parse(req, (err, fields, files) => {
+    // 错误捕获：大小超限、格式错误、请求异常
+    if (err) {
+      return res.json({ code: 400, msg: '上传失败：' + err.message })
+    }
+
+    /**
+     * fields：普通文本表单 { name: '张三', id: '1001' }
+     * files：上传文件对象，单文件/多文件结构不同
+     */
+    console.log('表单文本字段：', fields)
+    console.log('上传文件：', files)
+
+    // 单文件上传取值
+    const file = files.file[0]
+    const fileUrl = `http://127.0.0.1:3000/upload/${file.newFilename}`
+
+    res.json({
+      code: 200,
+      msg: '上传成功',
+      data: {
+        originalName: file.originalFilename, // 用户上传原始文件名
+        saveName: file.newFilename,          // 服务器保存文件名
+        filePath: file.filepath,             // 本地完整路径
+        size: file.size,                     // 文件字节大小
+        mimetype: file.mimetype,             // 文件类型 image/png
+        url: fileUrl
+      }
+    })
+  })
+})
+
+app.listen(3000, () => console.log('服务启动 3000'))
