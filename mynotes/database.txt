@@ -43,8 +43,8 @@ mysqld --install MySQL 给后台数据库系统安装MySQL服务
 win + r 输入 services.msc 进入服务管理器可以找到这个服务并且进行管理 
 mysql -P 3306 -u root -p 回车输入密码 -P 3306 为默认端口  
 修改用户密码请进入MySQL后执行 ALTER USER USER() IDENTIFIED BY '密码';  
--- 字符串务必使用单引号
--- 库/表/字段名用反引号`
+-- 字面量才用加引号
+-- 标识符中有特殊符号用反引号`
 exit; 退出 
 
 Mysql会自带几个数据库:
@@ -53,6 +53,7 @@ information_schema: 元数据虚拟库
 performance_schema: 底层性能监控库 
 sys: 简化性能视图库 
 
+-- 巧妙子句拼接
 -- 查看全局引擎相关配置
 SHOW VARIABLES LIKE '%engine%'; 
 -- 另外_(下划线)表示单个任意字符 
@@ -78,7 +79,7 @@ SHOW DATABASES;
 
 -- 创建表规范写法
 CREATE TABLE `table_name` (
-    `column_name` column_type [PRIMARY KEY | NOT NULL | DEFAULT value] AUTO_INCREMENT COMMENT 'column comment',
+    `column_name` column_type [PRIMARY KEY | NOT NULL | DEFAULT value | UNIQUE] AUTO_INCREMENT COMMENT 'column comment',
     CONSTRAINT `constraint_name` 
     FOREIGN KEY (`column_name`) 
     REFERENCES `referenced_table_name` (`referenced_column_name`)
@@ -122,7 +123,39 @@ SELECT COUNT(`column_name`) AS '数量' FROM `table_name` WHERE condition;
 SELECT MAX(`column_name`) AS '最大值' FROM `table_name` WHERE condition;
 SELECT MIN(`column_name`) AS '最小值' FROM `table_name` WHERE condition;
 SELECT SUM(`column_name`) AS '和' FROM `table_name` WHERE condition;
-SELECT DATE_FORMAT(`column_name`, '%Y-%m-%d %H:%i:%s')
+SELECT DATE_FORMAT(`column_name`, '%Y-%m-%d %H:%i:%s');
+SELECT `columna_name`, SUM(`column_name`) FROM `table_name` GROUP BY `column_name`;
+SELECT ·column_name`, SUM(`column_name`) FROM `table_name` GROUP BY `column_name` HAVING 判断式; 
+
+SELECT * FROM table_name ORDER BY column_name [ASC | DESC];
+
+SELECT DISTINCT ...;
+SELECT COUNT(DISTINCT column_name) ...;
+
+-- 索引 有空间和查找开销 需要维护
+CREATE INDEX 'idx_table_name_column_name' ON `table_name` (`column_name1`, `column_name2`, ...)
+SHOW INDEX FROM `table_name` 
+DROP INDEX 'index_name' ON `table_name`
+
+-- 多表查询 
+SELECT * FROM table_name1 INNER JOIN table_name2 ON table_name1.column_name = table_name2.column_name;
+-- 左右边对应字段为空也显示右左表内容,左右边字段补NULL
+SELECT * FROM table_name1 LEFT JOIN table_name2 ON table_name1.column_name = table_name2.column_name;
+SELECT * FROM table_name1 RIGHT JOIN table_name2 ON table_name1.column_name = table_name2.column_name; 
+
+-- 子查询 
+SELECT * FROM table_name WHERE column_name IN (SELECT column_name FROM table_name ...);
+SELECT * FROM table_name WHERE column_name > ALL(SELECT column_name FROM table_name ...);
+SELECT * FROM table_name WHERE column_name = ANY(SELECT column_name FROM table_name ...);
+
+-- 事务 ACID (原子性, 一致性, 隔离性, 持久性)
+START TRANSACTION; -- 开启事务
+COMMIT; -- 提交/结束事务,把事务中所有修改永久保存到数据库
+-- 切记COMMIT之后就无法再回滚  
+ROLLBACK; -- 回滚事务,撤销事务中修改
+SAVEPOINT savepoint_name; -- 设置保存点
+ROLLBACK TO savepoint_name; -- 回滚到保存点
+RELEASE SAVEPOINT savepoint_name; -- 释放保存点
 
 -- 数据类型 
 -- tinyint 1字节 smallint 2字节 mediumint 3字节 int 4字节 bigint 8字节
