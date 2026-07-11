@@ -9,4 +9,9 @@ https://www.datawhale.cn/
 https://pi-doc.com/docs/latest/index.html
 https://neo4j.ac.cn/docs/
 https://www.runoob.com/
+https://modelcontextprotocol.io/docs/getting-started/intro
+https://skillsmp.com/
+https://github.com/anthropics/skills/tree/main/skills
+
+
 
