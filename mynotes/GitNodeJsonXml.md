@@ -5,7 +5,7 @@ git config --global user.email "邮箱"
 
 cd xxx
 git init
-git clone url
+git clone -b branch url
 git checkout -b branchName
 git pull nickName branch
 git status
