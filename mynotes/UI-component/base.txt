@@ -1,0 +1,8 @@
+常用组件库:
+PC端 ElementPlus 
+移动端 vant uniapp 
+数据图表库 ECharts  
+富文本工具 md-editor-v3 wangEditor tiptap 
+
+
+
