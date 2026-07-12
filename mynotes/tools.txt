@@ -15,7 +15,7 @@ JavaScript and TypeScript Nightly
 Live Server
 MetaJump  ->  使用查看此插件设置项中键盘快捷方式
 Path Intellisense
-Vetur / Vue
+Vue(official) 不要使用 vetur(vue2语法校验)
 Markdown Preview Enhanced
 Markdown All in one
 
