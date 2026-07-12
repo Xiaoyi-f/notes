@@ -11,7 +11,6 @@ Dracula Theme Official
 Error Lens
 HTML CSS Support
 HTMLHint
-JavaScript and TypeScript Nightly
 Live Server
 MetaJump  ->  使用查看此插件设置项中键盘快捷方式
 Path Intellisense

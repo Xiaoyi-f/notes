@@ -26,6 +26,11 @@ git config --global https.proxy 127.0.0.1:代理端口
 git config --global --unset http.proxy
 git config --global --unset https.proxy
 
+.gitattributes
+Git属性配置文件
+
+.editorconfig 是一套开源通用代码格式化标准
+
 .gitignore
 ! --> 强制允许推送
 

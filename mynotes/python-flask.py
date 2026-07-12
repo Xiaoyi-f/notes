@@ -31,7 +31,7 @@ app.config.from_object('Config')
 CORS(app, supports_credentials=False, origins= [])  
 # 后端生成并且返回Token之后应该立马存到前端
 
-# 简单序列化实现Token 
+# 序列化实现Token 
 serializer = URLSafeTimedSerializer(os.getenv("SECRET_KEY", salt="auth"))
 
 # 依据用户账号生成token
@@ -40,7 +40,7 @@ serializer.dumps({"userAccount": userAccount})
 # 验证Token 解密token 如果未过期、未被篡改 就返回 userAccount 否则返回 None
 serializer.loads(token, max_age=xxx)["userAccount"]
 
-# ws握手规则明确表明token只能拼接在url中传递,涉及ws的项目使用URLSafeTimedSerializer,纯HTTP项目使用jwt
+# 通用规范: 注意websocket协议传递token要写在第一个url参数中
 
 import jwt 
 
