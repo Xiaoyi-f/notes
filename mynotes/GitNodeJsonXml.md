@@ -17,6 +17,7 @@ git remote -v
 git remove add nickName url
 git remote rm nickName
 git merge branch
+git pull origin branch --allow-unrelated-histories
 
 # 代理 按顺序执行
 git config --global http.proxy 127.0.0.1:代理端口

@@ -4,7 +4,6 @@ import re
 import random
 from datetime import datetime
 
-# 对于容易被封ip的网站,使用代理池
 expires_time = datetime(2026, 7, 8, 12, 0, 0)
 print(time.strftime("%Y-%m-%d, %H:%M:%S", time.localtime(time.time())), expires_time)
 time.sleep(10)
@@ -58,6 +57,7 @@ with smtplib.SMTP_SSL("smtp.163.com", 465) as server:
     server.send_message(message)
 
 # crawler
+# 对于容易被封ip的网站,使用代理池
 import requests
 
 url = ""
@@ -267,3 +267,17 @@ redis_cli.srem("key", "value")
 
 # 取两个集合的交集
 common = redis_cli.sinter("key1", "key2")
+
+
+# weasyprint 生成pdf 
+from weasyprint import HTML
+from flask import send_file
+import io
+@app.route("/export_pdf/<int:user_id>")
+def export_pdf(user_id):
+    # 获取用户信息
+    html_content = f"""渲染HTML代码内容"""
+    pdf_file = HTML(string=html_content).write_pdf()
+    return send_file(io.BytesIO(pdf_file), as_attachment=True, # 开启附件下载模式 
+    download_name=f"{user["name"]}_简历.pdf", mimeType="application/pdf")
+
