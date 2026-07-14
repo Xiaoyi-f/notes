@@ -12,4 +12,8 @@ Graph RAG: 传统向量 RAG 的升级范式,核心是把原始文档抽取为 �
 标签
 数据浏览器(安装Neo4j之后,可以访问Neo4j的数据浏览器)
 
+Neo4j使用java和scala实现,主要依赖java环境
+5.x系列中5.26LTS是最后一个支持java17版本的
+之后版本需要java21以及以上版本
+AuraDB 云服务版Neo4j 
 
