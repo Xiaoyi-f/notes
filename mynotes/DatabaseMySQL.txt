@@ -109,7 +109,7 @@ VALUES
 DELETE FROM `table_name` WHERE `column_name` = 'value';
 
 -- 查询表全部字段
-SELECT * FROM `table_name`;
+SELECT * FROM `table_name` LIMIT n;
 -- 查询指定字段
 SELECT `column_name1`, `column_name2`, ... FROM `table_name`;
 -- 条件查询 条件符: = < > != <= >= BWTWEEN AND OR NOT IN(val1, val2, ...) LIKE REGEXP 

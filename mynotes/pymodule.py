@@ -14,7 +14,7 @@ json.loads(json.dumps(data, ensure_ascii=False))
 # json.load(file)
 
 text = "Hello Python"
-pat = re.compile(r".*?[^0-9]+?.{n, m}", re.DOTALL)
+pat = re.compile(r"^.*?[^0-9]+.{n, m}$", re.DOTALL)
 pat.search(text)
 pat.findall(text)
 
