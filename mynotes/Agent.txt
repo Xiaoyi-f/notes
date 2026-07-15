@@ -142,12 +142,23 @@ model = init_chat_model(
   temperature=0.7,
   max_tokens=1024,
   top_p=1.0,
-  top_k=50
+  top_k=50,
+  streaming=True
   )
+
+system_prompt="""
+# 身份
+- 你是一个编程助手，你的名字是xiaoyi
+# 指令
+- 定义变量时,使用snake_case命名规则,而不是camelCase命名规则
+- 不要返回markdown格式说明,只要返回代码即可
+(巧妙使用各种提示词技巧)
+"""
 
 agent = create_agent(
   model=model,
-  system_prompt="You are a helpful assistant."
+  system_prompt=system_prompt,
+  response_format=Demo 
 )
 
 langchain中LLM返回的消息统一被封装为BaseMessage,他是Agent中基本的上下文单元
@@ -184,4 +195,26 @@ HumanMessage(content=[
   {"type": "image", "base64": img_b64, "mime_type": "image/png"},
   {"type": "text", "text": "用文本描述这个图片"}
 ])
+
+# dataclass只能标识类型但是不会校验,但是pydantic的BaseModel会校验
+# pydantic通常用来做模型的结构化输出
+from pydantic import BaseModel
+class Demo(BaseModel):
+    name: str
+    location: str
+    vibe: str 
+# 拿取response["structured_response"]返回的就是Demo对象
+
+# 工具使用
+from langchain_core.tools import tool 
+
+@tool
+def tool(x):
+    """
+    Description
+    ArgsDescription 
+    """
+    return x 
+
+
 

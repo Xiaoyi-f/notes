@@ -21,6 +21,7 @@ class Stats(Base):
         self.num = num
         self.digits = digits
         self.list_var = [self.num, self.digits]
+        self.demo = "demo" if True else None 
 
     def show(self):
         """
