@@ -89,9 +89,99 @@ Transformer架构由谷歌团队提出,为了解决Agent循环实现模式的弱
 模型幻觉（Hallucination）通常指的是大语言模型生成的内容与客观事实、用户输入或上下文信息相矛盾，或者生成了不存在的事实、实体或事件
 幻觉的本质是模型在生成过程中，过度自信地“编造”了信息，而非准确地检索或推理
 
-### 智能体经典范式构建 
+### 智能体经典范式构建 -- 主要靠工作流实现
 经典范式 - 思行相辅 先思后行 反思优化
 ReAct (Reasoning and Acting): 一种将“思考”和“行动”紧密结合的范式，让智能体边想边做，动态调整
 Plan-and-Solve: 一种“三思而后行”的范式，智能体首先生成一个完整的行动计划，然后严格执行
 Reflection: 一种赋予智能体“反思”能力的范式，通过自我批判和修正来优化结果
+
+## 深度神经网络
+输入层: 入口,接收数据 
+隐藏层: 信息处理和学习 计算方法 概率模型 
+输出层: 输出,产生结果 
+
+## LangChain
+pip install langchain 
+pip install langchain-[aimodel] # 底层依赖
+
+XXX_API_KEY
+
+from dotenv import load_dotenv 
+load_dotenv()
+
+from langchain.tools import tool 
+@tool
+def get_weather(location):
+    # description
+    return f"Current weather in {location} is ..." 
+
+from langchain.agents import create_agent 
+agent = create_agent("deepseek-chat", tools=[getWeather])
+response = agent.invoke({"messages": [{"role": "user", "content": "What is the weather in Hangzhou?"}]})
+# response = agent.invoke("What is the weather in Hangzhou?")
+# 上面是阻塞式调用,下面是流式调用(响应更快)
+stream = agent.stream("What is the weather in Hangzhou?", stream_mode=True) # 调用内容也可以写详细版
+for chunk in stream:
+    print(chunk.content, end="", flush=True)
+
+流程与基本原理讲解:
+1.用户输入提问
+2.大模型分析
+3.读取工具信息
+4.调用工具函数
+5.返回工具调用结果
+6.调用模型分析结果
+7.返回答案给用户
+
+from langchain.chat_models import init_chat_model 
+model = init_chat_model(
+  model="xxxmodel", 
+  model_provider="xxx", 
+  base_url="https://api.xxx.com", 
+  api_key="api_key",
+  temperature=0.7,
+  max_tokens=1024,
+  top_p=1.0,
+  top_k=50
+  )
+
+agent = create_agent(
+  model=model,
+  system_prompt="You are a helpful assistant."
+)
+
+langchain中LLM返回的消息统一被封装为BaseMessage,他是Agent中基本的上下文单元
+SystemMessage -> role="system" (系统提示词)
+HumanMessage -> role="user"
+AIMessage -> role="assistant"
+ToolMessage -> role="tool"
+
+response = agent.invoke({
+  "message": [
+    SystemMessage(content="You are a helpful assistant."),
+    HumanMessage(content="What is the meaning of life?"),
+    AIMessage(content="The meaning of life is to live.")
+  ]
+})
+
+# 多模态模型: 能同时接收、理解、生成多种不同数据类型数据的AI模型
+message = HumanMessage(content=[
+  {"type": "text", "text": "What is the meaning of life?"},
+  {"type": "image", "url": "https://example.com/image.png"}
+])
+
+stream = agent.stream({
+  "messages": [message]
+}, stream_mode=True)
+
+# 上传本地图片
+1.上传本地图片
+2.将图片转为base64格式
+import base64 
+img_bytes = bytes(img_content)
+img_b64 = base64.b64encode(img_bytes).decode("utf-8")
+HumanMessage(content=[
+  {"type": "image", "base64": img_b64, "mime_type": "image/png"},
+  {"type": "text", "text": "用文本描述这个图片"}
+])
 
