@@ -50,8 +50,18 @@ e: 冒号前面的一般表示变量
  
 length(字符串/数组/路径) 
 路径中关系数量表示路径的长度
+split(字符串, 分隔符)
+
+聚合函数:
 collect() 多值合并为列表
 count() 匹配统计到的条目数量
+sum()
+avg()
+min()
+max()
+
+// 约束 一般先写好约束再进行实际的创建
+CREATE CONSTRAINT ON (node) ASSERT node.propertyName IS [UNIQUE / NOT NULL]
 
 MATCH (node) RETURN nodeVar 
 MATCH (node) OPTIONAL MATCH (node) RETURN nodeVar1, nodeVar2 相当于SQL的LEFT JOIN,匹配不到返回null
@@ -73,6 +83,7 @@ MATCH (node) ON MATCH SET node += {property: value}  MERGE是匹配模式就执�
 
 MATCH (node) SET e.property = value 
 
+有笛卡尔积效应
 MATCH (node1)
 MATCH (node2)
 SET node2 = node1 
@@ -87,7 +98,35 @@ MATCH (node) RETURN nodeVar, nodeVar.propertyName, nodeVar.property + value AS
 
 WITH将数据操作后往下传递使用
 MATCH (node) WITH nodeVar, count(nodeVar) AS count  WHERE count > val MATCH (node) RETURN nodeVar 
-MATCH (node) WITH nodeVar ORDER BY nodeVar.property RETURN nodeVar
+MATCH (node) WITH nodeVar ORDER BY nodeVar.property [DESC / ASC] SKIP n LIMIT m RETURN nodeVar
 
+// 展开列表依次使用,批量创建节点
+UNWIND ["Alice", "Bob"] AS name
+CREATE (:Person {name: name})
 
+// 规范CSV文件第一行为表头字段
+LOAD CSV WITH HEADERS FROM "file://path" AS row 
+MERGE (node) // 其中使用CSV字段,给每一行数据都操作 
+// CSV中所有单元格读出来默认都是字符串,要转类型
+toBoolean() 可以用于字符串/数字 不可用于null 或 利用条件判断转布尔类型
+toInteger()
+toFloat()
+date()
+datetime()
+toString()
+
+CREATE INDEX ON :Label(propertyName1, propertyName2, ...)
+SHOW INDEXES 
+DROP INDEX ON :Label(propertyName)
+
+CREATE DATABASE dbName
+:USE dbName 
+DROP DATABASE dbName 
+
+事务(ACID)
+:BEGIN 
+// 行为
+:ROLLBACK
+// 行为
+:COMMIT 
 
