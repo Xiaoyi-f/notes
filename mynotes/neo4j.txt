@@ -130,3 +130,41 @@ DROP DATABASE dbName
 // 行为
 :COMMIT 
 
+# pip install neo4j
+from neo4j import GraphDatabae 
+
+URI = "neo4j://localhost:7687"
+AUTH = ("neo4j", "password")
+
+# 禁止使用f字符串
+def transaction(tx):
+    result = tx.run("CQL $var", var="var")
+    """
+    records = result.data()
+    summary = result.consume()
+    """
+    return "完成" 
+
+with GraphDatabase.driver(URI, auth=AUTH) as driver:
+    """
+    return (records, summary, keys)
+    records: 实际查询到的数据 [Record, ...][index].字段名称
+    summary: 元信息
+    keys: RETURN 后的字段 ["node", ...]
+    """
+    records, summary, keys = driver.execute_query(
+      """
+      CQL $var 
+      """,
+      var="var",
+      database="database_name"
+    )
+    
+    with driver.session(database="database_name") as session:
+        # 只读查询
+        read_result = session.execute_read(transaction)
+        # 读写查询
+        write_result = session.execute_write(transaction)
+        print(result)
+
+
