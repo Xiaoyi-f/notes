@@ -254,12 +254,12 @@ agent.invoke(
   {"configurable": {"thread_id": "xxx"}} 
 )
 
-# 删除对应线程的临时记忆 
+# 删除对应线程的记忆 
 saver.delete_thread("xxx")
 # 获取某个线程最新快照数据
 saver.get_tuple("xxx")
 
-# 可以使用PostgresStore实现长期记忆,也可以使用Chroma/Milvus
+# 可以使用Postgre或其他数据库实现长期记忆,也可以使用Chroma/Milvus
 
 # RAG 检索增强生成
 基本阶段: 索引阶段 -> 检索阶段 -> 生成阶段 
@@ -280,5 +280,59 @@ chain = model | StrOutputParser() | model
 from langchain_core.runnables import RunnableLambda 
 func = RunnableLambda(lambda ai_message: {"name": ai_message.content}) # 传普通函数亦可
 chain = model | func | model 
+
+# 文本加载与分割
+from langchain_text_splitters import RecursiveCharacterTextSplitter 
+
+loader = TextLoader(
+  "xxx.txt",
+  encoding="utf-8"
+)
+
+docs = loader.load()
+splitter = RecursiveCharacterTextSplitter(
+  chunk_size=500, # 分段的最大字符数
+  chunk_overlap=50, # 允许前后段之间重叠的字符数
+  separators=["\n\n", "\n", "！", "!", "？", "?", "。", ".", "，", ",", "；", ";", " ", ""],
+  length_function=len
+)
+
+# 返回一个装着Document对象的列表
+split_docs = splitter.split_documents(docs)
+
+# 文档转向量与向量存储
+from langchain_chroma import Chroma 
+
+# 通过向量转换模型实现转向量
+vector_store = Chroma(
+  collection_name="xxx",
+  embedding_function=Model(),
+  persist_directory="path"
+)
+
+vector_store.add_documents(
+  documents=docs,
+  ids=["id" + str(i) for i in range(1, len(docs) + 1)]
+)
+
+# 删除
+vector_store.delete(["id1", "id2", ...])
+
+# 检索
+results = vector_store.similarity_search(
+  query="检索内容/问题",
+  k=3 # 检索的结果数
+)
+
+# 加载CSV文档
+from langchain_community.document_loaders import CSVLoader 
+
+loader = CSVLoader(
+  file_path="path.csv",
+  encoding="utf-8",
+  source_column="字段名"
+)
+documents = loader.load()
+
 
 
