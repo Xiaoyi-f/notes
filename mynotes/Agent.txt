@@ -216,5 +216,22 @@ def tool(x):
     """
     return x 
 
+# langchain中预定义好的工具
+# pip install langchain-tavily - 给AI用的Web搜索工具
+from langchain_tavily import TavilySearch 
+search_tool = TavilySearch(
+  max_results=5,
+  topic="general" # news, finance, technology, health, education, sports, entertainment, business, government, and more
+)
+
+@tool
+def search(query):
+    """Search the web for information"""
+    return search_tool.invoke(query)
+
+# 模型默认是无状态的,需要实现记忆
+Agent记忆 短期记忆 长期记忆 
+
+
 
 
