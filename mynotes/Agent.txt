@@ -76,7 +76,7 @@ Transformer架构由谷歌团队提出,为了解决Agent循环实现模式的弱
     0.7 <= temperature < 2 输出发散/创新 艺术灵感/启发 
 2) Top-k: 概率从高到低排序,取排名前k个的token组成"候选集"
 3) Top-p: 概率从高到低排序,取概率和为p的token组成"候选集"
-4) 样本模式: 零样本提示、单样本提示、少样本提示
+4) 样本模式: 零样本提示、单样本提示、少样本提示(Few-Shot)
 5) 指令调优: 对指令进行特定描述
 6) 角色扮演: 赋予模型一个特定角色,我们可以引导他的回答风格、语气和知识范围等
 7) 上下文示例: 类似样本模式,举出一些上下文对答样本 
@@ -133,6 +133,7 @@ for chunk in stream:
 6.调用模型分析结果
 7.返回答案给用户
 
+from langchain.agents import create_agent
 from langchain.chat_models import init_chat_model 
 model = init_chat_model(
   model="xxxmodel", 
@@ -231,7 +232,53 @@ def search(query):
 
 # 模型默认是无状态的,需要实现记忆
 Agent记忆 短期记忆 长期记忆 
+from langchain.agents.middleware import SummarizationMiddleware 
+from langchain.agents import create_agent
+from langgraph.checkpoint.memory import InMemorySaver 
+middleware = SummarizationMiddleware(
+  model=model,
+  trigger=("messages", 3), # 对话消息达到3条时进行压缩
+  keep=("messages", 1) # 压缩的对话合并为一段
+)
+saver = InMemorySaver()
+agent = create_agent(
+  model=model,
+  tools=[tool],
+  middleware=[middleware]
+  checkpointer=saver
+)
 
+# 一次连续对话使用同一个thread_id
+agent.invoke(
+  {"messages": [message]},
+  {"configurable": {"thread_id": "xxx"}} 
+)
 
+# 删除对应线程的临时记忆 
+saver.delete_thread("xxx")
+# 获取某个线程最新快照数据
+saver.get_tuple("xxx")
+
+# 可以使用PostgresStore实现长期记忆,也可以使用Chroma/Milvus
+
+# RAG 检索增强生成
+基本阶段: 索引阶段 -> 检索阶段 -> 生成阶段 
+向量是文本的数学身份证,一段文字的语义信息,转换为数字列表,让计算机能看懂"文字的含义并做相似度计算(余弦相似度等算法实现,n级维度/主题)"
+维度越高语义化越明确,但是开销越大
+
+# chain链: 将组件串联,上一个组件的输出作为下一个组件的输入
+chain = model | component 
+# 底层 | 调用 __or__ 重写类的 __or__ 即可实现管道 
+# 前提: 只有Runnable/Callable、Mapping接口子类对象才能入链
+chain.invoke(input)
+chain.stream(input)
+
+from langchain_core.output_parsers import StrOutputParser 
+chain = model | StrOutputParser() | model 
+
+# 封装函数组件 
+from langchain_core.runnables import RunnableLambda 
+func = RunnableLambda(lambda ai_message: {"name": ai_message.content}) # 传普通函数亦可
+chain = model | func | model 
 
 
