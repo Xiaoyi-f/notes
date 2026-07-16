@@ -269,12 +269,13 @@ saver.get_tuple("xxx")
 # chain链: 将组件串联,上一个组件的输出作为下一个组件的输入
 chain = model | component 
 # 底层 | 调用 __or__ 重写类的 __or__ 即可实现管道 
-# 前提: 只有Runnable/Callable、Mapping接口子类对象才能入链
+# 前提: 只有Runnable/Callable、Mapping(字典父类)子类对象才能入链
 chain.invoke(input)
 chain.stream(input)
 
+from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.output_parsers import StrOutputParser 
-chain = model | StrOutputParser() | model 
+chain = model | StrOutputParser() | model | JsonOutputParser() 
 
 # 封装函数组件 
 from langchain_core.runnables import RunnableLambda 
@@ -301,6 +302,7 @@ splitter = RecursiveCharacterTextSplitter(
 split_docs = splitter.split_documents(docs)
 
 # 文档转向量与向量存储
+# pip install chromadb 
 from langchain_chroma import Chroma 
 
 # 通过向量转换模型实现转向量
@@ -310,6 +312,8 @@ vector_store = Chroma(
   persist_directory="path"
 )
 
+# 增加
+vector_store.add_texts(["xxx", "xxx"])
 vector_store.add_documents(
   documents=docs,
   ids=["id" + str(i) for i in range(1, len(docs) + 1)]
@@ -323,6 +327,10 @@ results = vector_store.similarity_search(
   query="检索内容/问题",
   k=3 # 检索的结果数
 )
+
+# 实现入链 手动转变形式/类型 利用字典封装入链 ...
+retriever = vector_store.as_retriever(search_kwargs={"k": 2})
+# 检索后获取结果进行提示词构建然后传递给ai
 
 # 加载CSV文档
 from langchain_community.document_loaders import CSVLoader 
