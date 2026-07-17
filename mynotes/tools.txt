@@ -53,3 +53,7 @@ Chinese
 
 ## ollama
 
+## Typora / MarkText
+
+
+
