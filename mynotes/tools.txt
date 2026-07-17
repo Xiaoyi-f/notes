@@ -50,3 +50,6 @@ Chinese
 ## drawio/xmind/processon 
 
 ## blender 
+
+## ollama
+
