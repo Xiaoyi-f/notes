@@ -1,0 +1,11 @@
+## windows 
+cmd ctrl + shift + enter 进入管理员模式 
+### 禁用自带键盘
+sc config i8042prt start= disabled 成功后重启
+sc config i8042prt start= auto 恢复自带键盘的使用                                                 
+
+
+## mac 
+
+## linux 
+

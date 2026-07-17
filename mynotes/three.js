@@ -1,6 +1,6 @@
-import * as THREE from 'three'
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
+import * as Three from 'Three'
+import { OrbitControls } from 'Three/addons/controls/OrbitControls.js'
+import { GLTFLoader } from 'Three/addons/loaders/GLTFLoader.js'
 
 let mixer, currentAction 
 function setupAnimation(gltf) {
@@ -12,12 +12,12 @@ function setupAnimation(gltf) {
     return 
   }
 
-  mixer = new THREE.AnimationMixer(model)
+  mixer = new Three.AnimationMixer(model)
   const clip = animations[0] // 获取第一个动画剪辑并播放
   // animation.find(anim => anim.name === "animation_name") 通过名字查找 
   currentAction = mixer.clipAction(clip)
   currentAction.play() // 播放动画
-  currentAction.setloop(THREE.loopRepeat, Infinity) // 循环播放
+  currentAction.setloop(Three.loopRepeat, Infinity) // 循环播放
   window.switchAnimation = function (index) {
     if (!animations[index]) return 
     if (currentAction) {
@@ -31,7 +31,7 @@ function setupAnimation(gltf) {
 
 function setupUVControl(gltf) {
   // 创建纹理加载器
-  const textureLoader = new THREE.TextureLoader()
+  const textureLoader = new Three.TextureLoader()
   const newTexture = textureLoader.load("path/to/your/texture.jpg") // 加载要替换的纹理图片
 
   gltf.scene.traverse((child) => {
@@ -48,13 +48,13 @@ function setupUVControl(gltf) {
 }
 
 // --- 初始化场景、相机、渲染器 ---
-const scene = new THREE.Scene()
-scene.background = new THREE.Color(0x333333)
+const scene = new Three.Scene()
+scene.background = new Three.Color(0x333333)
 
-const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000) // 视场角 宽高比 近裁剪面 远裁剪面 
+const camera = new Three.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000) // 视场角 宽高比 近裁剪面 远裁剪面 
 camera.position.set(2, 1, 3) // x y z 坐标
 
-const renderer = new THREE.WebGLRenderer({ antialias: true }) // 抗锯齿
+const renderer = new Three.WebGLRenderer({ antialias: true }) // 抗锯齿
 renderer.setSize(window.innerWidth, window.innerHeight) // 设置渲染画布尺寸
 renderer.shadowMap.enabled = true // 开启阴影渲染 
 document.body.appendChild(renderer.domElement) // 把画布插入页面
@@ -65,9 +65,9 @@ controls.target.set(0, 1, 0) // 控制器注视点
 controls.update() // 初始化控制器参数
 
 // --- 灯光 ---
-const ambientLight = new THREE.AmbientLight(0xcccccc)
+const ambientLight = new Three.AmbientLight(0xcccccc)
 scene.add(ambientLight)
-const dirLight = new THREE.DirectionalLight(0xffffff, 2) // 第二个参数表示灯光强度
+const dirLight = new Three.DirectionalLight(0xffffff, 2) // 第二个参数表示灯光强度
 dirLight.position.set(2, 5, 3)
 dirLight.castShadow = true // 开启阴影投射
 scene.add(dirLight)
