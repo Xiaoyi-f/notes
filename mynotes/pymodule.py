@@ -307,6 +307,17 @@ try:
 finally:
     client.close()
 
+async def func():
+    response = await client.requestMethod()
+    return response.dataStruct 
+
+data = asyncio.run(func())
+
+async def func():
+    tasks = [func(), func()]
+    # 并发执行 
+    results = await asyncio.gather(*tasks)
+    return results 
 
 
     
