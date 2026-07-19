@@ -1,7 +1,4 @@
-// npm install typescrit -g
-// tsc --init 生成tsconfig.json文件 "target": "ES6"
-// tsconfig.json 中添加 "include": ["pathTSFile"] 执行 tsc 自动按照配置文件编译
-// 或者删除tsconfig.json文件,使用 tsc 指定ts文件 编译 tsc --watch 会自动监视编译
+
 // 使用 : 类型声明 
 let type: any = "any type" // 不进行类型声明即隐式any 可以任意赋值,破坏其他声明
 const unknownNow: unknown = "unknown type"
@@ -33,7 +30,6 @@ let moreTuple: [number, ...string[]]
 // 一组一组相关值放到枚举,更快、防止写错
 // 默认为数字枚举且从零开始(有方向映射)、字符串枚举(自定义值为字符串,没有反向映射) 
 enum Color { Red, Green, Blue }
-Color[0] // Red
 
 // 别名与联合
 type Name = string | number 

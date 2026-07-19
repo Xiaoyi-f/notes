@@ -1,6 +1,6 @@
 npm install md-editor-v3 
 
-<MdEditor v-model="text"></MdEditor>
+<MdEditor v-model="text :theme="light / dark"></MdEditor>
 
 import { ref } from "vue"
 import MdEditor from "md-editor-v3"
@@ -58,4 +58,66 @@ const id = 'preview-only';
 const text = ref('# Hello Editor');
 const scrollElement = document.documentElement;
 </script>
+
+// 上传图片 
+const onUploadImg = async (files, callback) => {
+  const res = await Promise.all(
+    files.map((file) => {
+      return new Promise((resolve, reject) => {
+        const form = new FormData()
+        form.append("file", file)
+
+        axios.post("/api/img/upload", form, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+        .then((res) => resolve(res))
+        .catch((err) => reject(err))
+      })
+    })
+  )
+  callback(res.map((item) => item.data.url))
+}
+
+// 获取目录
+<template>
+  <MdEditor v-model="text" @onGetCatalog="onGetCatalog" />
+</template>
+
+<script setup>
+import { reactive } from 'vue'
+import { MdEditor } from 'md-editor-v3'
+import 'md-editor-v3/lib/style.css'
+
+const state = reactive({
+  text: '',
+  catalogList: [],
+})
+
+const onGetCatalog = (list) => {
+  state.catalogList = list
+}
+</script>
+
+// 展示
+<template>
+  <MdPreview :modelValue="state.text" :id="state.id" :theme="state.theme" />
+  <MdCatalog :editorId="state.id" :scrollElement="scrollElement" :theme="state.theme" />
+</template>
+
+<script setup>
+import { reactive } from 'vue';
+import { MdPreview, MdCatalog } from 'md-editor-v3';
+import 'md-editor-v3/lib/preview.css';
+
+const state = reactive({
+  theme: 'dark',
+  text: '',
+  id: 'my-editor',
+});
+
+const scrollElement = document.documentElement;
+</script>
+
 
