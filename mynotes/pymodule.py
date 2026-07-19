@@ -58,6 +58,7 @@ with smtplib.SMTP_SSL("smtp.163.com", 465) as server:
 
 # crawler
 # 对于容易被封ip的网站,使用代理池
+# requests 老牌/同步请求
 import requests
 
 url = ""
@@ -280,4 +281,42 @@ def export_pdf(user_id):
     pdf_file = HTML(string=html_content).write_pdf()
     return send_file(io.BytesIO(pdf_file), as_attachment=True, # 开启附件下载模式 
     download_name=f"{user["name"]}_简历.pdf", mimeType="application/pdf")
+
+
+# httpx 支持异步/现代 
+# pip install httpx 
+# pip install httpx[http2] 支持http2
+import httpx 
+
+client = httpx.Client(
+    base_url="http://xxx.xx",
+    timeout=10,
+    headers={
+        "User-Agent": "xxx"
+    },
+    follow_redirects=True, # 自动重定向
+    http2=True 
+)
+
+try:
+    # response -> json() text content status_code cookies headers encoding content.decode('unicode-escape')
+    getResponse = client.get("xxx", params={"key": "value"}, header={"key": "value"})
+    postResponse = client.post("xxx", json={"key": "value"}, params={"key": "value"}, header={"key": "value"}) # data={"key": "value"} files=files 
+    putResponse = client.put("xxx", json={"key": "value"}, params={"key": "value"}, header={"key": "value"})
+    deleteResponse = client.delete("xxx", params={"key": "value"}, header={"key": "value"})
+finally:
+    client.close()
+
+
+
+    
+
+
+
+
+
+
+
+
+
 
