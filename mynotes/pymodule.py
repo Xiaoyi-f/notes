@@ -319,7 +319,7 @@ async def func():
     results = await asyncio.gather(*tasks)
     return results 
 
-
+response.raise_for_status() # 自动检测状态码,若表示错误则抛出异常
     
 
 

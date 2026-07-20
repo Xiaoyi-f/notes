@@ -1,0 +1,416 @@
+## 前置知识
+
+在开始之前，你需要了解几个基本概念：
+
+### 什么是 OAuth 2.0？
+OAuth 2.0 是一个**授权协议**，它允许用户用一个平台（如 QQ、GitHub）的账号，安全地登录你的网站，而**不需要把密码交给你**。
+
+整个流程可以用一句话概括：
+
+> **用户在你这里点“登录” → 跳转到平台授权 → 平台把用户“还”给你，并给你一个“钥匙” → 你用这把“钥匙”去平台拿用户信息**
+
+### 三个关键角色
+- **用户**：拥有 QQ / GitHub 账号的人
+- **第三方平台**：QQ / GitHub（负责保管用户身份）
+- **你的网站**：想要接入登录功能的应用
+
+### 三个核心凭证
+- **Client ID**：公开的，相当于“账号”
+- **Client Secret**：保密的，相当于“密码”，**绝不能写在前端**
+- **Redirect URI**：用户授权后，平台把你“还”回来的地址
+
+
+## 注册开发者账号（准备工作）
+
+### 注册 QQ 互联开发者
+1. 打开 [QQ互联](https://connect.qq.com/)
+2. 点击右上角“登录”，用你的 QQ 号登录
+3. 如果是第一次使用，系统会提示你完成**开发者注册**
+   - **个人开发者**：提交身份证信息（免费）
+   - **企业开发者**：提交营业执照（免费）
+4. 审核通过后，你会获得开发者身份，可以创建应用
+
+### 创建 QQ 互联应用
+1. 进入“应用管理” → “创建应用”
+2. 选择“网站应用”
+3. 填写应用信息：
+   - **应用名称**：你的网站名字
+   - **网站地址**：你的首页 URL，如 `http://localhost:5000`
+   - **网站回调域**：**重要！** 填写 `http://localhost:5000/oauth/qq/callback`
+4. 提交审核。审核期间，你可以添加**测试 QQ 号**进行调试
+
+### 获取 QQ 应用凭证
+审核通过后，在应用详情页你会看到：
+- **APP ID**：相当于你的应用在 QQ 的“账号”
+- **APP KEY**：相当于“密码”，请保密
+
+---
+
+### 注册 GitHub OAuth App（无需审核，立即可用）
+1. 登录 GitHub，点击右上角头像 → **Settings**
+2. 左侧菜单 → **Developer settings** → **OAuth Apps**
+3. 点击 **New OAuth App**
+4. 填写信息：
+   - **Application name**：你的应用名称
+   - **Homepage URL**：你的网站首页，如 `http://localhost:5000`
+   - **Authorization callback URL**：填写 `http://localhost:5000/oauth/github/callback`
+5. 点击注册，你会立即看到：
+   - **Client ID**
+   - **Client Secret**（点击生成，**请立刻保存，页面刷新后不再显示**）
+
+> ✅ GitHub OAuth 无需审核，支持 `localhost` 作为回调地址，对开发极其友好。
+
+
+## OAuth 登录的通用流程（理解这一步，后面就很简单了）
+
+无论 QQ 还是 GitHub，它们的登录流程都遵循同一个模板，只有 **URL 和参数名** 不同。
+
+### 标准三步走
+
+| 步骤 | 谁做 | 做什么 | 结果 |
+| :--- | :--- | :--- | :--- |
+| **Step 1** | 你的后端 | 生成一个随机的 `state`，然后把用户重定向到第三方平台的授权页 | 用户看到 QQ / GitHub 的登录界面 |
+| **Step 2** | 第三方平台 | 用户确认授权后，平台带着一个临时的 `code` 跳转回你的 `redirect_uri` | 你的后端收到 `code` 和 `state` |
+| **Step 3** | 你的后端 | ① 验证 `state` 是否合法（防 CSRF）<br>② 用 `code` 换 `access_token`<br>③ 用 `access_token` 获取用户信息 | 拿到用户的 `openid` / `id`、昵称、头像等 |
+
+### 为什么要分三步？
+- `code` 是一次性的，即使被截获也无法再用
+- `access_token` 是临时凭证，用于调用平台 API
+- `state` 防止 CSRF 攻击，确保回调是你发起的请求
+
+
+## Flask 项目初始化
+
+### 创建项目并安装依赖
+
+```bash
+mkdir flask-oauth-demo && cd flask-oauth-demo
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+pip install Flask requests python-dotenv
+```
+
+### 项目结构
+
+```
+flask-oauth-demo/
+├── app.py                 # 主程序
+├── templates/
+│   └── index.html         # 前端页面
+├── .env                   # 环境变量（存放密钥）
+└── .gitignore             # 忽略 .env 等敏感文件
+```
+
+### 为什么使用 `.env`？
+把 `APP_ID`、`APP_KEY`、`SECRET_KEY` 放在 `.env` 中，可以避免敏感信息泄露到代码仓库。
+
+
+## 统一登录入口（前端页面）
+
+前端只需要两个按钮，分别指向 `/login/qq` 和 `/login/github`。
+
+### `templates/index.html` 的核心部分
+
+```html
+<!-- 未登录时显示 -->
+<a href="/login/qq">🐧 QQ登录</a>
+<a href="/login/github">🐙 GitHub登录</a>
+
+<!-- 登录后显示用户信息 -->
+<img src="{{ user.avatar }}" />
+<p>{{ user.name }}</p>
+<span>{{ 'QQ' if user.platform == 'qq' else 'GitHub' }}</span>
+<a href="/logout">退出登录</a>
+```
+
+> 所有登录状态通过 Flask 的 `session` 保存，模板中直接读取 `user` 变量。
+
+
+## 实现 QQ 登录（详细拆解）
+
+### Step 1：发起授权请求（`/login/qq`）
+
+```python
+@app.route("/login/qq")
+def qq_login():
+    state = secrets.token_urlsafe(16)      # 生成随机字符串
+    session["oauth_state"] = state         # 存起来，回调时验证
+    
+    auth_url = (
+        "https://graph.qq.com/oauth2.0/authorize"
+        f"?response_type=code"
+        f"&client_id={QQ_APP_ID}"
+        f"&redirect_uri={QQ_REDIRECT_URI}"
+        f"&state={state}"
+    )
+    return redirect(auth_url)              # 重定向到 QQ
+```
+
+**这个接口做了什么？**
+- 生成一个随机 `state`，存入 session
+- 构造 QQ 的授权 URL
+- 让浏览器跳转到 QQ 的登录页面
+
+**为什么要存 `state`？**
+- 防止 CSRF 攻击。回调时如果 `state` 不一致，说明请求不是由你发起的，应拒绝。
+
+---
+
+### Step 2：处理回调（`/oauth/qq/callback`）
+
+用户授权后，QQ 会跳转到你配置的 `redirect_uri`，并附上 `code` 和 `state`。
+
+```python
+@app.route("/oauth/qq/callback")
+def qq_callback():
+    code = request.args.get("code")
+    state = request.args.get("state")
+    
+    # ① 验证 state
+    if state != session.get("oauth_state"):
+        return "Invalid state", 400
+    
+    # ② 用 code 换 access_token
+    token_resp = requests.get(
+        "https://graph.qq.com/oauth2.0/token",
+        params={
+            "grant_type": "authorization_code",
+            "client_id": QQ_APP_ID,
+            "client_secret": QQ_APP_KEY,
+            "code": code,
+            "redirect_uri": QQ_REDIRECT_URI,
+        }
+    )
+    # QQ 返回的是 Query String 格式: access_token=xxx&expires_in=xxx
+    token_data = dict(item.split("=") for item in token_resp.text.split("&"))
+    access_token = token_data.get("access_token")
+```
+
+**这里发生了什么？**
+- 验证 `state` 确保安全
+- 用 `code` + `APP_KEY` 换取 `access_token`
+- `code` 是一次性的，用一次就失效
+
+---
+
+### Step 3：获取用户信息
+
+QQ 获取用户信息需要两步：
+1. 先用 `access_token` 获取 `openid`
+2. 再用 `access_token` + `openid` 获取用户详细信息
+
+```python
+    # ③ 获取 openid
+    openid_resp = requests.get(
+        "https://graph.qq.com/oauth2.0/me",
+        params={"access_token": access_token}
+    )
+    # QQ 返回格式: callback( {"client_id":"xxx","openid":"xxx"} );
+    json_str = re.search(r"\(({.*})\)", openid_resp.text).group(1)
+    openid = json.loads(json_str)["openid"]
+    
+    # ④ 获取用户详细信息
+    userinfo_resp = requests.get(
+        "https://graph.qq.com/user/get_user_info",
+        params={
+            "access_token": access_token,
+            "oauth_consumer_key": QQ_APP_ID,
+            "openid": openid,
+        }
+    )
+    userinfo = userinfo_resp.json()
+```
+
+**为什么 QQ 要多一步拿 `openid`？**
+- QQ 的 `openid` 是用户的唯一标识，相当于用户的“身份证号”
+- 同一用户在同一个应用下的 `openid` 是固定的，但不同应用之间不同
+
+---
+
+### 保存用户登录态
+
+```python
+    session["user"] = {
+        "id": openid,
+        "name": userinfo.get("nickname", "QQ用户"),
+        "avatar": userinfo.get("figureurl_qq_1", ""),
+        "platform": "qq"
+    }
+    return redirect(url_for("index"))
+```
+
+**现在用户已经登录了**，后续请求直接从 `session` 读取 `user` 即可。
+
+
+## 实现 GitHub 登录（详细拆解）
+
+GitHub 的流程与 QQ 相同，但 API 更简洁，直接返回 JSON。
+
+### Step 1：发起授权请求（`/login/github`）
+
+```python
+@app.route("/login/github")
+def github_login():
+    state = secrets.token_urlsafe(16)
+    session["oauth_state"] = state
+    
+    auth_url = (
+        "https://github.com/login/oauth/authorize"
+        f"?client_id={GITHUB_CLIENT_ID}"
+        f"&redirect_uri={GITHUB_REDIRECT_URI}"
+        f"&state={state}"
+        f"&scope=read:user,user:email"      # 请求获取用户信息和邮箱
+    )
+    return redirect(auth_url)
+```
+
+**`scope` 参数**：告诉 GitHub 你需要哪些权限。
+- `read:user` → 读取用户基本信息
+- `user:email` → 读取用户邮箱（GitHub 默认不返回邮箱）
+
+---
+
+### Step 2 & 3：处理回调并获取用户信息
+
+```python
+@app.route("/oauth/github/callback")
+def github_callback():
+    code = request.args.get("code")
+    state = request.args.get("state")
+    
+    # ① 验证 state
+    if state != session.get("oauth_state"):
+        return "Invalid state", 400
+    
+    # ② 用 code 换 access_token（GitHub 返回 JSON）
+    token_resp = requests.post(
+        "https://github.com/login/oauth/access_token",
+        headers={"Accept": "application/json"},
+        data={
+            "client_id": GITHUB_CLIENT_ID,
+            "client_secret": GITHUB_CLIENT_SECRET,
+            "code": code,
+            "redirect_uri": GITHUB_REDIRECT_URI,
+        }
+    )
+    access_token = token_resp.json()["access_token"]
+    
+    # ③ 用 access_token 获取用户信息
+    user_resp = requests.get(
+        "https://api.github.com/user",
+        headers={"Authorization": f"Bearer {access_token}"}
+    )
+    user_data = user_resp.json()
+    
+    # ④ 额外请求获取邮箱
+    email_resp = requests.get(
+        "https://api.github.com/user/emails",
+        headers={"Authorization": f"Bearer {access_token}"}
+    )
+    emails = email_resp.json()
+    primary_email = next((e["email"] for e in emails if e.get("primary")), None)
+```
+
+**为什么 GitHub 要额外请求邮箱？**
+- GitHub API 设计时，`/user` 接口默认不返回邮箱
+- 需要单独请求 `/user/emails` 接口
+- 邮箱通常用于账号绑定和通知
+
+---
+
+### 保存用户登录态
+
+```python
+    session["user"] = {
+        "id": str(user_data["id"]),
+        "name": user_data.get("name") or user_data.get("login", "GitHub用户"),
+        "email": primary_email,
+        "avatar": user_data.get("avatar_url", ""),
+        "platform": "github"
+    }
+    return redirect(url_for("index"))
+```
+
+
+## QQ vs GitHub 流程对比（重要）
+
+| 对比项 | QQ 登录 | GitHub 登录 |
+| :--- | :--- | :--- |
+| **开发者注册** | QQ互联，需实名 | GitHub Settings，无需额外注册 |
+| **应用审核** | 需要审核（1-3天） | 无审核，即创即用 |
+| **回调地址限制** | 必须与申请时一致 | 支持 localhost（开发友好） |
+| **Token 响应格式** | Query String | JSON |
+| **获取用户信息** | 两步：先拿 openid，再拿信息 | 一步到位 |
+| **用户唯一标识** | `openid` | `id` |
+| **邮箱获取** | 默认不提供 | 需额外权限 |
+| **费用** | 免费（需实名） | 免费（零门槛） |
+
+
+## 安全注意事项（必读）
+
+### Client Secret 绝不能泄露
+- 只能在后端使用
+- 用 `.env` 文件存储，**不要提交到 Git**
+- 不要在日志中打印
+
+### 必须使用 `state` 参数
+- 防止 CSRF 攻击
+- 生成随机字符串，在回调时严格比对
+
+### 生产环境必须使用 HTTPS
+- OAuth 2.0 规范要求回调地址使用 HTTPS
+- 本地开发可以用 `localhost`，部署到公网时必须配置 SSL
+
+### `code` 是一次性的
+- 用过的 `code` 会立即失效
+- 如果换 token 失败，需要重新发起授权
+
+
+## 完整流程图（视觉总结）
+
+```
+┌─────────────┐      ┌─────────────┐      ┌─────────────┐
+│   用户      │      │  你的网站   │      │  QQ/GitHub  │
+└──────┬──────┘      └──────┬──────┘      └──────┬──────┘
+       │                    │                    │
+       │  点击"QQ登录"      │                    │
+       │───────────────────>│                    │
+       │                    │  生成 state        │
+       │                    │  构造授权 URL      │
+       │                    │────────────────────>│
+       │  跳转到 QQ 登录页  │                    │
+       │<───────────────────│                    │
+       │                    │                    │
+       │  输入账号密码       │                    │
+       │─────────────────────────────────────────>│
+       │                    │                    │
+       │  确认授权          │                    │
+       │─────────────────────────────────────────>│
+       │                    │                    │
+       │  跳转回你的网站    │                    │
+       │  (携带 code)      │<────────────────────│
+       │───────────────────>│                    │
+       │                    │  验证 state        │
+       │                    │  用 code 换 token  │
+       │                    │────────────────────>│
+       │                    │  返回 access_token │
+       │                    │<────────────────────│
+       │                    │  用 token 拿用户信息│
+       │                    │────────────────────>│
+       │                    │  返回用户信息      │
+       │                    │<────────────────────│
+       │                    │  保存 session      │
+       │  显示登录成功      │                    │
+       │<───────────────────│                    │
+```
+
+---
+
+## 总结
+
+完成 QQ / GitHub 登录接入，本质上就是**实现三次 HTTP 请求**：
+1. 重定向到授权页
+2. 用 `code` 换 `access_token`
+3. 用 `access_token` 拿用户信息
+
+

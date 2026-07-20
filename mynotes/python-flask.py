@@ -106,6 +106,17 @@ def demo(num, decimal, name):
     )
     """
 
+# SSE 协议 
+@app.route("/sse/xxx")
+def xxx():
+    def gen():
+        yield f"data: {json.dumps({'status': 'connected'})}\n\n"
+        yield f"event: eventName\n"
+        yield f"data: {json.dumps({'data': 'data'})}\n\n"
+    
+    return Response(gen(), mimetype="text/event-stream")
+
+
 # SQLAlchemy 技术 属于 ORM 技术(实现编程语言与数据库相连的中间件技术) 之一
 db = SQLAlchemy()
 db.init_app(app) 

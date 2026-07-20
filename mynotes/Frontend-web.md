@@ -124,7 +124,7 @@ Emmet(代码缩写扩展工具): element>element*n[class="className"]{$}+element
     <div class="html-interact">
       <form>
         <!-- maxlength浏览器限制输入 minlength浏览器提示 -->
-        <input id="id" name="name" type="text / password" placeholder="输入" minlength="n" maxlength="n" pattern="^.*?[^0-9]+.{n, m}$" required></input>
+        <input id="id" name="name" type="text / password" placeholder="输入" minlength="n" maxlength="n" pattern="^.*?[^0-9]+.{n, m}$" required autocomplete="off / on"></input>
         <!-- v-model自动和value双向绑定,对于多选框若选有值可以都返回到数组里 -->
         <input type="radio" v-model="var" value="value">
         <input type="checkbox" v-model="varArray" value="value">
@@ -639,6 +639,25 @@ socket.once("customEvent", (data) => {})
 socket.off("customEvent")
 
 
+## SSE监听,JS自带
+eventSource = new EventSource("http://xxx.xx/sse/xxx")
+
+// 监听所有消息,包括自定义事件
+eventSource.onmessage = (event) => {
+  const data = JSON.parse(event.data)
+}
+
+// 错误处理,SSE会自动重连
+eventSource.onerror = (err) => {
+  console.error("SSE 连接错误", err)
+}
+
+// 监听自定义事件
+eventSource.addEventListener("customEvent", (event) => {
+  const data = JSON.parse(event.data)
+})
+
+if (eventSource) eventSource.close() // 关闭连接 
 
 
 
