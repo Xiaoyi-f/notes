@@ -14,6 +14,7 @@ class Config:
     SECRET_KEY = "secret key" 
     SQLALCHEMY_DATABASE_URI = "mysql+pymysql://userName:password@url:port/dbName"
     SQLALCHEMY_TRACK_MODIFICATIONS = False 
+    MAX_CONTENT_LENGTH = 50 * 1024 * 1024
     
 from flask import Flask, jsonify, request, make_response, Blueprint, current_app 
 from flask_cors import CORS
