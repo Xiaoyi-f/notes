@@ -105,6 +105,7 @@ def demo(num, decimal, name):
         httponly=True, # 开启这个前端无法读取cookie，只能够通过后端来操作
         secure=True
     )
+    return send_file(file_path, mimetype="application/mimetype", as_attachment=True, download_name="xxx.xx")
     """
 
 # SSE 协议 
