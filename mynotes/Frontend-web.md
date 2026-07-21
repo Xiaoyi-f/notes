@@ -9,7 +9,7 @@ src
   router
   store 
   api 
-  util 
+  util(s) 
   mock 
   App.vue 
   main.js ts
@@ -524,6 +524,7 @@ route.meta
 route.params 
 route.query 
 
+router.replace({ path: "path", params: { }, query: { }})
 router.push({ path: "path", params: {}, query: { key: "value" }})
 
 const routes = [
