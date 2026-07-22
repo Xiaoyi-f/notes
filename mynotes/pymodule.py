@@ -28,11 +28,27 @@ random.shuffle(nums)
 import qrcode
 
 # md5
+# MD5 设计初衷是快速计算文件/消息的完整性校验值\
+# 在密码场景下恰恰是弱点——攻击者每秒可以尝试数十亿次 MD5计算，暴力破解成本极低
 import hashlib
 text = 'secretTextTarget'
 md5 = hashlib.md5() # 建对象
 md5.update(text.encode('utf-8')) # 加数据
 result = md5.hexdigest() # 生成16进制32位哈希码
+
+# bcrypt 密码哈希 
+import bcrypt
+
+password = "123456"
+hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+# hashed 是 bytes 类型，类似 b'$2b$12$...'
+# 存入 MySQL VARCHAR(255)，需要 .decode() 转字符串
+
+# 登录时：校验
+input_pwd = "123456"
+stored_hash = user.password  # 从数据库取出来的字符串
+bcrypt.checkpw(input_pwd.encode(), stored_hash.encode())  # True
+
 
 # 邮件发送
 import smtplib
