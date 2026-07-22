@@ -47,7 +47,7 @@ codeup (云效) --> 阿里云:
 nvm list
 nvm list available
 nvm install [版本号]
-nvm uninstall [版本号]
+nvm uninstall [报名] // 不要版本号
 nvm use [版本号]
 
 npx 执行命令
