@@ -33,6 +33,8 @@ export default defineConfig({
 构造之后的项目代码是只有入口文件和静态资源文件的,URL未必是正确的文件系统资源定位
 需要使用Nginx进行代理实现正确的访问 
 
+注意: 前端没有实际的防攻击手段,攻击者本身可以操控浏览器
+
 Emmet(代码缩写扩展工具): element>element*n[class="className"]{$}+element
 
 ## HTML基本语法
@@ -560,6 +562,7 @@ const routes = [
   {
     path: "path",
     name: "name",
+    redirect: "redirectObj",
     component: () => import("component"),
     meta: { key: "value" },
     children: ...childrenRoutes 
