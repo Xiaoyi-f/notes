@@ -8,6 +8,7 @@ src
   views 
   router
   store 
+  types 
   api 
   util(s) 
   mock 
@@ -21,7 +22,7 @@ tsconfig.node.json
 xxx.d.ts 
 package.json 修改后 npm i 刷新package-lock.json(锁定版本,确保环境一致) 
 package-lock.json 
-vite.config.js 
+vite.config.js ts
 import { defineConfig } from "vite" // 构造/解析器
 import vue from "@vitejs/plugin-vue" // 声明是一个vue项目 @组织/包(作用域包避免重名)
 
