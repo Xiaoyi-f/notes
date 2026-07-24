@@ -302,8 +302,6 @@ for (const item of string) {}
 String(val).trim()
 window.scrollTo(x, y)
 
-inputObject.validity.patternMismatch 
-
 // 避免用户输入url显示内容为特殊字符时被浏览器解析错误
 window.encodeURI(str) window.decodeURI(str) 
 
@@ -380,8 +378,10 @@ const xhr = new XMLHttpRequest()
 ## TS
 // npm install typescrit
 // tsc --init 生成tsconfig.json文件 
-// tsconfig.json 中添加 "include": ["pathTSFile"] 执行 tsc 自动按照配置文件编译
+// tsconfig.json 中添加 "include": ["pathTSFile"] 执行 tsc 自动按照配置文件编译 
 // .d.ts 文件作为类型声明文件,库/模块有自带的类型声明文件
+
+/// <reference types="vite/client" /> 三斜杆指令 向编译器传递指令,这里的示例表示引入vite提供的客户端类型定义包
 
 any unknown void never number string boolean as 
 [number, boolean?]
