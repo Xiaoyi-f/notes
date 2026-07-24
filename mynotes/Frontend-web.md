@@ -590,7 +590,7 @@ export const useXxxStore = defineStore("xxx", () => {
   }
 })
 
-const xxxStore = useXxxStore() 
+const xxxStore = useXxxStore() // xxxStore.xxx store自动解包
 const { xxx } = storeToRefs(xxxStore) 
 
 ## axios 
