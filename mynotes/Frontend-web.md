@@ -568,7 +568,7 @@ const routes = [
 router.beforeEach((to, from) => { return true })
 router.afterEach((to, from) => { return true })
 
-createApp(App).use(router).use(createPinia()).use(ElementPlus, zIndex: 999999999).mount("#app")
+createApp(App).use(router).use(createPinia()).use(ElementPlus, zIndex: 999999999, button: { autoInsertSpace: false }).mount("#app")
 
 // store 
 import { defineStore, storeToRefs } from "pinia" 
