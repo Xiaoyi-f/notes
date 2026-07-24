@@ -239,6 +239,34 @@ img, video, div, span {
 @media (min-width: 600px) {}
 @media (max-width: 600px) {}
 
+## scss vite解析
+npm install sass --save-dev 
+<style scoped lang="scss">
+  $var: value; // 变量 支持运算与作用域 
+
+  .father {
+    color: $var; 
+
+    &:hover {
+      // & 代表父选择器 .father 
+      color: darken($var, 百分比); // 变暗函数
+      color: lighten($var, 百分比); // 变亮函数 
+    }
+
+    .son {
+      color: $var;
+    }
+  }
+
+  %extend-template {
+    // 不会被用到css,继承时候发挥作用
+  }
+
+  .extend {
+    @extend %extend-template; // 继承使用extend-template
+  }
+</style> 
+
 ## JS
 const array = [1, 2, 3]
 cosnt iter = array[Symbol.iterator]()
