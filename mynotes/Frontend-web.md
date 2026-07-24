@@ -124,7 +124,7 @@ Emmet(代码缩写扩展工具): element>element*n[class="className"]{$}+element
     <div class="html-interact">
       <form>
         <!-- maxlength浏览器限制输入 minlength浏览器提示 -->
-        <input id="id" name="name" type="text / password" placeholder="输入" minlength="n" maxlength="n" pattern="^.*?[^0-9]+.{n, m}$" required autocomplete="off / on"></input>
+        <input id="id" name="name" type="text / password" placeholder="输入" minlength="n" maxlength="n" pattern="^.*?[^0-9]+.{n, m}$" required autocomplete="off / [username / current-password / new-password / email]"></input>
         <!-- v-model自动和value双向绑定,对于多选框若选有值可以都返回到数组里 -->
         <input type="radio" v-model="var" value="value">
         <input type="checkbox" v-model="varArray" value="value">
