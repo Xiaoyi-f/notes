@@ -573,9 +573,18 @@ createApp(App).use(router).use(createPinia()).use(ElementPlus, zIndex: 999999999
 
 // store 
 import { defineStore, storeToRefs } from "pinia" 
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate" 
+
+pinia.use(piniaPluginPersistedstate) // 持久化与自动回填插件
 
 export const useXxxStore = defineStore("xxx", () => {
   return { object }
+}, {
+  persist: {
+    key: "key_name",
+    storage: localStorage, // sessionStorage 
+    // paths: ["指定存储的字段"] 
+  }
 })
 
 const xxxStore = useXxxStore() 
