@@ -578,7 +578,7 @@ createApp(App).use(router).use(createPinia()).use(ElementPlus, zIndex: 999999999
 import { defineStore, storeToRefs } from "pinia" 
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate" 
 
-pinia.use(piniaPluginPersistedstate) // 持久化与自动回填插件,旧信息回填问题 --> 改用sessionStorage / localStorage 
+pinia.use(piniaPluginPersistedstate)  
 
 export const useXxxStore = defineStore("xxx", () => {
   return { object }
