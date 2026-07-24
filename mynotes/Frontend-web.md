@@ -581,7 +581,7 @@ export const useXxxStore = defineStore("xxx", () => {
   return { object }
 }, {
   persist: {
-    key: "key_name",
+    key: "key_name", // 读写需要调用实例方法触发
     storage: localStorage, // sessionStorage 
     // paths: ["指定存储的字段"] 
   }
