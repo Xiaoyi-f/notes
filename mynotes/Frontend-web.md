@@ -595,25 +595,19 @@ const { xxx } = storeToRefs(xxxStore)
 
 ## axios 
 import axios from "axios" 
+import { ElMessage } from "element-plus" 
 
 const requests = axios.create({
-  baseURL: "http://xxx.xx",
+  baseURL: "后端接口域名",
   timeout: 10000
 })
 
 requests.interceptors.request.use(
   (config) => {
-    const cookies = document.cookie.split("; ")
-    const tokens = cookies.map((cookie) => {
-      const [key, value] = cookie.split("=")
-      return { key, value }
-    })
-
-    // 行为 
-
-    return config
-  }, 
+    return config 
+  },
   (err) => {
+    // 有错误才触发错误传递
     return Promise.reject(err) 
   }
 )
@@ -621,30 +615,35 @@ requests.interceptors.request.use(
 requests.interceptors.response.use(
   (res) => {
     const data = res.data 
-    const bizCode = Number(data.code)
-    if (bizCode === 200) {
-      return data.data 
+
+    const message = String(data.message) 
+
+    if (message) {
+      ElMessage({
+        message: message,
+        type: "error",
+        duration: 3000,
+        offset: 56,
+        showClose: true
+      })
+
+      return Promise.reject(new Error(message))
     }
 
-    const message = String(data.message)
-    ElMessage({
-      message: message,
-      type: "error",
-      duration: 3000,
-      offset: 56,
-      showClose: true
-    }) 
-
-    return Promise.reject(new Error(message))
+    return data 
   },
   (err) => {
     if (err.code === "ECONNABORTED" || err.code === "ERR_CANCELED") {
       return Promise.reject(new Error("请求中断"))
     }
 
-    return Promise.reject(err)
+    // 有错误才触发错误传递
+    return Promise.reject(err) 
   }
 )
+
+export default requests 
+
 
 // data为请求体
 requests.get(url, { params: params })
