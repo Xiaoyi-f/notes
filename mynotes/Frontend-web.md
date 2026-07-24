@@ -245,6 +245,7 @@ img, video, div, span {
 ## scss vite解析
 npm install sass --save-dev 
 <style scoped lang="scss">
+  @use "sass:color"; // 导入颜色模块
   $var: value; // 变量 支持运算与作用域 
 
   .father {
@@ -252,8 +253,7 @@ npm install sass --save-dev
 
     &:hover {
       // & 代表父选择器 .father 
-      color: darken($var, 百分比); // 变暗函数
-      color: lighten($var, 百分比); // 变亮函数 
+      color: color.adjust($var, $lightness: 百分比); // 调整颜色亮度
     }
 
     .son {
@@ -578,7 +578,7 @@ createApp(App).use(router).use(createPinia()).use(ElementPlus, zIndex: 999999999
 import { defineStore, storeToRefs } from "pinia" 
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate" 
 
-pinia.use(piniaPluginPersistedstate) // 持久化与自动回填插件
+pinia.use(piniaPluginPersistedstate) // 持久化与自动回填插件,旧信息回填问题 --> 改用sessionStorage / localStorage 
 
 export const useXxxStore = defineStore("xxx", () => {
   return { object }
@@ -586,7 +586,6 @@ export const useXxxStore = defineStore("xxx", () => {
   persist: {
     key: "key_name", // 读写需要调用实例方法触发
     storage: localStorage, // sessionStorage 
-    // paths: ["指定存储的字段"] 
   }
 })
 
