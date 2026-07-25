@@ -19,6 +19,8 @@ pat.search(text)
 pat.findall(text)
 
 nums = [1, 3, 5, 7, 9]
+# random.seed(n) n 为种子数 设置种子可以保证生成确定的随机序列
+# 随机函数调用顺序、调用次数必须一模一样，序列才会完全重合，种子无法跨进程生效
 randomInt = random.randrange(-1, 0) # 包前无后
 randomFloat = random.uniform(-1.0, 0.0) # 包前有后
 randomChoices = random.choices(nums, k=0)
