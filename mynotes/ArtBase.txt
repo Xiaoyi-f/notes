@@ -1,3 +1,7 @@
+常见项目实现术语:
+DQI = Data Quality Index 数据质量指数
+DQC = Data Quality Control 数据质量控制
+
 常见构建系统术语:
 · ERP：企业资源计划，业财一体的核心，统管财务、采购、库存、生产、人力等
 · WMS：仓库管理系统，管库位、库存、出入库波次，支持PDA和自动化设备
