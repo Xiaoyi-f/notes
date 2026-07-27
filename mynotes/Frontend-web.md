@@ -461,7 +461,7 @@ function func<T extends Interface, U = string>(x: T, y: U): [U, T] {
 
 ## 事件
 @click @dbclick @click.right 
-@mousedown @mouseup 
+@mousedown @mouseup @resize
 @mouseenter @mouseleave @mousemove 
 @input @focus @keydown="handleKeyDown"
 @keyup.enter @keyup.esc @keyup.f1 
