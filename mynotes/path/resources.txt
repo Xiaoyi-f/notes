@@ -1,4 +1,4 @@
-推荐网站: 
+Resources:
 各大厂公众号 GitHub Gitee 
 https://yun.itheima.com/subject/aiappmap/index.html 
 http://rencaiya.vip/college/postcourse
@@ -20,3 +20,8 @@ https://app.flowstep.ai/
 
 免费Api:
 http://api.qingyunke.com/
+
+模型统一API网站: 
+https://openrouter.ai/
+
+

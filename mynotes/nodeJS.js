@@ -33,8 +33,8 @@ fs.unlinkSync("filePath")
 fs.mkdir("dirPath", { recursive: true }, (err) => { }) // 创建目录,支持创建多级目录  
 fs.mkdirSync("dirPath", { recursive: true })
 
-fs.readdir("dirPath", (err, files) => { }) 
-const dirArray = fs.readdirSync("dirPath") 
+fs.readdir("dirPath", (err, files) => { })
+const dirArray = fs.readdirSync("dirPath")
 console.log(dirArray)
 
 fs.stat("filePath", (err, stats) => {
@@ -54,7 +54,7 @@ emitter.on("start", (message) => { /* 行为一 */ })
 emitter.on("start", (message) => { /* 行为二 */ })
 emitter.emit("start", "message") // 触发事件并且传递参数 
 emitter.once("start", (message) => { }) // 只触发一次,触发一次后自动解除注册 
-emitter.removeAllListeners("start") 
+emitter.removeAllListeners("start")
 
 global.variable = "global"
 console.log(__filename, __dirname)
@@ -73,7 +73,7 @@ const connection = mysql.createConnection({
   password: "password",
   database: "my_db",
   port: 3306,
-  charset: "utf8mb4" 
+  charset: "utf8mb4"
 })
 
 const [rowsVal, rowsMeta] = await connection.execute("SELECT * FROM table_name WHERE id = ?", [1]) // [1] 为占位符数据填补 
@@ -81,8 +81,8 @@ const [rowsVal, rowsMeta] = await connection.execute("SELECT * FROM table_name W
 
 // 多个用户访问不用频繁创建和删除连接 
 const pool = mysql.createPool({
-  host: "localhost", 
-  user: "root", 
+  host: "localhost",
+  user: "root",
   password: "password",
   database: "test_db",
   waitForConnections: true,
@@ -101,7 +101,7 @@ async function sql() {
 // 通过 npm init 为应用创建一个package.json文件
 // npm install express --save node.js的一个服务端框架 
 const express = require("express")
-const app = express() 
+const app = express()
 app.use(express.json()) // 使用express.json()中间件
 app.use("/public", express.static("./assets")) // 将某个文件夹下静态资源挂载在/public路由中
 
@@ -111,7 +111,7 @@ app.get("/:userId/:postId", (req, res) => {
     params: req.params, // 函数里字符串对应参数/路由参数
     query: req.query,
     headers: {
-      authorization: req.headers.authorization 
+      authorization: req.headers.authorization
     },
     message: "Hello Express!"
   })
@@ -124,13 +124,13 @@ app.post("/", (req, res) => {
   })
 })
 
-app.put("/", (req, res) => {})
+app.put("/", (req, res) => { })
 
-app.delete("/", (req, res) => {})
+app.delete("/", (req, res) => { })
 
 app.all("*", (req, res, next) => {
-  req.url 
-  req.method 
+  req.url
+  req.method
   req.path // 不加查询参数的请求路径
   next() // 若没有使用res.send/res.json等返回数据则必须使用next()允许继续路由/调用中间件 
 })
@@ -145,7 +145,7 @@ const router = express.Router()
 
 router.get("/", (req, res) => { })
 // ...
-module.exports = router 
+module.exports = router
 
 const router = require("./router")
 app.use(router)
@@ -174,7 +174,7 @@ app.use(session({
   }
 }))
 
-app.get("/", (req, res, next) => { 
+app.get("/", (req, res, next) => {
   req.session.user = { name: "name", age: 18 }
   next()
 })
@@ -245,3 +245,6 @@ app.post('/upload', (req, res) => {
 })
 
 app.listen(3000, () => console.log('服务启动 3000'))
+
+// Prisma 是一个用于 Node.js 和 TypeScript 的“下一代”对象关系映射工具 (ORM)
+
