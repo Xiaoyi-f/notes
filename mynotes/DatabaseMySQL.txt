@@ -47,6 +47,12 @@ mysql -P 3306 -u root -p 回车输入密码 -P 3306 为默认端口
 -- 标识符中有特殊符号用反引号`
 exit; 退出 
 
+// 查看mysql配置文件位置 一般显示的第一个就是
+mysql --help | grep my.cnf
+
+# [mysqld]
+bind-address = 0.0.0.0 # 添加/修改
+
 Mysql会自带几个数据库:
 mysql: 核心权限库 
 information_schema: 元数据虚拟库 
