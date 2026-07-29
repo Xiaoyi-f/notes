@@ -757,5 +757,7 @@ export async function loadFromDB(): Promise<DocRecord | null> {
 }
 
 
+## JSX 文件：用 JavaScript 语法写 UI
 
+## TSX 文件：用 TypeScript 语法写 UI
 
