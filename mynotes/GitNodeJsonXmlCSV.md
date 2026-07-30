@@ -60,7 +60,6 @@ npm install --save-dev [包名@版本号] 安装到 devDependencies
 npm uninstall [包名@版本号]
 npm config list
 npm config set registry [源]
---port <port> 
 
 ## JSON
 json基本数据结构: 字符串、数字、布尔值、空值(None、null...)、对象/字典、数组/列表
