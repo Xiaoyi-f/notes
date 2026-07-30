@@ -24,4 +24,8 @@ http://api.qingyunke.com/
 模型统一API网站: 
 https://openrouter.ai/
 
-
+接单网站:
+https://www.goofish.com/
+https://www.proginn.com/
+https://www.yuanjisong.com/
+https://devlg.com/
