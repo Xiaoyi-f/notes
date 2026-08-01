@@ -1,0 +1,8 @@
+Ngrok 内网穿透工具 
+正常网络：内网 → 外网（正向，NAT 允许）
+穿透网络：外网 → 中转服务 → 预先建好的长连接 → 内网（反向，绕过 NAT 限制）
+
+1.配置Authtoken
+ngrok config add-authtoken $YOUR_AUTHTOKEN
+
+
