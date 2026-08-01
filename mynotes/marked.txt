@@ -1,0 +1,110 @@
+// marked是业界最主流、高性能、支持异步解析的Markdonw解析库 npm install marked 
+// 底层流程: 词法分析Lexer -> 生成抽象语法树AST -> Parser解析文本为HTML -> Renderer渲染HTML
+// npm install dompurify  npm install @types/dompurify --save-dev 
+// 代码高亮集成 npm install prismjs 
+
+<script setup>
+import { ref, watch, onMounted } from 'vue'
+import { marked } from 'marked'
+import DOMPurify from 'dompurify'
+
+import 'prismjs/themes/prism-tomorrow.css'
+import Prism from 'prismjs'
+
+// 页面渲染之后执行高亮
+const renderHighLight = () => {
+  Prism.highlightAll() 
+}
+
+// 拿到默认渲染器
+const renderer = new marked.Renderer() 
+
+// 自定义标题 
+renderer.heading = (text, level) => {
+  return `<h${level} id="md-${text}">${text}</h${level}>`
+}
+
+// 自定义表格
+renderer.table = (header, body) => {
+  return `<div class="md-table-wrap"><table class="md-table">${header}${body}</table></div> 
+} 
+
+// 自定义代码块 
+renderer.code = (code, lang) => {
+  return `<pre class="md-code"><code class="md-code-${lang}">${code}</code></pre>`
+} 
+
+// 自定义链接 
+renderer.link = (href, title, text) => {
+  return `<a href="${href}" title="${title}" target="_blank">${text}</a>`
+}
+
+marked.setOptions({
+  // 注册渲染器 
+  renderer: renderer,
+  // 开启GFM全套语法
+  gfm: true,
+  // 单回车自动换行
+  breaks: true,
+  // 代码块语法高亮标识
+  headerIds: true,
+  // 标题锚点id
+  headerPrefix: 'md-',
+  // 表格对齐
+  tables: true,
+  // 任务清单 - [x]
+  taskLists: true,
+  // 删除线 ~~xxx~~
+  strikethrough: true,
+  // 自动识别url转为a标签
+  gfmAutolinkLiteral: true,
+  // 渲染输出简洁html，无多余换行
+  sanitize: false, // 安全过滤下面单独讲
+})
+
+// 获取AST
+function getMdAst(md) {
+  const lexer = new marked.lexer()
+  cosnt tokens = lexer.lex(md)
+  return tokens
+}
+
+const tokens = getMdAst(`# 标题\n内容`)
+
+export function mdToHtml(md) {
+  if (!md) return '' 
+
+  const rawHtml = marked.parse(md) 
+  
+  // 使用DOMPurify清洗HTML，防止XSS攻击
+  const safeHtml = DOMPurify.sanitize(rawHtml) 
+  return safeHtml 
+}
+
+const mdText = ref(`
+# 标题
+
+- 项目 
+
+|表格|表格|
+|----|----|
+|内容|内容|
+`)
+
+const htmlStr = ref(mdToHtml(mdText.value)) 
+
+function updateMd() {
+  htmlStr.value = mdToHtml(mdText.value) 
+
+  // 同步代码 → 微任务（Vue DOM 更新、Promise、await）→ 宏任务（setTimeout）
+  setTimeout(() => { Prism.highlightAll() }, 0) // 宏任务
+}
+
+watch(mdText, updateMd, { immediate: true })
+onMounted(updateMd)
+</script>
+
+<template>
+  <div class="md-box" v-html="htmlStr"></div>    
+</template>
+
