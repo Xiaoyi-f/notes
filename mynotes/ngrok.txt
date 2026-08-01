@@ -5,7 +5,9 @@ Ngrok 内网穿透工具
 1.配置Authtoken
 ngrok config add-authtoken $YOUR_AUTHTOKEN
 
-2.开启穿透
+2.查看开发域名
+
+3.开启穿透
 Vite有黑名单机制,默认不允许对应的外网穿透
 需要在vite.config对应文件中配置
 server: 
@@ -15,6 +17,5 @@ server:
     // 懒人写法：allowedHosts: 'all'
   }
 
-查看开发域名
 ngrok http <port> // 默认是开发域名关联本地
 
