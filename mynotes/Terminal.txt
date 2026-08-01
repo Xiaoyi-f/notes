@@ -5,6 +5,9 @@ cmd ctrl + shift + enter 进入管理员模式
 sc config i8042prt start= disabled 成功后重启
 sc config i8042prt start= auto 恢复自带键盘的使用                                                 
 
+ping ip/domain 
+TestNetConnection ip/domain -Port <port> --> powershell  
+
 ### win + r
 Win+R 输入 resmon.exe 打开资源监视器 搜索句柄管理资源占用问题
 

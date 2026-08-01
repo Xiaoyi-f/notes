@@ -5,4 +5,5 @@ Ngrok 内网穿透工具
 1.配置Authtoken
 ngrok config add-authtoken $YOUR_AUTHTOKEN
 
+2.开启穿透
 
