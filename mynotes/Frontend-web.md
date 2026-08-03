@@ -523,6 +523,13 @@ watch(var, (newVar, oldVar) => {}, { deep: true, immediate: true })
   <template #slot>插槽内容</template>
 </Component>
 
+onMounted之后才能拿到有效DOM
+ref属性: 原生标准 HTML 本身没有 ref 属性，<div ref="xxx"> 是 Vue/React 框架自定义的特殊标签属性，用来给 DOM / 组件打标记，通过变量名进行对应
+普通 HTML 标签：ref 拿到原生 DOM 对象，可以执行聚焦、修改样式、初始化第三方图表 / 3D 库等底层 DOM 操作
+自定义组件标签：ref 拿到子组件实例，可以调用子组件内部暴露的方法、读取子组件变量 
+
+FPS = Frames Per Second
+每秒帧数，代表：1 秒钟画面刷新多少张静态图片
 
 import { toRefs } from "vue"  
 // 子组件接收父组件协议属性数据的协议声明
