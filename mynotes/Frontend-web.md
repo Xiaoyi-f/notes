@@ -39,6 +39,9 @@ Emmet(代码缩写扩展工具): element>element*n[class="className"]{$}+element
 
 lob URL 是浏览器给本地文件生成的临时地址，格式像 blob:http://localhost:5176/abc-123，只能当前页面用，刷新就失效
 
+scoped 会给组件内每个元素加一个唯一属性（如 data-v-abc123），CSS 选择器也会自动加上这个属性，确保样式只作用于当前组件
+<el-xxx> 渲染出来的 DOM 元素（<span class="el-tag">）是 Element Plus 内部生成的，不带你的 scoped 属性，普通选择器匹配不到它
+:deep() 就是告诉 Vue: "这个选择器不要加 scoped 属性限制，直接穿透到子组件内部去匹配和命中DOM"
 
 ## HTML基本语法
 <!DOCTYPE html>
