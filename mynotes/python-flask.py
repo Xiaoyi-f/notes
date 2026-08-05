@@ -1,13 +1,16 @@
 """
 项目文件夹规范
 app.py 启动文件 
-.env 环境变量  .env.example 
+.env 环境变量  .env.example 环境变量示例
 requirements.txt 依赖包文件 
-util 自定义工具 
-route 蓝图路由文件夹
+utils 自定义工具 
+routes 蓝图路由文件夹
 db 数据库相关文件夹
+config 配置文件夹
 service 特殊服务功能文件夹
 script 脚本文件夹 
+agents agents文件夹 
+rag rag文件夹 
 """
 
 class Config:
