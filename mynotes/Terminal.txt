@@ -8,10 +8,35 @@ sc config i8042prt start= auto 恢复自带键盘的使用
 ping ip/domain 
 TestNetConnection ip/domain -Port <port> --> powershell  
 
+搜索启动应用则可控制开机自启应用
+搜索启用或关闭Windows功能 -> 开启虚拟机平台和适用于Linux的Windows子系统 -> 重启电脑
+
+WSL 的全称是 Windows Subsystem for Linux（适用于 Linux 的 Windows 子系统）
+终端输入命令 
+wsl --set-default-version 2 // 设置wsl版本为2
+wsl --update --web-download  // 安装wsl
+
 ### win + r
 Win+R 输入 resmon.exe 打开资源监视器 搜索句柄管理资源占用问题
 
 ## mac 
 
 ## linux 
+文件系统
+/bin 基础命令
+/sbin 系统管理命令
+/lib /lib64 系统库文件 
+/etc 系统配置文件
+/var 动态杂物间 -> 系统日志 ... 
+/tmp 临时仓库 重启清空 
+/home 普通用户的家 普通用户登录默认在此目录下
+/root root用户的家 普通用户进不了 
+/dev 设备文件
+/proc /sys 运行文件库 
+/usr 用户软件仓库 apt install 软件大多在这里 
+/opt 可选第三方软件 通常存放手动安装的大型闭源软件/独立软件包 
+/mnt 挂载点 存放已挂载的磁盘文件
 
+# 核心命令
+sudo -i // 切换到root用户
+\ // 反斜杠续行符 

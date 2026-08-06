@@ -1,0 +1,66 @@
+Docker简单来说就是使用容器化技术给应用程序封装独立的运行环境，每个运行环境都是一个容器，运行容器的计算机被称为宿主机
+Docker容器与虚拟机之间的最大区别: Docker容器之间共用同一个系统内核,而每个虚拟机则各自包含一个计算机完整系统内核
+
+Docker镜像就像是模具而容器则像镜像做出来的实体物品
+Docker镜像仓库(dockerhub)是用来存储镜像的地方
+
+# 提示: linux系统自带 sh 终端解释器, bash 为 sh 增强版
+
+sudo apt update // 更新依赖 
+sudo apt install -y apt-transport-https ca-certificates curl gnupg lsb-release // 安装依赖
+
+# 官方源安装
+curl -fsSL https://get.docker.com -o install-docker.sh // 下载安装Docker的脚本
+sudo sh install-docker.sh // 安装Docker
+
+# 清华源安装 
+
+// 配置秘钥 确保安装的软件是安全未被篡改的
+curl -fsSL https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg // 添加清华源的GPG秘钥 
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null // 添加清华源Docker软件源
+
+// 核心安装命令
+sudo apt update
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+// docker-buildx-plugin 高级镜像构建工具 docker buildx version
+// docker-compose-plugin 多容器应用管理工具 docker compose version 
+
+# 启动docker并且设置开机自启 ctl = control 
+sudo systemctl start docker 
+sudo systemctl enable docker 
+
+# 配置源与加速
+编辑 /etc/docker/daemon.json 
+{
+  "registry-mirrors": ["https://docker.mirrors.tuna.tsinghua.edu.cn", "https://docker.1panel.live"]
+}
+
+sudo systemctl restart docker 
+// 实际下载还是从dockerhub下载,只是配置了加速
+
+# 核心使用命令
+sudo docker pull <namespace><image><:version> // 拉取镜像
+sudo docker images // 列出所有镜像
+sudo docker run -d --name <container_name> <image> // 运行镜像创建运行实例 -d表示后台运行
+sudo docker ps // 列出所有正在运行的容器
+sudo docker stop <container_id> // 停止容器
+sudo docker rm -f <container_id> // 删除容器 运行中容器使用-f强制删除
+sudo docker rmi <image> // 删除镜像  
+
+# 容器网络与宿主机网络默认隔离,-p配置让容器与宿主机端口绑定
+sudo docker run -p <host_port>:<container_port> <image>
+
+# 创建容器挂载卷,命名卷挂载(初始容器目录覆盖宿主机目录) -> 数据持久化 
+sudo docker volume create <volume_name> // 自动划分一块系统空间
+sudo docker run -v <volume_name>:<container_path> <image> // 把空间插入容器并且运行,硬链接到容器里的某个文件夹,把容器删了系统空间的数据依旧
+sudo docker volume inspect <volume_name> // 查看挂载卷信息 
+sudo docker volume rm <volume_name> 
+sudo docker volume prune -a // 删除所有未使用的卷
+sudo docker volume list 
+
+
+# 绑定挂载(初始宿主机目录覆盖容器目录) -> 数据持久化
+sudo docker run -v <host_path>:<container_path> <image>
+
+# 设置容器环境变量(从dockerhub搜索对应的镜像找到可以传递的环境变量) 
+sudo docker run -e 
