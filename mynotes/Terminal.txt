@@ -3,9 +3,15 @@
 ## windows 
 cmd ctrl + shift + enter 进入管理员模式 
 
-### 禁用自带键盘
-sc config i8042prt start= disabled 成功后重启
-sc config i8042prt start= auto 恢复自带键盘的使用                                                 
+systeminfo 系统信息 
+
+resmon 进程管理
+
+cleanmgr 磁盘清理
+
+mspaint 画图工具 
+
+services.msc 服务管理
 
 ping ip/domain 
 TestNetConnection ip/domain -Port <port> --> powershell  
