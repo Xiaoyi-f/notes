@@ -5,7 +5,7 @@ cmd ctrl + shift + enter 进入管理员模式
 
 systeminfo 系统信息 
 
-resmon 进程管理
+resmon 资源监视管理
 
 cleanmgr 磁盘清理
 
