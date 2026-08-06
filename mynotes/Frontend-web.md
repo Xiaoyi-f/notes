@@ -34,7 +34,6 @@ export default defineConfig({
 需要使用Nginx进行代理实现正确的访问 
 
 注意: 前端没有实际的防攻击手段,攻击者本身可以操控浏览器
-注意: vite等解析器缓存的数据可能导致一些难以发觉的问题,建议删除模块重新安装重新启动服务
 
 Emmet(代码缩写扩展工具): element>element*n[class="className"]{$}+element
 
