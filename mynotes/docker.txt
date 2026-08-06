@@ -23,7 +23,7 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docke
 sudo apt update
 sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 // docker-buildx-plugin 高级镜像构建工具 docker buildx version
-// docker-compose-plugin 多容器应用管理工具 docker compose version 
+// docker-compose-plugin 多容器应用管理(容器编排)工具 docker compose version 
 
 # 启动docker并且设置开机自启 ctl = control 
 sudo systemctl start docker 
@@ -107,4 +107,43 @@ sudo docker push <namespace><docker_image_name><:version>
 第二个容器启动，发个 172.17.0.3 给它
 关键点：这个 IP 是 Docker 内部自己玩的，你在你的 Windows 电脑上直接 ping 这个 IP 是 ping 不通的（因为没有走出那个虚拟交换机）
 
+容器每次重启，Docker 分配的 IP 是会变动的（可能下次 Redis 变成 172.17.0.4），所以默认的 Bridge 模式并不适合生产环境里的容器间通信
+
+# 生产环境容器网络通信 Docker子网内部自带DNS服务 -> 自定义桥接网络
+sudo docker network create <network_name> 
+docker run -d --name <container_name> --network <network_name> <image>
+
+# 创建一个网关
+docker run -d --name gateway --network <network_name> -p 8080:80 nginx
+
+# Nginx配置中可以直接使用容器名称
+location /api {
+  proxy_pass http://<container_name>:<container_port/>;
+}
+
+# host网络模式,容器网络端口直接使用宿主机网络端口
+sudo docker run -d --network host <image>
+
+# 容器编排技术
+yaml/yml配置文件规则:
+1.使用缩进表示层级关系,缩进必须使用空格(通常两个空格)
+2.冒号后面必须跟加空格
+3.列表/数组使用 - 
+  eg:
+    - "item" 
+4.true/false/on/off/yes/no 都可能被视为布尔值 字符串使用双引号
+5.注释使用 #
+6.多行文本
+  | 保留换行符 
+  > 将换行符替换为空格 
+
+创建 docker-compose.yaml 文件 
+可以将要执行的命令写好交给AI创建
+sudo docker compose up -d // 启动容器编排 
+sudo docker compose -f <file_name> up -d // 启动指定文件编排
+sudo docker compose ps // 查看所有正在运行的容器
+sudo docker compose down // 停止并删除所有正在运行的容器
+sudo docker compose stop // 停止所有正在运行的容器 
+sudo docker compose restart // 重启所有正在运行的容器
+sudo docker compose logs // 查看所有正在运行的容器的日志
 
