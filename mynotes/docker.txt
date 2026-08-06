@@ -22,7 +22,7 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docke
 // 核心安装命令
 sudo apt update
 sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-// docker-buildx-plugin 高级镜像构建工具 docker buildx version
+// docker-buildx-plugin 高级镜像构建工具 docker buildx version -> build 加强版 
 // docker-compose-plugin 多容器应用管理(容器编排)工具 docker compose version 
 
 # 启动docker并且设置开机自启 ctl = control 
