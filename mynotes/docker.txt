@@ -75,4 +75,36 @@ sudo docker run -d --restart unless-stopped <image>
 # 查看容器信息
 sudo docker inspect <container_id>
 
+# Dockerfile 文件 
+FROM <image> 
+
+WORKDIR <image_path>
+
+COPY <host_cur_path> <work_cur_path> 
+
+RUN <command>
+
+EXPOSE <port_tip> 
+
+CMD ["command", "command_param"]
+
+# 使用Dockerfile构建镜像
+sudo docker build -t <docker_image_name><:version> <path>
+
+# dockerhub上注册登录账号(默认使用用户名为命名空间)
+# 推送镜像到dockerhub
+sudo docker login 
+sudo docker build -t <namespace><docker_image_name><:version> <path>
+sudo docker push <namespace><docker_image_name><:version>
+
+# docker网络默认为Bridge桥接模式,每个容器分配一个ip
+当你安装 Docker 时，它就在你电脑里悄悄创建了这个虚拟交换机
+所有加入这个 Bridge 的容器，都把网线插到了这个交换机上
+作用：让这些容器之间能互相“打电话”（通信），但外面的世界（你的浏览器、别的电脑）默认打不通它们的电话
+
+这个 Bridge 默认使用一个私有的网段，通常是 172.17.0.0/16
+第一个容器启动，Docker 随手发个 172.17.0.2 给它
+第二个容器启动，发个 172.17.0.3 给它
+关键点：这个 IP 是 Docker 内部自己玩的，你在你的 Windows 电脑上直接 ping 这个 IP 是 ping 不通的（因为没有走出那个虚拟交换机）
+
 
