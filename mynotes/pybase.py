@@ -64,6 +64,7 @@ string = "Hello Python"
 string.replace("Hello", "Great")
 print(string.count('o'), string.find("Python"), ''.join(string.split(' ', 1)))
 
+del # 关键字 -> 删除变量引用或容器元素/键
 list_var = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 len(list_var)
 list_var.append(list_var.pop(-1))

@@ -286,6 +286,7 @@ async await // Promise 语法糖
 alert prompt 
 console.log() console.clear() console.error()
 Object.keys() Object.values() Object.entries()
+delete 删除对象可配置属性
 
 array.sort(function(a, b) {
   return a - b 
