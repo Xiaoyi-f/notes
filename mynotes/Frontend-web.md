@@ -5,6 +5,7 @@ src
   assets 
     styles 
   components 
+  constants 
   views 
   router
   store 
