@@ -42,7 +42,7 @@ GitHub: git push -> github -> GitHub Actions -> 自动打包 -> 推送镜像 -> 
 Gitee: git push -> gitee -> Gitee Go -> 自动打包 -> 推送镜像 -> 容器服务拉取 -> 容器服务运行
 
 1.实现好Docker相关操作/准备
-2.在项目根目录中创建.gitee文件夹,在里面创建ci.yaml文件
+2.在项目根目录中创建.github/workflows文件夹或.gitee文件夹,在里面创建ci.yaml文件
   name: <name>
   on: 
     push:
@@ -53,13 +53,13 @@ Gitee: git push -> gitee -> Gitee Go -> 自动打包 -> 推送镜像 -> 容器�
 
   jobs: 
     ci_build:
-      runs-on: <Gitee Go 提供的云端环境>
+      runs-on: <Gitee Go / GitHub Actions 提供的云端环境>
       steps: 
         - name: <name>
-          uses: <Gitee Go 官方提供的 Action>      
+          uses: <Gitee Go / GitHub Actions 官方提供的 Action>      
 
         - name: <name>
-          uses: <Gitee Go 官方提供的 Action>  
+          uses: <Gitee Go / GitHub Actions 官方提供的 Action>  
           with:
             <xxx-version>: "xxx"
 
@@ -72,7 +72,7 @@ Gitee: git push -> gitee -> Gitee Go -> 自动打包 -> 推送镜像 -> 容器�
             # 构建镜像
 
         - name: <name>
-          uses: <Gitee Go 官方提供的 Action>
+          uses: <Gitee Go / GitHub Actions 官方提供的 Action>
           with: 
           # 花括号中私密数据变量需要在仓库中设置仓库变量(secrets)
             <xxx-username>: ${{ secrets.xxx-username }}
@@ -82,7 +82,7 @@ Gitee: git push -> gitee -> Gitee Go -> 自动打包 -> 推送镜像 -> 容器�
           run: |
             # 推送镜像     
 
-3.在.gitee里面创建cd.yaml文件            
+3.在.github里面创建cd.yaml文件,若使用gitee则需要将以下配置与ci.yaml配置写在一个文件            
   name: <name>
 
   on: 
@@ -94,15 +94,18 @@ Gitee: git push -> gitee -> Gitee Go -> 自动打包 -> 推送镜像 -> 容器�
 
   jobs:
     deploy: 
-      runs-on: <Gitee Go 官方提供的云端环境>
+      runs-on: <Gitee Go / GitHub Actions 官方提供的云端环境>
       if : ${{ github.event.workflow_run.conclusion == 'success' }}
       steps: 
         - name: <name>
-          uses: <Gitee Go 官方提供的 Action>
+          uses: <Gitee Go / GitHub Actions 官方提供的 Action>
           with: 
             host: ${{ secrets.xxx-host }}   
             username: ${{ secrets.xxx-username }}
             key: ${{ secrets.xxx-key }}
             script: |
               cd /xxx/xxx 
-              
+              docker compose pull 
+              docker compose up -d
+
+
