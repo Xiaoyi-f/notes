@@ -139,6 +139,7 @@ yaml/yml配置文件规则:
 
 创建 docker-compose.yaml 文件 
 可以将要执行的命令写好交给AI创建
+sudo docker compose pull // 拉取所有服务镜像
 sudo docker compose up -d // 启动容器编排 
 sudo docker compose -f <file_name> up -d // 启动指定文件编排
 sudo docker compose ps // 查看所有正在运行的容器

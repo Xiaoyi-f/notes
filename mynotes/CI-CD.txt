@@ -37,4 +37,72 @@ CD：检查合格后，自动打包、自动配送上门
 以前全靠人工一道道查、手动打包发布；
 用 CI/CD = 全自动质检 + 发货流水线
 
+# 实战教学
+GitHub: git push -> github -> GitHub Actions -> 自动打包 -> 推送镜像 -> 容器服务拉取 -> 容器服务运行 
+Gitee: git push -> gitee -> Gitee Go -> 自动打包 -> 推送镜像 -> 容器服务拉取 -> 容器服务运行
 
+1.实现好Docker相关操作/准备
+2.在项目根目录中创建.gitee文件夹,在里面创建ci.yaml文件
+  name: <name>
+  on: 
+    push:
+      branches: ["master", "main"] 
+
+  env: 
+    ENVIRONMENT_VAR: "value" 
+
+  jobs: 
+    ci_build:
+      runs-on: <Gitee Go 提供的云端环境>
+      steps: 
+        - name: <name>
+          uses: <Gitee Go 官方提供的 Action>      
+
+        - name: <name>
+          uses: <Gitee Go 官方提供的 Action>  
+          with:
+            <xxx-version>: "xxx"
+
+        - name: <name>
+          run: |
+            # 编译并跑单元测试
+
+        - name: <name>
+          run: |
+            # 构建镜像
+
+        - name: <name>
+          uses: <Gitee Go 官方提供的 Action>
+          with: 
+          # 花括号中私密数据变量需要在仓库中设置仓库变量(secrets)
+            <xxx-username>: ${{ secrets.xxx-username }}
+            <xxx-password>: ${{ secrets.xxx-password }}
+            <xxx-registry>: ${{ secrets.xxx-registry }}
+        - name: <name>
+          run: |
+            # 推送镜像     
+
+3.在.gitee里面创建cd.yaml文件            
+  name: <name>
+
+  on: 
+    workflow_run: 
+      workflows: ["<ci_name>"]
+      types: 
+        - completed 
+      branches: ["master", "main"]
+
+  jobs:
+    deploy: 
+      runs-on: <Gitee Go 官方提供的云端环境>
+      if : ${{ github.event.workflow_run.conclusion == 'success' }}
+      steps: 
+        - name: <name>
+          uses: <Gitee Go 官方提供的 Action>
+          with: 
+            host: ${{ secrets.xxx-host }}   
+            username: ${{ secrets.xxx-username }}
+            key: ${{ secrets.xxx-key }}
+            script: |
+              cd /xxx/xxx 
+              

@@ -48,3 +48,7 @@ Win+R 输入 resmon.exe 打开资源监视器 搜索句柄管理资源占用问�
 # 核心命令
 sudo -i // 切换到root用户
 \ // 反斜杠续行符 
+mkdir -p /dir/dir // 创建多层目录 
+rm -rf 
+ls -la 
+
