@@ -42,7 +42,7 @@ GitHub: git push -> github -> GitHub Actions -> 自动打包 -> 推送镜像 -> 
 Gitee: git push -> gitee -> Gitee Go -> 自动打包 -> 推送镜像 -> 容器服务拉取 -> 容器服务运行
 
 1.实现好Docker相关操作/准备
-2.在项目根目录中创建.github/workflows文件夹或.gitee文件夹,在里面创建ci.yaml文件
+2.在项目根目录中创建.github/workflows文件夹或.gitee-ci.yml文件,在里面创建ci.yml文件
   name: <name>
   on: 
     push:
@@ -82,7 +82,7 @@ Gitee: git push -> gitee -> Gitee Go -> 自动打包 -> 推送镜像 -> 容器�
           run: |
             # 推送镜像     
 
-3.在.github里面创建cd.yaml文件,若使用gitee则需要将以下配置与ci.yaml配置写在一个文件            
+3.在.github里面创建cd.yaml文件,若使用gitee则需要将以下配置与ci.yml配置写在一个文件            
   name: <name>
 
   on: 
@@ -108,4 +108,4 @@ Gitee: git push -> gitee -> Gitee Go -> 自动打包 -> 推送镜像 -> 容器�
               docker compose pull 
               docker compose up -d
 
-
+# 注意yaml中<>是非法字符,这里只是占位
