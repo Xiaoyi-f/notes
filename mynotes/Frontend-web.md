@@ -492,6 +492,7 @@ v-for (content, index/key) in target :key
 @event 
 {{}}
 
+// 响应式缓存数据 
 ref() obj.value 模版内自动解包  
 reactive()
 
