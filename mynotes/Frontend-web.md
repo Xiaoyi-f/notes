@@ -419,6 +419,7 @@ const xhr = new XMLHttpRequest()
 // tsc --init 生成tsconfig.json文件 
 // tsconfig.json 中添加 "include": ["pathTSFile"] 执行 tsc 自动按照配置文件编译 
 // .d.ts 文件作为类型声明文件,库/模块有自带的类型声明文件
+在 VS Code 中按 Ctrl+Shift+P → 输入 TypeScript: Restart TS Server 解决偶尔问题性报错
 
 /// <reference types="vite/client" /> 三斜杆指令 向编译器传递指令,这里的示例表示引入vite提供的客户端类型定义包
 
