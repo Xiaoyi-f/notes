@@ -528,6 +528,9 @@ watch(var, (newVar, oldVar) => {}, { deep: true, immediate: true })
   <template #slot>插槽内容</template>
 </Component>
 
+.env文件书写配置常量VITE_XXX -> 若使用Vite解析器需要如此 -> 
+import.meta.env.VITE_XXX 使用
+
 onMounted之后才能拿到有效DOM
 ref属性: 原生标准 HTML 本身没有 ref 属性，<div ref="xxx"> 是 Vue/React 框架自定义的特殊标签属性，用来给 DOM / 组件打标记，通过变量名进行对应
 普通 HTML 标签：ref 拿到原生 DOM 对象，可以执行聚焦、修改样式、初始化第三方图表 / 3D 库等底层 DOM 操作
@@ -660,7 +663,7 @@ requests.interceptors.response.use(
 export default requests 
 
 
-// data为请求体
+// data为请求体 params 为查询参数  
 requests.get(url, { params: params })
 requests.post(url, data, { params: params }) 
 requests.put(url, data, { params: params })
