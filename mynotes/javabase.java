@@ -13,3 +13,19 @@ JDK JRE JVM 区别:
 JDK(开发工具与运行环境) > JRE(运行环境) > JVM(运行程序核心) 
 */
 
+/**
+ * 文档注释
+ * java常见关键字:
+ * private protected public 
+ * abstract class extends final implements interface native new static 
+ * strictfp synchronized transient volatile 
+ * break continue return do while if else for instanceof 
+ * switch case default 
+ * try cathc throw throws 
+ * import package 
+ * boolean byte char short int long float double null  
+ * true false 
+ * super this void 
+ */
+
+
