@@ -15,10 +15,11 @@ JDK(开发工具与运行环境) > JRE(运行环境) > JVM(运行程序核心)
 
 /**
  * 文档注释
+ * 引用类型: 类 接口 数组 
  * java常见关键字:
  * private protected public 
- * abstract class extends final implements interface native new static 
- * strictfp synchronized transient volatile 
+ * abstract class extends final implements interface new static 
+ * synchronized transient volatile 
  * break continue return do while if else for instanceof 
  * switch case default 
  * try cathc throw throws 
