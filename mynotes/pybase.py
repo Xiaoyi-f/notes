@@ -4,6 +4,13 @@
 # __init__.py 包标识文件 自动本包提前导入使用__all__=[]声明
 # int float bool str list dict set tuple complex
 # help(keyword)
+
+"""
+Python 同步编译同步解释 python编译且运行 
+跨平台原理: python解释器 : 解释器内置编译器 -> .pyc 字节码 文件 -> 运行虚拟机 
+不同操作系统适配的JDK不一样
+"""
+
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from enum import Enum
