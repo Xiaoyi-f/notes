@@ -21,8 +21,9 @@ JDK(开发工具与运行环境) > JRE(运行环境) > JVM(运行程序核心)
  * private protected public 
  * abstract class extends final implements interface new static 
  * synchronized transient volatile 
- * break continue return do while if else for instanceof 
- * switch case default 
+ * break continue return java支持循环层标签控制 
+ * do while if else instanceof for (初始化; 条件; 控制)  
+ * switch case default switch具有穿透性
  * try cathc throw throws 
  * import package 
  * boolean byte char short int long float double null  
@@ -43,6 +44,27 @@ JDK(开发工具与运行环境) > JRE(运行环境) > JVM(运行程序核心)
 
 // 逻辑运算符 & | ^ ! 
 // && || 短路特性 
+
+import java.util.Scanner; 
+
+// Scanner 只用于 System.in 或 new File("文件名") 等
+Scanner sc = new Scanner(System.in); 
+// System.in System.out System.err 系统 输入 / 输出 / 错误 流  
+
+sc.hasNextLine();
+String line = sc.nextLine();
+
+char c = sc.next().charAt(0);
+String str = sc.next(); 
+int i = sc.nextInt(); 
+long l = sc.nextLong(); 
+float f = sc.nextFloat();
+double d = sc.nextDouble();  
+boolean b = sc.nextBoolean(); 
+// 类型不会自动转布尔 静态强类型语言 只能输入 true / false 
+
+int[] arr = {1,2,3,4,5}; // 数组静态初始化
+int[] arr = new int[10]; // 数组动态初始化 java内存给数组分配默认值 
 
 
 
