@@ -103,6 +103,19 @@ CREATE TABLE `table_name` (
     [ON DELETE CASCADE] [ON UPDATE CASCADE]
 );
 
+column_type: 
+TINYINT	1字节	
+INT	4字节	
+BIGINT 8字节	
+DECIMAL(A,D) 变长	
+FLOAT/DOUBLE 4/8字节	
+CHAR(N)	固定 N字节	
+VARCHAR(N) 变长	
+TEXT 变长	
+DATE 3字节 只存年月日 python使用datetime模块 
+DATETIME 8字节 存年月日时分秒 python使用datetime模块	 
+JSON 变长	
+
 -- 删除外键约束
 ALTER TABLE `table_name` DROP FOREIGN KEY `constraint_name`;
 -- 修改表名
