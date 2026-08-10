@@ -207,6 +207,28 @@ app.run(host='0.0.0.0', port=5000)
 gunicorn -w 5 -b 0.0.0.0:5000 app:app # 普通模式 
 gunicorn -k geventwebsocket.gunicorn.workers.GeventWebSocketWorker -w 5 -b 0.0.0.0:5000 app:app # 协程模式
 
-多进程（默认）: Gunicorn 默认采用 prefork 模型,启动时会复制出多个 Worker 进程（--workers=4 / -w 4）,每个进程独立监听端口,实现真正的并行处理请求
-多线程（可选）: 如果指定 --threads=2,每个 Worker 进程内部会开启多个线程处理请求 --> 只有 -k gthread 开启多进程/多线程模式才可以配置--threads生效  
+# 多进程（默认）: Gunicorn 默认采用 prefork 模型,启动时会复制出多个 Worker 进程（--workers=4 / -w 4）,每个进程独立监听端口,实现真正的并行处理请求
+# 多线程（可选）: 如果指定 --threads=2,每个 Worker 进程内部会开启多个线程处理请求 --> 只有 -k gthread 开启多进程/多线程模式才可以配置--threads生效  
+
+"""
+Pre-fork 模型是 Gunicorn 的核心架构，其本质是一个“进程池”管理模型
+
+核心思想: Master-Worker 架构
+Pre-fork 模型是一种经典的多进程架构，由两种角色构成：
+Master 进程（管理者）：它是整个服务器的“大脑”，负责管理，不处理具体请求。它的职责包括：
+    启动与维护：启动时预先创建（fork）指定数量的 Worker 进程
+    监控与重启：监控 Worker 进程的健康状况。一旦某个 Worker 异常退出，Master 会立即创建新的 Worker 来替补，保证服务能力不降级
+    动态调整：接收外部信号（如 信号TTIN 增加 Worker 数量，信号TTOU 减少 Worker 数量），实现不重启服务的情况下调整并发能力
+
+Worker 进程（执行者）：它们是真正的“打工人”，负责处理客户端的 HTTP 请求并返回响应。每个 Worker 进程都是独立且隔离的，Master 进程不参与任何请求的处理
+
+运作流程：它究竟是怎么工作的？
+预先创建：Gunicorn 启动时，Master 进程会先创建一个监听套接字（socket），然后通过 fork() 系统调用，预先创建出指定数量（由 -w 参数指定）的 Worker 进程
+共享监听：由于 Unix 的 fork() 机制，所有 Worker 进程都继承了 Master 进程的监听套接字，因此它们都能监听相同的 IP 地址和端口
+竞争接纳：当一个新请求到达时，操作系统内核会从所有正在监听该端口的 Worker 进程中，竞争地选择一个来接纳（accept）这个连接。这是一种高效的负载均衡方式，由操作系统内核自动完成
+独立处理：被选中的 Worker 进程会独立处理该请求的整个生命周期，包括读取、处理和响应。处理完成后，该 Worker 就可以准备处理下一个请求
+"""
+
+
+
 
