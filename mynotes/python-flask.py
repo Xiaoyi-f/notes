@@ -31,7 +31,7 @@ app = Flask(__name__)
 app.debug = False
 # 签名传输的数据 记录下来
 app.config.from_object('Config')
-# 前后端不同源,允许跨域携带凭证
+# 前后端不同源,不允许跨域携带凭证
 CORS(app, supports_credentials=False, origins= [])  
 # 后端生成并且返回Token之后应该立马存到前端
 
@@ -97,18 +97,22 @@ def demo(num, decimal, name):
     request.files 字典
     files[key].save("path")
     resp = make_response(data)
+
+   '''
    后端在本次 HTTP 响应头里，添加一条 Set-Cookie 指令，命令浏览器在本地存储一条 Cookie 数据 
    之后浏览器每一次向指定域名发请求，都会自动把这条 Cookie 带给后端
-    resp.set_cookie(
+   '''
+   resp.set_cookie(
         "key",
         "value",
         max_age=2592000, # 单位: s
         domain="xxx.xx",
-        samesite="Strict/Lax", # 跨站请求不带cookies
+        samesite="Strict/Lax", # 跨站请求不带cookies 选择Strict模式或者Lax模式
         httponly=True, # 开启这个前端无法读取cookie，只能够通过后端来操作
         secure=True
     )
-    return send_file(file_path, mimetype="application/mimetype", as_attachment=True, download_name="xxx.xx")
+
+    return jsonify({"message": message, "data": data})
     """
 
 # SSE 协议 

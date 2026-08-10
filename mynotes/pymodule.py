@@ -297,7 +297,7 @@ def export_pdf(user_id):
     # 获取用户信息
     html_content = f"""渲染HTML代码内容"""
     pdf_file = HTML(string=html_content).write_pdf()
-    return send_file(io.BytesIO(pdf_file), as_attachment=True, # 开启附件下载模式 
+    return send_file(io.BytesIO(pdf_file), as_attachment=True, # 开启附件下载模式 第一个参数也可以传递文件路径
     download_name=f"{user["name"]}_简历.pdf", mimeType="application/pdf")
 
 
