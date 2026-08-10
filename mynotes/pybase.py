@@ -11,6 +11,17 @@ Python 同步编译同步解释 python编译且运行
 不同操作系统适配的JDK不一样
 """
 
+"""
+关键词
+False None True 
+and or not as assert async await break continue
+class def del for while from import 
+global nonlocal return 
+in is lambda pass raise 
+try except finally with
+yield if elif else  
+"""
+
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from enum import Enum
