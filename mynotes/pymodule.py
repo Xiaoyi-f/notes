@@ -70,6 +70,7 @@ message["From"] = f"Author <{sender_email}>"
 message["To"] = target_email
 
 # SSL 加密 SMTP 固定端口号(163、QQ、126 邮箱统一 SSL 发件端口都是 465)
+# SSL / TLS = 防窃听的加密锁
 with smtplib.SMTP_SSL("smtp.163.com", 465) as server:
     server.login("account", "password")
     server.send_message(message)
