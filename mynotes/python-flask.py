@@ -7,7 +7,6 @@ utils 自定义工具
 routes 蓝图路由文件夹
 db 数据库相关文件夹
 config 配置文件夹
-service 特殊服务功能文件夹
 scripts 脚本文件夹 
 agents agents文件夹 
 rag rag文件夹 
@@ -128,14 +127,19 @@ def xxx():
 
 # SQLAlchemy 技术 属于 ORM 技术(实现编程语言与数据库相连的中间件技术) 之一
 db = SQLAlchemy()
-db.init_app(app) 
 
-# 表名默认就是类名小写 如果是驼峰命名的话，默认就是使用_(下划线隔离)
+def init(app):
+    db.init_app(app)
+    with app.app_context():
+        db.create_all()
 
+# 工具类 融合python使用时候调用 ORM对象.to_dict()
 class BaseModel(db.Model):
-    __abstract__ = True 
+    # 开启配置,该类不会被映射
+    __abstract__ = True
 
-    def to_dict(self): 
+    # 序列化ORM对象为py字典
+    def to_dict(self):
         return {field.name: getattr(self, field.name) for field in self.__table__.c} # __table__.c -> columns 元信息
 
 class Table(BaseModel):
@@ -171,9 +175,6 @@ class Table(BaseModel):
         对象.day 
     """
 
-with app.app_context():
-    db.create_all()
-
 # 增
 demo = Table(*args, **kwargs)
 db.session.add(demo)
@@ -190,14 +191,13 @@ demo.field = val
 db.session.commit()
 
 # 查
+from sqlalchemy import func, and_, or_, not_ # func工具 和 用于ORM对象字段布尔表达式匹配的逻辑运算函数 and_(任意数量相关布尔表达式参数) or_(任意数量相关布尔表达式参数) not_(单个相关布尔表达式参数)
 demo = Table.query.filter(Table.field布尔表达式).all() # .first() --> 没有对应的数据则返回空列表/空
 demo = Table.query.filter(Table.field布尔表达式).order_by(func.random()).all()
 demo = Table.query.get(字段) --> 用于外键和主键字段查询 
 
 # 提交但是不永久保存 
-db.session.flush() 让数据"能被查到"，但还没"永久存下来"
-
-# python中使用时候可以直接使用SQLAlchemy对象，但是传递数据时候不能够传递SQLAlchemy对象
+db.session.flush() # 让数据"能被查到"，但还没"永久存下来"
 
 # 测试
 socket.run(app, host='0.0.0.0', port=5000)
