@@ -131,7 +131,14 @@ db = SQLAlchemy()
 db.init_app(app) 
 
 # 表名默认就是类名小写 如果是驼峰命名的话，默认就是使用_(下划线隔离)
-class Table(db.Model):
+
+class BaseModel(db.Model):
+    __abstract__ = True 
+
+    def to_dict(self): 
+        return {field.name: getattr(self, field.name) for field in self.__table__.c} # __table__.c -> columns 元信息
+
+class Table(BaseModel):
     # 数据库内容采用蛇形命名规范
     __tablename__ = "table_name" 
     """
@@ -163,13 +170,6 @@ class Table(db.Model):
         对象.month 
         对象.day 
     """
-
-    def toDict(self):
-        data = {
-            "xx": self.xx 
-        }
-        
-        return data 
 
 with app.app_context():
     db.create_all()
