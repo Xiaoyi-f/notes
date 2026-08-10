@@ -16,7 +16,7 @@ https://examcrafts.com/
 https://roadmap.sh/
 
 虚拟API网站:
-https://fakestoreapi.com/
+https://fakestoreapi.com/ --> 对应Url网站自带实体 
 
 辅助UI设计的AI网站: 
 https://app.flowstep.ai/
