@@ -7,6 +7,10 @@ Java 一次性编译好再执行 javac编译 java运行
 版本: JavaME -> JavaSE -> JavaEE 
 */
 
+/*
+java本身不内置包管理器 需要使用 Maven / Gradle 构建工具管理 
+*/
+
 /* 
 安装对应版本 JDK -> 配置环境变量 %JAVA_HOME% (bin)
 JDK JRE JVM 区别:
@@ -132,5 +136,6 @@ int[] arr = new int[10]; // 数组动态初始化 java内存给数组分配默�
 
 /**
  * String 类 代表字符串 java中所有字符串都被实现为此类的实例 
- * String 类 在 java.lang 包下 使用时不需要导包 JVM默认自动加载 
+ * String 类 在 java.lang 包下 使用时不需要导包 JVM默认自动加载 内置源码在src.zip中 
  */
+
