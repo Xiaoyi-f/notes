@@ -66,7 +66,7 @@ html_content = f"""
 
 message = MIMEText(html_content, "html", "utf-8")
 message["Subject"] = "标题"
-message["From"] = f"Author <{sender_email}>"
+message["From"] = f"{AuthorName} <{sender_email}>"
 message["To"] = target_email
 
 # SSL 加密 SMTP 固定端口号(163、QQ、126 邮箱统一 SSL 发件端口都是 465)
