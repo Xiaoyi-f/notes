@@ -8,7 +8,7 @@ routes 蓝图路由文件夹
 db 数据库相关文件夹
 config 配置文件夹
 service 特殊服务功能文件夹
-script 脚本文件夹 
+scripts 脚本文件夹 
 agents agents文件夹 
 rag rag文件夹 
 """

@@ -1,4 +1,5 @@
 # python -m venv .venv
+# 注意: powershell 不会从当前文件运行指令文件 要写 .\指令文件 执行 
 # pip config list / set
 # pip freeze > requirements.txt / pip install -r requirements.txt
 # __init__.py 包标识文件 自动本包提前导入使用__all__=[]声明
