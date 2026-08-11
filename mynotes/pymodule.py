@@ -132,7 +132,7 @@ elements = document.select("选择器")
 给OSS对应的权限
 服务器A记录将域名指向一个IP地址，而CNAME记录将一个域名指向另一个域名
 TXT记录负责描述和验证，解决相关校验问题 
-用户凭证管理
+用户凭证管理 OSS桶概览
 Bucket配置 -> 域名管理
 """
 import oss2
