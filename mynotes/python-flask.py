@@ -210,6 +210,9 @@ gunicorn -k geventwebsocket.gunicorn.workers.GeventWebSocketWorker -w 5 -b 0.0.0
 # 多进程（默认）: Gunicorn 默认采用 prefork 模型,启动时会复制出多个 Worker 进程（--workers=4 / -w 4）,每个进程独立监听端口,实现真正的并行处理请求
 # 多线程（可选）: 如果指定 --threads=2,每个 Worker 进程内部会开启多个线程处理请求 --> 只有 -k gthread 开启多进程/多线程模式才可以配置--threads生效  
 
+# IO 密集型（读写）：最佳线程数 = CPU 核心数 / (1 - 阻塞系数)
+# CPU 密集型（计算）：最佳线程/进程数 = CPU 核心数 [+ 1]
+
 """
 Pre-fork 模型是 Gunicorn 的核心架构，其本质是一个“进程池”管理模型
 
