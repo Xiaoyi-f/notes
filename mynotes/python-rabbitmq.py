@@ -53,9 +53,10 @@ def publish_xxx_task(args):
     channel.basic_publish(
       exchange='', # 默认交换机 
       routing_key='xxx_task_queue', # 使用默认交换机时必须使用队列名
-      body=message,
+      body=message.encode("utf-8"),
       properties=pika.BasicProperties(
         delivery_mode=2 # 2 表示消息持久化
+      )
     )
 
     connection.close() 
@@ -76,7 +77,6 @@ def callback(channel, method, properties, body):
     except Exception as err:
         print(f"[xxx_task] 任务执行失败 发生错误: {err}")    
 
-
 def main():
     connection = pika.BlockingConnection(parameters)
     channel = connection.channel() # TCP连接上创建虚拟通道
@@ -92,6 +92,6 @@ def main():
 
     print(f"[*] 正在监听任务队列: xxxx")
     channel.start_consuming()
-    
-        
+
+
 

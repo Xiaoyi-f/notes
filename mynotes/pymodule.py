@@ -230,9 +230,9 @@ import redis
 REDIS_CONFIG = {
     "host": "127.0.0.1",
     "port": 6379,
-    "db": 0,
+    "db": 0, # redis默认有16个逻辑数据库 0存用户会话 1存缓存数据 2存消息队列 虽然在同一个redis服务，但是各个库之间相互隔离   
     "password": "password",
-    "decode_responses": True,
+    "decode_responses": True, # redis底层使用二进制字节流，开启自动解码有利于编写程序
     "socket_timeout": 5, # 设置超时报错,避免卡死 
     "max_connections": 20
 }
