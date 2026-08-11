@@ -115,6 +115,7 @@ TEXT 变长
 DATE 3字节 只存年月日 python使用datetime模块 
 DATETIME 8字节 存年月日时分秒 python使用datetime模块	 
 JSON 变长	
+BOOLEAN 1字节
 
 -- 删除外键约束
 ALTER TABLE `table_name` DROP FOREIGN KEY `constraint_name`;
