@@ -39,9 +39,9 @@ def task(args):
 # 定义生产者
 def publish_xxx_task(args):
     connection = pika.BlockingConnection(parameters)
-    channel = connection.channel()
+    channel = connection.channel() # TCP连接上创建虚拟通道
 
-    # 声明队列
+    # 声明队列 durable=True 表示消息持久化
     channel.queue_declare(queue='xxx_task_queue', durable=True)
 
     # 构造消息体
@@ -51,8 +51,8 @@ def publish_xxx_task(args):
 
     # 发送消息 
     channel.basic_publish(
-      exchange='',
-      routing_key='xxx_task_queue',
+      exchange='', # 默认交换机 
+      routing_key='xxx_task_queue', # 使用默认交换机时必须使用队列名
       body=message,
       properties=pika.BasicProperties(
         delivery_mode=2 # 2 表示消息持久化
@@ -64,12 +64,34 @@ def publish_xxx_task(args):
 # 定义消费者 从任务队列取任务并真正执行
 from tasks import task # 导入自己写的任务函数 
 
-def callback(ch, method, properties, body):
+def callback(channel, method, properties, body):
     data = json.loads(body.decode()) # 字典 消息体  
 
     print(f"[xxx_task] 任务 准备执行: xxxx")
 
     try:
         task(data['args']) 
+        channel.basic_ack(delivery_tag=method.delivery_tag) # 手动告诉 RabbitMQ 消息处理完 可以删除 
+        print(f"[xxx_task] 任务 已完成: xxxx")
+    except Exception as err:
+        print(f"[xxx_task] 任务执行失败 发生错误: {err}")    
+
+
+def main():
+    connection = pika.BlockingConnection(parameters)
+    channel = connection.channel() # TCP连接上创建虚拟通道
+
+    # 创建任务队列
+    channel.queue_declare(queue='xxx_task_queue', durable=True)
+
+    # 每次只取一条消息,处理完再取下一条 
+    channel.basic_qos(prefetch_count=1)
+
+    # 创建消费者
+    channel.basic_consume(queue='xxx_task_queue', on_message_callback=callback, auto_ack=False)
+
+    print(f"[*] 正在监听任务队列: xxxx")
+    channel.start_consuming()
+    
         
 
