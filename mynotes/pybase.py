@@ -136,5 +136,38 @@ with open('file', 'rwab+') as file:
 
 ## 进程与线程管理 --> 实际项目中大多数使用异步任务队列 进程与线程被封装在底层
 ## 写离线脚本、爬虫、数据处理工具时候可以用到 --> 明确本地服务 与 外部服务 区别 
+import concurrent.futures
+import requests
+import os
 
+def task(arg):
+    pass
+
+# 线程池
+# max_workers 设大点没关系，一般设 10~20
+with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+    # 提交所有任务
+    future_list = [executor.submit(task, arg) for arg in args]
+    
+    # as_completed 谁先完成先处理谁
+    for future in concurrent.futures.as_completed(future_list):
+        try:
+            result = future.result()
+            print(f"成功: {result}")
+        except Exception as e:
+            print(f"报错: {e}")  
+
+def hard_compute(arg):
+    pass 
+
+if __name__ == "__main__":
+    data = [10000, 20000, 30000]  # 输入数据
+    
+    # 进程池
+    # max_workers 默认就是 CPU 核数，直接不写也行
+    with concurrent.futures.ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
+        # map 会保持顺序，且自动分配任务
+        results = executor.map(hard_compute, data)
+        for res in results:
+            print(res)            
 

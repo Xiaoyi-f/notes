@@ -341,7 +341,9 @@ async def func():
 response.raise_for_status() # 自动检测状态码,若表示错误则抛出异常
     
 
-
+# tqdm 终端进度条工具 
+# 自动模式 (Iterable-based)：最常见的用法，直接用 tqdm() 包裹一个可迭代对象，进度条会随迭代自动更新
+# 手动模式 (Manual Control)：先创建 tqdm 对象，再在代码的任意位置，通过 .update(n) 方法手动控制进度条前进 n 步
 
 
 
