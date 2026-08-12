@@ -12,6 +12,13 @@ Flask 执行完业务逻辑，返回一个 Python 对象（response）
 Gunicorn 把 Python 对象翻译回 HTTP 响应，发回给客户端
 """
 
+"""
+使用场景:
+  1.异步处理任务
+  2.流量削峰填谷
+  3.应用解耦与任务调度 
+"""
+
 import aio_pika
 
 # connection = await aio_pika.connect_robust(
