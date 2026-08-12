@@ -281,6 +281,7 @@ npm install sass --save-dev
 const array = [1, 2, 3]
 cosnt iter = array[Symbol.iterator]()
 iter.next() // { value: 1, done: false }
+JS对于不存在的字段会认定为undefined
 
 async await // Promise 语法糖
 alert prompt 
