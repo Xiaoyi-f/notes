@@ -13,6 +13,9 @@ mspaint 画图工具
 
 services.msc 服务管理
 
+hostname # 查看当前计算机名 
+
+
 ping ip/domain 
 TestNetConnection ip/domain -Port <port> --> powershell  
 
@@ -66,4 +69,4 @@ sudo -i // 切换到root用户
 mkdir -p /dir/dir // 创建多层目录 
 rm -rf 
 ls -la 
-
+passwd <用户名> 
