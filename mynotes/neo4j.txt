@@ -34,7 +34,8 @@ eg: (elementVar:Tag {key: "value"})
 基本讲解:
 一串节点+关系连起来的链条称为路径
 路径中关系数量表示路径的长度
-Cypher中字符串使用双引号或单引号表示都可以 
+Cypher中字符串使用双引号或单引号表示都可以
+变量可以给结点/关系取名字,用于引用属性数据,非强制需要 
 elementVar: 结点变量 
 relationVar: 关系变量
 :LabelName 表示标签 eg: node:LabelName1:LabelName2 表示node同时拥有两个标签
@@ -116,6 +117,7 @@ CREATE (:Person {name: name})
 // 规范CSV文件第一行为表头字段
 LOAD CSV WITH HEADERS FROM "file://path" AS row 
 MERGE (node) // 其中使用CSV字段,给每一行数据都操作 
+
 // CSV中所有单元格读出来默认都是字符串,要转类型
 toBoolean() // 可以用于字符串/数字 不可用于null 或 利用条件判断转布尔类型
 toInteger()
