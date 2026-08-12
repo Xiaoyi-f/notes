@@ -46,6 +46,8 @@ JDK(开发工具与运行环境) > JRE(运行环境) > JVM(运行程序核心)
 // 从左往右执行代码时候,遇到字符串且使用+操作会自动统一转为字符串 
 // java支持自增自减 
 
+// == --> 引用类型比较内存地址 基本类型比较数据值 
+
 // 逻辑运算符 & | ^ ! 
 // && || 短路特性 
 
@@ -138,4 +140,8 @@ int[] arr = new int[10]; // 数组动态初始化 java内存给数组分配默�
  * String 类 代表字符串 java中所有字符串都被实现为此类的实例 
  * String 类 在 java.lang 包下 使用时不需要导包 JVM默认自动加载 内置源码在src.zip中 
  */
+String str_one = new String(); // 一定会新开对象 可以接收 字符串字面值 / 字符数组 / 字节数组 创建字符串对象   
+String str_two = "hello world"; // 优先从字符串常量池查找数据进行复用 
+boolean str_bool = str_one.equals(str_two) // 比较逻辑值 Object 类提供方法 所有类/对象都拥有   
+
 
