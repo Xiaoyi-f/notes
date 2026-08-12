@@ -12,6 +12,7 @@ Tip: cypher文件 类 sql文件 实现Schema代码
 属性
 关系
 标签
+
 数据浏览器(安装Neo4j之后,可以访问Neo4j的数据浏览器)
 
 Neo4j使用java和scala实现,主要依赖java环境
@@ -23,35 +24,36 @@ AuraDB 云服务版Neo4j
 基本使用
 neo4j 提示指令 
 neo4j console 控制台启动服务
-HTTP enabled on localhost:7474 表示可以从对应的域名范文数据浏览器 
+// HTTP enabled on localhost:7474 表示可以从对应的域名范文数据浏览器 
 
 https://neo4j.ac.cn/docs/cypher-manual/current/introduction/
 Cypher neo4j专属的一个查询语言 简称CQL
 eg: (fox)<-[:knows]-(周瑜)-[:knows]->(诸葛亮)-[:knows]->(fox)
 
 基本讲解:
+一串节点+关系连起来的链条称为路径
+路径中关系数量表示路径的长度
 Cypher中字符串使用双引号或单引号表示都可以 
-:LabelName 表示标签(分组) node:LabelName1:LabelName2 表示node同时拥有两个标签
-: 还表示节点之间的关系类型 (fox)-[:knows]->(周瑜)
-- 表示无向关系 -[e:knows]- 带有属性和关系类型的无向关系
+:LabelName 表示标签(分组) eg: node:LabelName1:LabelName2 表示node同时拥有两个标签
+: 还表示节点之间的关系类型 eg: (fox)-[:knows]->(周瑜)
+- 表示无向关系 eg: -[e:knows]- 带有属性和关系类型的无向关系
 --> 或 <-- 表示有向关系 中间可插入关系类型 没有关系类型则任何关系都会匹配到相关节点
 {key: value} 字典表示对节点的描述即属性 不带空格/中文/中横线的键名不用引号,否则使用反引号
 AS 词 这个词若无空格/中文/中横线则不用引号否则使用反引号
-e: 冒号前面的一般表示变量  
+element: 冒号前面的一般表示变量  
 () 表示节点
-一串节点+关系连起来的链条即为路径
 
-基本类型:
+
+基本类型(支持嵌套):
 字符串
 整数
 浮点数
 布尔值
 [] 列表
 {} 字典
-字典和列表可以嵌套
- 
+
+
 length(字符串/数组/路径) 
-路径中关系数量表示路径的长度
 split(字符串, 分隔符)
 
 聚合函数:
@@ -68,29 +70,31 @@ CREATE CONSTRAINT ON (node) ASSERT node.propertyName IS [UNIQUE / NOT NULL]
 MATCH (node) RETURN nodeVar 
 MATCH (node) OPTIONAL MATCH (node) RETURN nodeVar1, nodeVar2 相当于SQL的LEFT JOIN,匹配不到返回null
 MATCH (node) WHERE nodeVar.property = "value" RETURN nodeVar 条件查询 
+
 条件符: 
 = > < != >= <= BETWEEN AND OR IN IS NOT NULL 
 [STARTS WITH / ENDS WITH / CONTAINS]  
 exists(路径) 判断某个关系是否存在 
-=~ "^.*?[^0-9]+.{n, m}$"
+=~ "^.*?[^0-9]+.{n, m}$" // 正则匹配
 all() any() 
 
 CREATE (node)
 
 MERGE 整条语句是原子操作,在并发环境下使用时要确保唯一性约束
 MERGE (node) RETURN nodeVar 若模式存在则匹配,不存在则创建 
-+=只能用来表示节点属性的增加/合并
-MATCH (node) ON CREATE SET node += {property: value} MERGE是创建模式就执行SET子句
-MATCH (node) ON MATCH SET node += {property: value}  MERGE是匹配模式就执行SET子句 
 
-MATCH (node) SET e.property = value 
+// +=只能用来表示节点属性的增加/合并 ON 模式匹配断言 
+MATCH (node) ON CREATE SET node += {property: value} 
+MATCH (node) ON MATCH SET node += {property: value}   
 
-有笛卡尔积效应
+MATCH (node) SET element.property = value 
+
+// 有笛卡尔积效应
 MATCH (node1)
 MATCH (node2)
 SET node2 = node1 
 
-删除节点必须要先删除所有关系,单纯删除不用DETACH
+// 删除节点必须要先删除所有关系,单纯删除不用DETACH关键词
 MATCH (node) DETACH DELETE nodeVar 删除节点关联所有关系并删除节点
 
 MATCH (node) REMOVE nodeVar.LabelName 
@@ -98,7 +102,7 @@ MATCH (node) REMOVE nodeVar.propertyName
 
 MATCH (node) RETURN nodeVar, nodeVar.propertyName, nodeVar.property + value AS 
 
-WITH将数据操作后往下传递使用
+// WITH将数据操作后往下传递使用
 MATCH (node) WITH nodeVar, count(nodeVar) AS count  WHERE count > val MATCH (node) RETURN nodeVar 
 MATCH (node) WITH nodeVar ORDER BY nodeVar.property [DESC / ASC] SKIP n LIMIT m RETURN nodeVar
 
@@ -110,7 +114,7 @@ CREATE (:Person {name: name})
 LOAD CSV WITH HEADERS FROM "file://path" AS row 
 MERGE (node) // 其中使用CSV字段,给每一行数据都操作 
 // CSV中所有单元格读出来默认都是字符串,要转类型
-toBoolean() 可以用于字符串/数字 不可用于null 或 利用条件判断转布尔类型
+toBoolean() // 可以用于字符串/数字 不可用于null 或 利用条件判断转布尔类型
 toInteger()
 toFloat()
 date()
@@ -125,7 +129,8 @@ CREATE DATABASE dbName
 :USE dbName 
 DROP DATABASE dbName 
 
-事务(ACID)
+// 事务(ACID)
+
 :BEGIN 
 // 行为
 :ROLLBACK

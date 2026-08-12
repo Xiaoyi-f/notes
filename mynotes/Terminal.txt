@@ -70,3 +70,5 @@ mkdir -p /dir/dir // 创建多层目录
 rm -rf 
 ls -la 
 passwd <用户名> 
+whoami 
+
