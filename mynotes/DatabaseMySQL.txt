@@ -48,8 +48,10 @@ Navicat连接SQLite --> SQLite默认没有账号密码
 cd 下载的mysql文件夹中bin文件夹 
 mysqld --initialize-insecure 启动后台数据库系统并且创建root用户,默认没有密码 
 mysqld --install MySQL 给后台数据库系统安装MySQL服务 
+
 win + r 输入 services.msc 进入服务管理器可以找到这个服务并且进行管理 
 mysql -P 3306 -u root -p 回车输入密码 -P 3306 为默认端口  
+
 修改用户密码请进入MySQL后执行 ALTER USER USER() IDENTIFIED BY '密码';  
 -- 字面量才用加引号
 -- 标识符中有特殊符号用反引号`

@@ -26,6 +26,9 @@ neo4j 提示指令
 neo4j console 控制台启动服务
 // HTTP enabled on localhost:7474 表示可以从对应的域名范文数据浏览器 
 
+// 执行cypher脚本
+cypher-shell -u <user> -d <db_name> -f <xxx.cypher> 
+
 https://neo4j.ac.cn/docs/cypher-manual/current/introduction/
 Cypher neo4j专属的一个查询语言 简称CQL
 eg: (fox)<-[:KNOWS]-(周瑜)-[:KNOWS]->(诸葛亮)-[:KNOWS]->(fox)
@@ -116,6 +119,7 @@ UNWIND ["Alice", "Bob"] AS name
 CREATE (:Person {name: name})
 
 // 规范CSV文件第一行为表头字段
+// row.attr attr为CSV文件中定义的字段
 LOAD CSV WITH HEADERS FROM "file://path" AS row 
 MERGE (node) // 其中使用CSV字段,给每一行数据都操作 
 
