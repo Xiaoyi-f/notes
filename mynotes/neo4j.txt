@@ -28,15 +28,17 @@ neo4j console 控制台启动服务
 
 https://neo4j.ac.cn/docs/cypher-manual/current/introduction/
 Cypher neo4j专属的一个查询语言 简称CQL
-eg: (fox)<-[:knows]-(周瑜)-[:knows]->(诸葛亮)-[:knows]->(fox)
-eg: (element:Tag {key: "value"})
+eg: (fox)<-[:KNOWS]-(周瑜)-[:KNOWS]->(诸葛亮)-[:KNOWS]->(fox)
+eg: (elementVar:Tag {key: "value"}) 
 
 基本讲解:
 一串节点+关系连起来的链条称为路径
 路径中关系数量表示路径的长度
 Cypher中字符串使用双引号或单引号表示都可以 
-:LabelName 表示标签(分组) eg: node:LabelName1:LabelName2 表示node同时拥有两个标签
-: 还表示节点之间的关系类型 eg: (fox)-[:knows]->(周瑜)
+elementVar: 结点变量 
+relationVar: 关系变量
+:LabelName 表示标签 eg: node:LabelName1:LabelName2 表示node同时拥有两个标签
+:RELATION_TYPE 表示节点之间的关系类型 eg: (fox)-[:KNOWS]->(周瑜)
 - 表示无向关系 eg: -[e:knows]- 带有属性和关系类型的无向关系
 --> 或 <-- 表示有向关系 中间可插入关系类型 没有关系类型则任何关系都会匹配到相关节点
 {key: value} 字典表示对节点或关系的描述即属性 不带空格/中文/中横线的键名不用引号,否则使用反引号
