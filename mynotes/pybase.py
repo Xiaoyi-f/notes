@@ -171,3 +171,29 @@ if __name__ == "__main__":
         for res in results:
             print(res)            
 
+# 进程 / 线程 单开使用
+import threading 
+import time 
+
+def worker(args):
+    time.sleep(5) 
+    # 干活 
+
+task = threading.Thread(target=worker, args=(args), daemon=True) # daemon 主线程退出自动关停
+task.start()
+
+import multiprocessing 
+
+def compute_worker(args)
+    time.sleep(5) 
+    # 干活
+
+volume = multiprocessing.Process(target=compute_worker, args=(args), daemon=True) # daemon 主进程退出自动关停
+volume.start() 
+
+volume.join() # 等待 volume 进程结束 
+
+
+
+
+
