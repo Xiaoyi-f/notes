@@ -345,7 +345,11 @@ response.raise_for_status() # 自动检测状态码,若表示错误则抛出异�
 # tqdm 终端进度条工具 
 # 自动模式 (Iterable-based)：最常见的用法，直接用 tqdm() 包裹一个可迭代对象，进度条会随迭代自动更新
 # 手动模式 (Manual Control)：先创建 tqdm 对象，再在代码的任意位置，通过 .update(n) 方法手动控制进度条前进 n 步
+tqdm_obj = tqdm(iterable, desc="进度条描述", total=predict_total, leave=True, unit="it", colour="color", bar_format="{desc}: {percentage:3.0f}% |{bar}| {n_fmt}/{total_fmt} [{postfix}]") # 单位 unit="it" 表示迭代次数 unit="B"表示字节数
 
+tqdm(iterable, desc="进度条描述", total=predict_total, leave=True, unit="it", colour="color", bar_format="{desc}: {percentage:3.0f}% |{bar}| {n_fmt}/{total_fmt} [{postfix}]"):
+    tqdm_obj.set_postfix(current=i) # 更新后缀 i可用任意数据类型 
+    tqdm_obj.update(num) # 数据进展 num (unit)
 
 
 

@@ -139,9 +139,33 @@ int[] arr = new int[10]; // 数组动态初始化 java内存给数组分配默�
 /**
  * String 类 代表字符串 java中所有字符串都被实现为此类的实例 
  * String 类 在 java.lang 包下 使用时不需要导包 JVM默认自动加载 内置源码在src.zip中 
+ * String 类 内容不可变,有变动会改变内存地址 
+ * StringBuilder 类 内容可变 节省内存空间  
  */
 String str_one = new String(); // 一定会新开对象 可以接收 字符串字面值 / 字符数组 / 字节数组 创建字符串对象   
 String str_two = "hello world"; // 优先从字符串常量池查找数据进行复用 
-boolean str_bool = str_one.equals(str_two) // 比较逻辑值 Object 类提供方法 所有类/对象都拥有   
+boolean str_bool = str_one.equals(str_two) // 比较逻辑值 Object类提供 所有类/对象都拥有   
+
+StringBuilder sb = new StringBuilder("Hello"); // 参数可以传String变量
+sb.append("StringBuilder"); // 追加内容  
+
+// 默认情况 对象.toString() 返回 getClass().getName() + "@" + Integer.toHexString(hashCode()) 
+// sb 有重写 toString
+
+String s = sb.toString(); // 把对象转换为字符串描述 Object类提供 所有类/对象都拥有   
+StringBuilder reverse_sb = sb.reverse(); // 反转字符串 
+
+// 对象.hashCode() Object类 提供 内存中同一个对象的hashCode值相同
+// hashCode 用于提高查询效率 改写equals方法时候必须同时改写hashCode() 
+// 规则: equals 结果为 true 则 两个对象的hashCode必须相同 结果为 false 则两个对象的hashCode可同(hash碰撞)可不同
+
+// 对象.getClass() Object类 提供 获取对象所属类所在的包名名称 
+// 对象.getClass().getName() Object类 提供 获取对象所属类的 包名 + 类名 
+// 部分类自实现getName() 
+
+// 正则表达式 
+str.matches(regex_expr) // 全串匹配 字符串支持matches方法进行正则匹配 返回布尔值 
+
+
 
 
