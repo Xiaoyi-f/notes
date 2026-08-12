@@ -72,6 +72,9 @@ information_schema: 元数据虚拟库
 performance_schema: 底层性能监控库 
 sys: 简化性能视图库 
 
+-- 清空表内容
+TRUNCATE TABLE <table_name>;
+
 -- 查看端口
 SHOW VARIABLES LIKE 'port';
 
