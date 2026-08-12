@@ -93,10 +93,11 @@ MATCH (node) ON MATCH SET node += {property: value}
 
 MATCH (node) SET element.property = value 
 
-// 有笛卡尔积效应
+// 多重匹配有笛卡尔积效应
 MATCH (node1)
 MATCH (node2)
-SET node2 = node1 
+
+SET // 赋值使用
 
 // 删除节点必须要先删除所有关系,单纯删除不用DETACH关键词
 MATCH (node) DETACH DELETE nodeVar 删除节点关联所有关系并删除节点
