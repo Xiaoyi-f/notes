@@ -64,7 +64,10 @@ def requireAuth(func):
         token = auth.replace('Bearer ', '')
         userAccount = verifyToken(token)
         if not userAccount:
-            return jsonify({"code": 401, "msg": "未登录或登录已过期"}), 401
+            return jsonify({"msg": "未登录或登录已过期"})
+
+        # 注入user_id参数
+        kwargs['user_id'] = payload['user_id']
         return func(*args, **kwargs)
     return decorated
 

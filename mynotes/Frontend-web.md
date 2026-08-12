@@ -638,7 +638,7 @@ requests.interceptors.response.use(
 
     const message = String(data.message) 
 
-    if (message) {
+    if (message !== "undefined") {
       ElMessage({
         message: message,
         type: "error",
