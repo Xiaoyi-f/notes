@@ -1,5 +1,6 @@
 neo4j是一种NoSQL无表数据库,基于图论,处理实体-关系的图形数据结构速度快
 知识图谱是一种语义网络: LPG 和 RDF 
+默认就自带一个 neo4j 库，服务一启动就存在
 LPG: 标签属性图
 RDF: 资源描述图
 
@@ -119,6 +120,7 @@ UNWIND ["Alice", "Bob"] AS name
 CREATE (:Person {name: name})
 
 // 规范CSV文件第一行为表头字段
+// CSV文件常用 UTF-8无BOM 编码
 // row.attr attr为CSV文件中定义的字段
 LOAD CSV WITH HEADERS FROM "file://path" AS row 
 MERGE (node) // 其中使用CSV字段,给每一行数据都操作 
