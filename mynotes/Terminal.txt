@@ -26,6 +26,10 @@ wsl --update --web-download  // 更新wsl
 # 以上只是下载wsl工具，还没有下载对应的发行版linux
 # wsl --help 查看所有命令
 
+# 下载
+wsl --list --online # 查看所有可安装的linux发行版
+eg: wsl --install -d Ubuntu-24.04 --location "D:\WSL\Ubuntu-24.04"
+
 # wsl 迁移 
 wsl --list --verbose 
 wsl --export <distribution> <file.tar>
