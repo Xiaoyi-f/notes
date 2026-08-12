@@ -18,6 +18,7 @@ git remove add nickName url
 git remote rm nickName
 git merge branch
 git pull origin branch --allow-unrelated-histories
+# Tip: 空文件夹git不推送,建议写一个 占位文件_启用则删.txt
 
 # 代理 按顺序执行
 git config --global http.proxy 127.0.0.1:代理端口
