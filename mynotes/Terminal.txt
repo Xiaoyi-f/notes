@@ -23,6 +23,8 @@ WSL 的全称是 Windows Subsystem for Linux（适用于 Linux 的 Windows 子�
 终端输入命令 
 wsl --set-default-version 2 // 设置wsl版本为2 若未下载会触发下载
 wsl --update --web-download  // 更新wsl
+# 以上只是下载wsl工具，还没有下载对应的发行版linux
+# wsl --help 查看所有命令
 
 # wsl 迁移 
 wsl --list --verbose 
