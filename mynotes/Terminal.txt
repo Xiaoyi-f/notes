@@ -28,7 +28,7 @@ wsl --update --web-download  // 更新wsl
 
 # 下载
 wsl --list --online # 查看所有可安装的linux发行版
-eg: wsl --install -d Ubuntu-24.04 --location "D:\WSL\Ubuntu-24.04"
+eg: wsl --install -d Ubuntu-24.04 --location "D:\WSL\Ubuntu-24.04" # 需要代理下载
 
 # wsl 迁移 
 wsl --list --verbose 
