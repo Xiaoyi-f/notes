@@ -202,6 +202,8 @@ demo = Table.query.get(字段) --> 用于外键和主键字段查询
 # 提交但是不永久保存 
 db.session.flush() # 让数据"能被查到"，但还没"永久存下来"
 
+# Tip: 对象属性访问不涉及序列化
+
 # 测试
 socket.run(app, host='0.0.0.0', port=5000)
 # 对于不使用socket的项目
