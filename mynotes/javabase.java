@@ -165,7 +165,7 @@ StringBuilder reverse_sb = sb.reverse(); // 反转字符串
 
 // 正则表达式 
 str.matches(regex_expr) // 全串匹配 字符串支持matches方法进行正则匹配 返回布尔值 
-
+str.split(regex_expr) // 分割字符串为数组 并且删除匹配的局部正则内容 
 
 
 
