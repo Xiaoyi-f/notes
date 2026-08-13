@@ -198,7 +198,7 @@ from sqlalchemy import func, and_, or_, not_ # func工具 和 用于ORM对象字
 demo = Table.query.filter(Table.field布尔表达式).all() # .first() --> 没有对应的数据则返回空列表/空
 demo = Table.query.filter(Table.field布尔表达式).order_by(func.random()).all()
 demo = Table.query.filter_by().all() # 接收关键字参数（key=value） 不需要写模型类名前缀，直接把字段名当参数名写即可
-demo = Table.query.get(字段) --> 用于外键和主键字段查询 
+demo = Table.query.get(字段) # --> 用于外键和主键字段查询 
 
 # 提交但是不永久保存 
 db.session.flush() # 让数据"能被查到"，但还没"永久存下来"

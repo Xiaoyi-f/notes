@@ -110,6 +110,7 @@ tuple_fix = (1, 2, 3,)
 dict_var = {"name": "Python", "age": 10}
 dict_var.pop("name", None)
 dict_var.update({"author": "Python Authors"})
+dict_var.setdefault(key, default_value)
 print(dict_var.get("name"), dict_var.get("age"), dict_var.get("author"))
 print(dict_var.keys(), dict_var.values(), dict_var.items(), sep='\n')
 
