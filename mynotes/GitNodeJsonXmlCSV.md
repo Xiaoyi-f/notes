@@ -22,6 +22,8 @@ git pull origin branch --allow-unrelated-histories
 
 git reset --hard origin/branch 
 
+git push --force origin backend
+
 # 代理 按顺序执行
 git config --global http.proxy 127.0.0.1:代理端口
 git config --global https.proxy 127.0.0.1:代理端口

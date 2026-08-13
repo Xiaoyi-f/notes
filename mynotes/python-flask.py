@@ -197,6 +197,7 @@ db.session.commit()
 from sqlalchemy import func, and_, or_, not_ # func工具 和 用于ORM对象字段布尔表达式匹配的逻辑运算函数 and_(任意数量相关布尔表达式参数) or_(任意数量相关布尔表达式参数) not_(单个相关布尔表达式参数)
 demo = Table.query.filter(Table.field布尔表达式).all() # .first() --> 没有对应的数据则返回空列表/空
 demo = Table.query.filter(Table.field布尔表达式).order_by(func.random()).all()
+demo = Table.query.filter_by().all() # 接收关键字参数（key=value） 不需要写模型类名前缀，直接把字段名当参数名写即可
 demo = Table.query.get(字段) --> 用于外键和主键字段查询 
 
 # 提交但是不永久保存 
