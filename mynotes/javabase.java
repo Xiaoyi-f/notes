@@ -184,6 +184,10 @@ str.split(regex_expr) // 分割字符串为数组 并且删除匹配的局部正
 // 对象.intValue() 将包装类Integer转为基本类型int
 // 对象.toString() 将包装类Integer转为字符串
 
+// 基本数据类型转为包装数据类型称为装箱 
+// 包装数据类型转为基本数据类型称为拆箱
+// java支持自动装箱(底层调用valueOf)和自动拆箱(底层调用xxxValue) 
+
 // 其他包装类 
 // 包装类.valueOf(基本类型) 
 /**
