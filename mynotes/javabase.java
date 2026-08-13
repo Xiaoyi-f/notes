@@ -167,5 +167,35 @@ StringBuilder reverse_sb = sb.reverse(); // 反转字符串
 str.matches(regex_expr) // 全串匹配 字符串支持matches方法进行正则匹配 返回布尔值 
 str.split(regex_expr) // 分割字符串为数组 并且删除匹配的局部正则内容 
 
+/**
+ * 包装类:
+ * Byte 
+ * Short
+ * Character
+ * Integer (int类型参数 或 纯数字字符串)
+ * Long
+ * Float
+ * Double 
+ * Boolean    
+ */
+
+// Integer 
+// Integer.valueOf(int num) 将基本类型num转为包装类Integer 处于[-128, 127]区间的数字可以直接复用缓存池中已经存在对象
+// 对象.intValue() 将包装类Integer转为基本类型int
+// 对象.toString() 将包装类Integer转为字符串
+
+// 其他包装类 
+// 包装类.valueOf(基本类型) 
+/**
+ * - Integer：-128 ~ 127
+ * - Byte：全部范围（-128~127）全部缓存
+ * - Short：-128 ~ 127
+ * - Long：-128 ~ 127
+ * - Character：\u0000 ~ \u007F（0~127） 
+ * - Boolean：TRUE / FALSE 
+ * Float / Double 无缓存   
+ * */ 
+// 对象.xxxValue() 将包装类转基本类型 
+// 对象.toString() 将包装类转为字符串
 
 
