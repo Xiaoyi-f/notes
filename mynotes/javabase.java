@@ -38,6 +38,9 @@ JDK(开发工具与运行环境) > JRE(运行环境) > JVM(运行程序核心)
 // 定义long变量时候在数值后面使用L 定义float变量时候在数值后面使用F
 // 自动类型转换: 小数值自动转换给大类型 
 // 强制类型转换: (类型)(val/var) 
+/*
+强制类型转换规则:
+  引用类型强转，必须处在同一条继承链（父子类关系）
 
 // / 运算符 -> 整数操作得到整数,小数参与才得到小数 
 // byte short char 算数运算时候提升为int类型进行运算 
@@ -181,6 +184,7 @@ str.split(regex_expr) // 分割字符串为数组 并且删除匹配的局部正
 
 // Integer 
 // Integer.valueOf(int num) 将基本类型num转为包装类Integer 处于[-128, 127]区间的数字可以直接复用缓存池中已经存在对象
+// Integer.parseInt(String str) 将字符串转为基本类型int
 // 对象.intValue() 将包装类Integer转为基本类型int
 // 对象.toString() 将包装类Integer转为字符串
 
@@ -189,7 +193,7 @@ str.split(regex_expr) // 分割字符串为数组 并且删除匹配的局部正
 // java支持自动装箱(底层调用valueOf)和自动拆箱(底层调用xxxValue) 
 
 // 其他包装类 
-// 包装类.valueOf(基本类型) 
+// 包装类.valueOf(基本数据类型) 
 /**
  * - Integer：-128 ~ 127
  * - Byte：全部范围（-128~127）全部缓存
@@ -201,5 +205,7 @@ str.split(regex_expr) // 分割字符串为数组 并且删除匹配的局部正
  * */ 
 // 对象.xxxValue() 将包装类转基本类型 
 // 对象.toString() 将包装类转为字符串
+
+// String.valueOf(基本数据类型) String支持valueOf
 
 
