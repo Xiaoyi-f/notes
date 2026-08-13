@@ -208,4 +208,17 @@ str.split(regex_expr) // 分割字符串为数组 并且删除匹配的局部正
 
 // String.valueOf(基本数据类型) String支持valueOf
 
+/**
+ * Math类 --> java.lang 
+ * 常用方法:
+ * double max(double a, double b)
+ * double min(double a, double b)
+ * double abs(double x) 
+ * double sqrt(double x) 
+ * double ceil(double x) 
+ * double floor(double x) 
+ * int round(float x) 
+ * double random() // 生成 [0.0, 1.0) 之间的随机数  
+ */
+
 
