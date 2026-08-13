@@ -150,7 +150,7 @@ DROP DATABASE dbName
 :COMMIT 
 
 # pip install neo4j
-from neo4j import GraphDatabae 
+from neo4j import GraphDatabase 
 
 URI = "neo4j://localhost:7687"
 AUTH = ("neo4j", "password")
