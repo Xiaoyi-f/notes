@@ -37,6 +37,11 @@ http://api.qingyunke.com/
 https://openrouter.ai/
 https://cloud.siliconflow.cn/
 
+AI社区:
+https://huggingface.co/
+
+AI试验场:
+https://www.kaggle.com/
 
 接单网站:
 https://www.goofish.com/
