@@ -221,4 +221,11 @@ str.split(regex_expr) // 分割字符串为数组 并且删除匹配的局部正
  * double random() // 生成 [0.0, 1.0) 之间的随机数  
  */
 
+import java.time.format.DateTimeFormatter; 
+import java.time.LocalDateTime;
+
+LocalDateTime now = LocalDateTime.now();
+
+DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+String now_str = now.format(dtf);
 
