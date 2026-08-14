@@ -102,7 +102,7 @@ USE `xxx_db`;
 -- 查看所有数据库
 SHOW DATABASES;
 
--- 创建表规范写法
+-- 创建表规范写法 --> 外键值由人工填入
 CREATE TABLE `table_name` (
     `column_name` column_type [PRIMARY KEY | NOT NULL | DEFAULT value | UNIQUE] AUTO_INCREMENT COMMENT 'column comment',
     CONSTRAINT `constraint_name` 
