@@ -61,7 +61,7 @@ Agent使用MCP配置格式标准:
 将StdioClientTransport替换为
 from mcp.client.streamable_http import streamable_http_client 
 
-async with streamable_http_client(url="http://xxx.xx/mcp") as transport:
+async with streamable_http_client(url="http://xxx.xx/api/mcp") as transport:
 """
 import asyncio 
 from mcp import ClientSession, StdioClientTransport 
@@ -223,7 +223,7 @@ async def get_forecast(latitude, longitude):
       return "\n---\n".join(forecasts)
 
 if __name__ == "__main__":
-    # mcp 封装异步 transport=" stdio / streamable_http --> host='xxx' port='xxx' "
+    # mcp 封装异步 transport=" stdio / streamable_http --> host='xxx' port='xxx' path='/api/mcp' "
     mcp.run(transport="stdio")
 
 
