@@ -1,6 +1,7 @@
 系统默认保留的“特权端口”范围是 0-1023，总共 1024 个
 
 ## windows 
+windows终端通常使用GBK编码
 cmd ctrl + shift + enter 进入管理员模式 
 
 systeminfo 系统信息 
@@ -46,8 +47,11 @@ wsl --import <distribution> <path> <file.tar> --version 2
 Win+R 输入 resmon.exe 打开资源监视器 搜索句柄管理资源占用问题
 
 ## mac 
+mac终端通常使用UTF-8编码
 
 ## linux 
+linux终端通常使用UTF-8编码
+
 文件系统
 /bin 基础命令
 /sbin 系统管理命令
