@@ -34,7 +34,7 @@ Agent使用MCP配置格式标准:
       "args": [
         "mainMCP.py"
       ],
-      "transportType": "stdio",
+      "transportType": "stdio", // 本地
       "cwd": "path/dir"
     }
   }
@@ -46,11 +46,96 @@ Agent使用MCP配置格式标准:
     "mainMCP": {
       "disabled": false,
       "timeout": 60,
-      "transportType": "streamable_http",
+      "transportType": "streamable_http", // 远程
       "url": "http://xxx.xx/mcp"
     }
   }
 }
+
+# 若Agent程序不支持自动管理MCP客户端则需要手动写 MCP Client 不能单纯依赖配置
+
+
+# stdio模式
+"""
+若使用streamable_http模式
+将StdioClientTransport替换为
+from mcp.client.streamable_http import streamable_http_client 
+
+async with streamable_http_client(url="http://xxx.xx/mcp") as transport:
+"""
+import asyncio 
+from mcp import ClientSession, StdioClientTransport 
+from openai import AsyncOpenAI
+
+CMD = ["cmd_first", "cmd_second"]
+
+LLM_CLIENT = AsyncOpenAI(api_key="api_key", base_url="base_url")
+MODEL_NAME = "model_name"
+
+async def main():
+    transport = StdioClientTransport(command=CMD) # 建立传输通道 
+    async with ClientSession(transport) as session: # 创建Client会话 --> 子进程 
+        await session.initialize() 
+        print("MCP Client 与 xxx MCP Server 建立连接成功!")
+
+        tools_resp = await session.list_tools() # 查询所有可用工具
+        mcp_tools = tools_resp.tools
+
+        # 把MCP工具结构转换为LLM能够识别的Function Calling 格式 
+        llm_tools = []
+        for tool in mcp_tools:
+            llm_tools.append({
+              "type": "function",
+              "function": {
+                  "name": tool.name,
+                  "description": tool.description,
+                  "parameters": tool.inputSchema 
+              }
+            })
+
+        # 发起对话,把工具清单交给LLM 
+        messages = [{
+          "role": "user", "content": "question"
+        }]
+
+        resp = await LLM_CLIENT.chat.completions.create(
+          model=MODEL_NAME,
+          messages=messages,
+          tools=llm_tools
+        )
+
+        msg = resp.choices[0].message 
+
+        if msg.tool_calls:
+            for tool_call in msg.tool_calls:
+                func_name = tool_call.function.name 
+                func_args = eval(tool_call.function.arguments)
+
+                print(f"LLM 请求调用工具: {func_name} ({func_args})")
+
+                # MCP Client 调用 MCP Server 工具函数 
+                tool_result = await session.call_tool(name=func_name, arguments=func_args)
+
+                messages.append(msg.model_dump())
+                messages.append({
+                  "role": "tool",
+                  "tool_call_id": tool_call.id,
+                  "content": "\n".join([cont.text for cont in tool_result.content])
+                })
+
+                # 再次请求 LLM 结合工具返回内容生成最终回答 
+                final_resp = await LLM_CLIENT.chat.completions.create(
+                  model=MODEL_NAME,
+                  messages=messages 
+                )
+
+                print(f"\n最终回答: {final_resp.choices[0].message.content}")
+        else: 
+            print(f"LLM 回复: {msg.content}")        
+ 
+if __name__ == "__main__":
+    asyncio.run(main())
+
 
 # 实现一个简短查询天气预报或天气预警的mcpServer
 import httpx 
@@ -138,6 +223,7 @@ async def get_forecast(latitude, longitude):
       return "\n---\n".join(forecasts)
 
 if __name__ == "__main__":
-    # mcp 封装异步 
+    # mcp 封装异步 transport=" stdio / streamable_http --> host='xxx' port='xxx' "
     mcp.run(transport="stdio")
+
 
