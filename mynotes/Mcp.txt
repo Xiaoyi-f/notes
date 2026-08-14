@@ -8,7 +8,7 @@ MCP客户端功能: Root Sampling
 MCP服务流程:
 1. 客户端Agent -[启动mcpServer]-> mcpServer <-> 建立连接
 2. 客户端Agent -[询问与记录工具信息]-> mcpServer 
-3. 用户输入 -> 客户端Agent -[发送指令/提示词(工具)]-> model 
+3. 用户输入 -> 客户端Agent -[发送指令/提示词(可调用工具)]-> model 
 -[调用MCP]-> 客户端Agent -[调用MCP]-> mcpServer -[返回结果]-> 
 客户端Agent -> model -> 客户端Agent -> 用户  
 
