@@ -1,16 +1,18 @@
-playwright是python圈的一个浏览器自动化工具,可以使用代码控制浏览器实现爬虫、自动化操作、截图/生成PDF等 
+# playwright是python圈的一个浏览器自动化工具,可以使用代码控制浏览器实现爬虫、自动化操作、截图/生成PDF等 
 
-Playwright 微软 稳定、反爬强、多浏览器、自动等待
-Selenium 开源社区老牌生态庞大，配置繁琐，容易被识别爬虫
+# Playwright 微软 稳定、反爬强、多浏览器、自动等待
+# Selenium 开源社区老牌生态庞大，配置繁琐，容易被识别爬虫
 
-pip install playwright 
-playwright install --help   
-playwright install <浏览器> --> 默认支持无头模式 
+# pip install playwright 
+# playwright install --help   
+# playwright install <浏览器> --> 默认支持无头模式 
+# python -m playwright install --list
+# python -m playwright uninstall --all
 
-Playwright
-  └── Browser（浏览器实例）
-        └── Context（浏览器上下文 = 一个隔离的会话，有独立Cookie/Storage）
-              └── Page（一个标签页 = 一个网页）
+# Playwright
+#   └── Browser（浏览器实例）
+#         └── Context（浏览器上下文 = 一个隔离的会话，有独立Cookie/Storage）
+#               └── Page（一个标签页 = 一个网页）
 
 from playwright.sync_api import sync_playwright 
 from playwright.async_api import async_playwright 
@@ -90,11 +92,11 @@ page.add_init_script("""
 """)
 
 # 人类行为模拟 
-1.随机延迟
+# 1.随机延迟
 def random_delay(min_s=0.2, max_s=1.5):
   time.sleep(random.uniform(min_s, max_s))
 
-2.模拟人类逐字输入 
+# 2.模拟人类逐字输入 
 def human_type(page, selector, text):
   page.click(selector) 
   for char in text:
