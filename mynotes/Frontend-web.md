@@ -621,7 +621,8 @@ import { ElMessage } from "element-plus"
 
 const requests = axios.create({
   baseURL: "后端接口域名",
-  timeout: 10000
+  timeout: 10000,
+  withCredentials: true // 跨域请求带上cookie 
 })
 
 requests.interceptors.request.use(

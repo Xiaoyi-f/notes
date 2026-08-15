@@ -19,6 +19,11 @@ class Config:
     SQLALCHEMY_DATABASE_URI = "mysql+pymysql://userName:password@url:port/dbName"
     SQLALCHEMY_TRACK_MODIFICATIONS = False 
     MAX_CONTENT_LENGTH = 50 * 1024 * 1024
+    SQLALCHEMY_ENGINE_OPTIONS = {  # 配置连接池
+    "pool_recycle": 600,    # 定时回收
+    "pool_pre_ping": True   # 用前检测 
+    }
+
     
 from flask import Flask, jsonify, request, make_response, Blueprint, current_app 
 from flask_cors import CORS
@@ -203,6 +208,9 @@ demo = Table.query.filter(Table.field布尔表达式).all() # .first() --> 没�
 demo = Table.query.filter(Table.field布尔表达式).order_by(func.random()).all()
 demo = Table.query.filter_by().all() # 接收关键字参数（key=value） 不需要写模型类名前缀，直接把字段名当参数名写即可
 demo = Table.query.get(字段) # --> 用于外键和主键字段查询 
+
+# 分页请求必备
+pagination = NewJob.query.order_by(NewJob.id.asc()).paginate(page=page, per_page=page_size, error_out=False)
 
 # 提交但是不永久保存 
 db.session.flush() # 让数据"能被查到"，但还没"永久存下来"
