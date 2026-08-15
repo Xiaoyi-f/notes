@@ -116,6 +116,8 @@ def demo(num, decimal, name):
         secure=True
     )
 
+    resp.delete_cookie("key") # 删除前端token携带,但是生成的token本质还在,需要等待过期
+
     return jsonify({"message": message, "data": data})
     """
 
@@ -210,7 +212,7 @@ db.session.flush() # 让数据"能被查到"，但还没"永久存下来"
 # 测试
 socket.run(app, host='0.0.0.0', port=5000)
 # 对于不使用socket的项目
-app.run(host='0.0.0.0', port=5000)
+app.run(host='0.0.0.0', port=5000, use_reloader=False) # use_reloader=False 避免两个进程抢消息队列消息影响消息正确接收
 # 生产部署环境不要写这些，直接使用gunicorn管控
 gunicorn -w 5 -b 0.0.0.0:5000 app:app # 普通模式 
 gunicorn -k geventwebsocket.gunicorn.workers.GeventWebSocketWorker -w 5 -b 0.0.0.0:5000 app:app # 协程模式
