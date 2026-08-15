@@ -591,6 +591,7 @@ const routes = [
   }
 ]
 
+注意: return 会再次触发守卫事件
 router.beforeEach((to, from) => { return true })
 router.afterEach((to, from) => { return true })
 
