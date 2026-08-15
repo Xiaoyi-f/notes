@@ -172,6 +172,7 @@ int[] arr = new int[10]; // 数组动态初始化 java内存给数组分配默�
  * 接口中成员变量默认修饰: public static final 
  * 接口中成员方法默认修饰: public abstract --> 无方法体  
  * 一个类可以实现(implements)多个接口,接口和接口之间可以多继承,实现接口必须重写接口中所有抽象方法
+ * 接口可以声明引用变量,变量接收它任意实现类的对象
  * 
  * this代表当前对象(可以作为参数) this.成员变量 this.方法 this()代表调用构造方法(构造方法和类同名) 
  * 如果你在方法末尾写 return this; 就可以实现链式调用 
@@ -281,4 +282,26 @@ LocalDateTime now = LocalDateTime.now();
 
 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 String now_str = now.format(dtf);
+
+// 集合 --> 解决数组的弊端 --> Collection 和 Map 两种体系 
+/**
+ * Collection 收藏集 单列数据 顶层接口
+ *    - List 元素有序可重复 子接口
+ *    - Set 元素无序不可重复 子接口  
+ * 
+ * Map 映射集 双列数据 顶层接口
+ *    - key-value       
+ */
+Collection<引用数据类型> collection = new ArrayList<引用数据类型>(); // 写上泛型之后编译器会做类型检查
+Collection collection = new ArrayList(); 
+collection.add(引用数据类型); // 可以添加不同引用类型数据 boolean
+collection.remove(Object obj); // boolean 
+collection.clear(); // void 
+collection.contains(Object obj) // boolean 
+collection.isEmpty() // boolean 
+collection.size() // int 
+
+
+
+
 
