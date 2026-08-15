@@ -238,6 +238,7 @@ REDIS_CONFIG = {
     "max_connections": 20
 }
 
+# 可以建立多个cli客户端
 pool = redis.ConnectionPool(**REDIS_CONFIG) # 字典解包为键值参数 *List/Tuple列表/元组解包为位置参数 
 redis_cli = redis.Redis(connection_pool=pool)
 
