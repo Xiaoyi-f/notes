@@ -1,3 +1,25 @@
+## LangChain
+pip install langchain 
+pip install langchain-[aimodel] # 底层依赖
+
+from dotenv import load_dotenv 
+load_dotenv()
+
+from langchain.tools import tool 
+@tool
+def get_weather(location):
+    # description
+    return f"Current weather in {location} is ..." 
+
+from langchain.agents import create_agent 
+agent = create_agent("deepseek-chat", tools=[getWeather])
+response = agent.invoke({"messages": [{"role": "user", "content": "What is the weather in Hangzhou?"}]})
+# response = agent.invoke("What is the weather in Hangzhou?")
+# 上面是阻塞式调用,下面是流式调用(响应更快)
+stream = agent.stream("What is the weather in Hangzhou?", stream_mode=True) # 调用内容也可以写详细版
+for chunk in stream:
+    print(chunk.content, end="", flush=True)
+
 from langchain.agents import create_agent
 from langchain.chat_models import init_chat_model 
 
@@ -28,7 +50,7 @@ agent = create_agent(
   response_format=Demo 
 )
 
-langchain中LLM返回的消息统一被封装为BaseMessage,他是Agent中基本的上下文单元
+# langchain中LLM返回的消息统一被封装为BaseMessage,他是Agent中基本的上下文单元
 SystemMessage -> role="system" (系统提示词)
 HumanMessage -> role="user"
 AIMessage -> role="assistant"
@@ -53,8 +75,8 @@ stream = agent.stream({
 }, stream_mode=True)
 
 # 上传本地图片
-1.上传本地图片
-2.将图片转为base64格式
+# 1.上传本地图片
+# 2.将图片转为base64格式
 import base64 
 img_bytes = bytes(img_content)
 img_b64 = base64.b64encode(img_bytes).decode("utf-8")

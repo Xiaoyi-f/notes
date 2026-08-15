@@ -106,31 +106,8 @@ Reflection: 一种赋予智能体“反思”能力的范式，通过自我批�
 隐藏层: 信息处理和学习 计算方法 概率模型 
 输出层: 输出,产生结果 
 
-## LangChain
-pip install langchain 
-pip install langchain-[aimodel] # 底层依赖
 
-XXX_API_KEY
-
-from dotenv import load_dotenv 
-load_dotenv()
-
-from langchain.tools import tool 
-@tool
-def get_weather(location):
-    # description
-    return f"Current weather in {location} is ..." 
-
-from langchain.agents import create_agent 
-agent = create_agent("deepseek-chat", tools=[getWeather])
-response = agent.invoke({"messages": [{"role": "user", "content": "What is the weather in Hangzhou?"}]})
-# response = agent.invoke("What is the weather in Hangzhou?")
-# 上面是阻塞式调用,下面是流式调用(响应更快)
-stream = agent.stream("What is the weather in Hangzhou?", stream_mode=True) # 调用内容也可以写详细版
-for chunk in stream:
-    print(chunk.content, end="", flush=True)
-
-流程与基本原理讲解:
+## Agent流程与基本原理讲解:
 1.用户输入提问
 2.大模型分析
 3.读取工具信息
