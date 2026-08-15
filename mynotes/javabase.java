@@ -171,7 +171,7 @@ int[] arr = new int[10]; // 数组动态初始化 java内存给数组分配默�
  * 接口(interface): 一种约定 --> 不能实例化
  * 接口中成员变量默认修饰: public static final 
  * 接口中成员方法默认修饰: public abstract --> 无方法体  
- * 一个类可以实现(implements)多个接口,接口和接口之间可以多继承
+ * 一个类可以实现(implements)多个接口,接口和接口之间可以多继承,实现接口必须重写接口中所有抽象方法
  * 
  * this代表当前对象(可以作为参数) this.成员变量 this.方法 this()代表调用构造方法(构造方法和类同名) 
  * 如果你在方法末尾写 return this; 就可以实现链式调用 
