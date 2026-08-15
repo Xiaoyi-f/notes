@@ -29,7 +29,7 @@ from functools import wraps
 import datetime 
 
 app = Flask(__name__)
-app.debug = False
+app.debug = False # True -> auto-reloader 多开进程 双进程同时跑
 # 签名传输的数据 记录下来
 app.config.from_object('Config')
 # 前后端不同源,不允许跨域携带凭证

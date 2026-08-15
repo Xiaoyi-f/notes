@@ -38,6 +38,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# 单例模式
 class MQClient:
     """
     RabbitMQ 客户端单例，负责管理与 RabbitMQ 服务器的连接。
@@ -135,3 +136,120 @@ def start_background_consumer(queue_name: str, task_func):
     thread.start()
     print(f"[{queue_name}] 消费者已在后台启动")
 
+
+# 重连模式
+import json
+import os
+import threading
+import time
+import pika
+from dotenv import load_dotenv
+from pika.exceptions import (
+    StreamLostError,
+    AMQPConnectionError,
+    ConnectionClosedByBroker,
+    ChannelClosed
+)
+
+load_dotenv()
+
+RABBITMQ_USER = os.getenv("RABBITMQ_USER", "guest")
+RABBITMQ_PASSWORD = os.getenv("RABBITMQ_PASSWORD", "guest")
+RABBITMQ_IP = os.getenv("RABBITMQ_IP", "localhost")
+RABBITMQ_PORT = int(os.getenv("RABBITMQ_PORT", 5672))
+RABBITMQ_VHOST = os.getenv("RABBITMQ_VHOST", "/")
+
+
+def _get_new_connection():
+    """创建全新RabbitMQ连接（每次调用生成新连接，禁止全局共享）"""
+    credentials = pika.PlainCredentials(RABBITMQ_USER, RABBITMQ_PASSWORD)
+    params = pika.ConnectionParameters(
+        host=RABBITMQ_IP,
+        port=RABBITMQ_PORT,
+        virtual_host=RABBITMQ_VHOST,
+        credentials=credentials,
+        heartbeat=600,
+        blocked_connection_timeout=300
+    )
+    return pika.BlockingConnection(params)
+
+
+def publish_task(queue_name: str, task_data: dict):
+    """生产者：每次发送新建临时连接，用完关闭，规避多线程共享连接风险"""
+    conn = None
+    try:
+        conn = _get_new_connection()
+        channel = conn.channel()
+        channel.queue_declare(queue=queue_name, durable=True)
+        channel.basic_publish(
+            exchange='',
+            routing_key=queue_name,
+            body=json.dumps(task_data, ensure_ascii=False).encode("utf-8"),
+            properties=pika.BasicProperties(delivery_mode=2)
+        )
+        print(f"[{queue_name}] 任务已入队: {task_data}")
+    except Exception as e:
+        print(f"[{queue_name}] 消息发送异常: {e}")
+        raise
+    finally:
+        if conn and not conn.is_closed:
+            conn.close()
+
+
+def start_consumer(queue_name: str, task_func):
+    """
+    消费者主逻辑：内置while循环，断线自动重连
+    独立专属连接，不和生产者共享
+    """
+    while True:
+        conn = None
+        try:
+            conn = _get_new_connection()
+            channel = conn.channel()
+            channel.queue_declare(queue=queue_name, durable=True)
+            channel.basic_qos(prefetch_count=1)
+
+            def callback(chan, method, properties, body):
+                data = json.loads(body.decode())
+                print(f"[{queue_name}] 收到任务，开始执行")
+                try:
+                    task_func(**data)
+                    chan.basic_ack(delivery_tag=method.delivery_tag)
+                    print(f"[{queue_name}] 任务执行成功")
+                except Exception as err:
+                    print(f"[{queue_name}] 任务执行失败: {err}")
+                    # requeue=False 失败丢弃；如需重试改成True，自行增加重试次数控制
+                    chan.basic_nack(delivery_tag=method.delivery_tag, requeue=False)
+
+            channel.basic_consume(
+                queue=queue_name,
+                on_message_callback=callback,
+                auto_ack=False
+            )
+            print(f"[*] 成功连接，开始监听队列: {queue_name}")
+            channel.start_consuming()
+
+        except (StreamLostError, AMQPConnectionError, ConnectionClosedByBroker, ChannelClosed) as e:
+            print(f"[{queue_name}] 连接断开 {type(e).__name__}: {e}")
+        except Exception as e:
+            print(f"[{queue_name}] 未知异常: {e}")
+        finally:
+            if conn and not conn.is_closed:
+                try:
+                    conn.close()
+                except Exception:
+                    pass
+
+        print(f"[{queue_name}] 5s后尝试重连...")
+        time.sleep(5)
+
+
+def start_background_consumer(queue_name: str, task_func):
+    """启动后台守护线程运行消费者"""
+    thread = threading.Thread(
+        target=start_consumer,
+        args=(queue_name, task_func),
+        daemon=True
+    )
+    thread.start()
+    print(f"[{queue_name}] 后台消费者线程已启动")

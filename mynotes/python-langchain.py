@@ -1,3 +1,11 @@
+## 通用项目结构 
+xxx_agent.py 
+tools 自定义工具文件夹
+chains 链式组件文件夹  
+prompts 提示词文件夹
+memory 记忆和状态管理文件夹 
+config 配置文件夹 
+
 ## LangChain
 pip install langchain 
 pip install langchain-[aimodel] # 底层依赖
@@ -12,13 +20,23 @@ def get_weather(location):
     return f"Current weather in {location} is ..." 
 
 from langchain.agents import create_agent 
-agent = create_agent("deepseek-chat", tools=[getWeather])
+agent = create_agent("deepseek-chat", tools=[getWeather]) # 支持部分模型自动匹配相关配置
 response = agent.invoke({"messages": [{"role": "user", "content": "What is the weather in Hangzhou?"}]})
 # response = agent.invoke("What is the weather in Hangzhou?")
 # 上面是阻塞式调用,下面是流式调用(响应更快)
 stream = agent.stream("What is the weather in Hangzhou?", stream_mode=True) # 调用内容也可以写详细版
 for chunk in stream:
     print(chunk.content, end="", flush=True)
+
+# dataclass只能标识类型但是不会校验,但是pydantic的BaseModel会校验
+# pydantic通常用来做模型的结构化输出
+from pydantic import BaseModel
+# 增强版提示词规范 让模型输出结果按照这个形式输出JSON
+class Demo(BaseModel):
+    name: str
+    location: str
+    vibe: str 
+# 拿取response["structured_response"]返回的就是Demo对象
 
 from langchain.agents import create_agent
 from langchain.chat_models import init_chat_model 
@@ -84,15 +102,6 @@ HumanMessage(content=[
   {"type": "image", "base64": img_b64, "mime_type": "image/png"},
   {"type": "text", "text": "用文本描述这个图片"}
 ])
-
-# dataclass只能标识类型但是不会校验,但是pydantic的BaseModel会校验
-# pydantic通常用来做模型的结构化输出
-from pydantic import BaseModel
-class Demo(BaseModel):
-    name: str
-    location: str
-    vibe: str 
-# 拿取response["structured_response"]返回的就是Demo对象
 
 # 工具使用
 from langchain_core.tools import tool 
