@@ -28,7 +28,6 @@ Indent Rainbow
 Inspection Lens 
 Material Theme UI lite
 Rainbow Brackets Lite
-Translation
 Chinese 
 
 ## Postman / Apipost
