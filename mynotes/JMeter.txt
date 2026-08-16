@@ -1,0 +1,11 @@
+JMeter 运行依赖 Java 环境，必须提前安装 JDK
+之后再下载 JMeter https://jmeter.apache.org/download_jmeter.cgi
+
+进入相关文件夹bin目录 
+--> 调用方式有多种:
+ApacheJMeter.jar --> 以java环境打开 
+或者找到其他对应系统的启动指令文件运行 
+ 
+
+
+
