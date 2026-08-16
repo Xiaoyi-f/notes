@@ -27,7 +27,32 @@ randomChoices = random.choices(nums, k=0)
 randomSample = random.sample(nums, 0)
 random.shuffle(nums)
 
+# pip install qrcode[pil] # 加上 [pil] 支持 PNG 格式   
 import qrcode
+
+# 简单使用
+img = qrcode.make("https://github.com") # 将链接转为 二维码 
+img.save("qrcode.png")
+
+# 高级使用 
+qr = qrcode.QRCode(varsion=1, error_correction=qrcode.constants.ERROR_CORRECT_H) # version= 1~40 --> 用于控制大小 纠错等级 --> M中等纠错级别 H高等纠错级别
+qr.add_data("https://github.com") # 添加数据 
+qr.make(fit=True) # 自动选择合适版本进行相关计算 
+img = qr.make_image(fill_color="black", back_color="white") # 设置前景色和背景色 生成图片 
+img.save("qrcode.png")
+
+
+# pip install pillow --> PIL现代分支 
+from PIL import Image 
+
+img = Image.open("qrcode.png")
+print(img.size, img.format) # 查看大小信息(w, h) 和 文件格式 
+img.show() # 调用系统默认看图软件显示图片 
+
+logo = Image.open("logo.png") 
+logo = logo.resize((w, h))
+img.paste(logo, (x, y)) # 将logo粘贴到img对应的位置
+
 
 # md5
 # MD5 设计初衷是快速计算文件/消息的完整性校验值\
