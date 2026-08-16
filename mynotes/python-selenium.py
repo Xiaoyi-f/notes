@@ -8,16 +8,21 @@ from bs4 import BeautifulSoup
 
 # => 完整配置：无头、反爬、代理、窗口大小
 options = webdriver.ChromeOptions()
+
 # 隐藏自动化检测
 options.add_argument('--disable-blink-features=AutomationControlled')
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option("useAutomationExtension", False)
+
 # 服务器部署无头模式（新版headless）
 options.add_argument("--headless=new")
+
 # 固定窗口尺寸，防止元素偏移
 options.add_argument("--window-size=1920,1080")
+
 # 代理IP（爬虫/Agent常用）
 # options.add_argument("--proxy-server=http://127.0.0.1:7890")
+
 # 禁用图片加载，提速
 options.add_argument("--blink-settings=imagesEnabled=false")
 
@@ -71,6 +76,7 @@ browser.execute_script("window.scrollTo(0, document.body.scrollHeight)")
 
 # => 鼠标操作：悬浮、右键、拖拽
 actions = ActionChains(browser)
+
 # 悬浮元素
 actions.move_to_element(btn).pause(0.5).perform()
 
