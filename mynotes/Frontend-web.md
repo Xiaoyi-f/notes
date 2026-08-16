@@ -498,6 +498,12 @@ v-for (content, index/key) in target :key
 ref() obj.value 模版内自动解包  
 reactive()
 
+ref 与 reactive 区别:
+ref 需要使用 value 解包 
+reactive 自动解包 
+ref 和 reactive 底层均为 $state ref改动会触发$state更新,reactive只有局部改动会触发$state更新,reactive整体改动不会触发$state更新 
+$state 与持久化插件 pinia-plugin-persistedstate 改动关联    
+
 new URL(path, import.meta.url).href 
 
 import { ElMessage } from "element-plus"
