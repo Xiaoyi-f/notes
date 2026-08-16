@@ -8,6 +8,19 @@ VPS（Virtual Private Server，虚拟专用服务器）可以理解为“独享�
 行为验证/Captcha: 基于用户行为特征分析的智能验证码技术
 区块链就是人人共享、环环锁定、无法篡改、全网监督的分布式公共账本
 
+
+软件领域商业化模式:
+1. IaaS 基础设施即服务 --> eg: 云服务 
+2. PaaS 平台即服务 --> eg: 云办公、云游戏
+3. SaaS 软件即服务 --> eg: 各种软件提供vip类服务
+4. SaaP 软件即产品 --> eg: 各种软件打包卖给客户 
+5. TakeRate(TR) 合作抽成平台 --> eg: 美团 
+6. AdTech(Ad) 广告抽成平台 
+7. ManagedServices(MS) 部署/维护/托管软件服务 
+8. AlgorithmicTrading(AT) 算法交易 
+9. DaaS 数据即服务 --> 数据变现   
+10. ProfessionalServices(PS) 专有服务
+
 常见构建系统术语:
 · ERP：企业资源计划，业财一体的核心，统管财务、采购、库存、生产、人力等
 · WMS：仓库管理系统，管库位、库存、出入库波次，支持PDA和自动化设备
