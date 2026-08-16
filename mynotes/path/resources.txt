@@ -33,6 +33,9 @@ https://virtual-man.xfyun.cn/console/applications
 免费Api:
 http://api.qingyunke.com/
 
+文档解析Agent / Ai:
+https://mineru.net/
+
 模型统一API网站: 
 https://openrouter.ai/
 https://cloud.siliconflow.cn/
