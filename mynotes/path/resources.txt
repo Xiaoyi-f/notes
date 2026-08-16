@@ -43,7 +43,7 @@ https://huggingface.co/
 AI试验场:
 https://www.kaggle.com/
 
-接单网站:
+接单网站 -> 以即其他各大平台:
 https://www.goofish.com/
 https://www.proginn.com/
 https://www.yuanjisong.com/
