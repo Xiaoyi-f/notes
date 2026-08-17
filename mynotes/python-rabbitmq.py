@@ -23,7 +23,7 @@ Gunicorn 把 Python 对象翻译回 HTTP 响应，发回给客户端
 # celery是一个强大的分布式任务队列框架, 它利用发动机入pika或者更加底层的库来驱动自己,但它的核心是管理和调度各种任务
 # celery worker 需要单独使用命令启动单独进程执行消费者任务 
 """
-celery --app 当前目录对应模块文件名(点号作为分隔符) worker --loglevel=debug / info / warning 
+celery --app 当前目录对应模块文件名(点号作为分隔符).celery_app worker --loglevel=debug / info / warning 
 --concurrency 并发数  --> 默认--pool=prefetch需以管理员身份运行 或 --pool=solo 表示单进程模式 --pool=gevent 表示协程模式
 """
 
@@ -37,16 +37,18 @@ from celery.result impot AsyncResult
 # Celery Worker 一个独立运行的操作系统进程 主要作为消费者调度者 
 # AMQP 高级消息队列协议 
 broker_url = f"amqp://{username}:{password}@{host}:{port}/{vhost}"
+result_backend = f"redis://{password}@{host}:{port}/{db}"
 
 # 创建一个管理总部 
-celery_app = Celery("总部名字", broker=broker_url, include=["快递员名称"]) # include 导入任务函数
+celery_app = Celery("总部名字", broker=broker_url, backend=result_backend, include=["快递员名称"]) # include 导入任务函数
 
 # 刷新配置
 celery_app.conf.update(
     task_serializer="json", # 打包形式
     result_serializer="json", # 打包形式
     accept_content=["json"], # 只接收json格式数据 对应打包形式 
-    task_ignore_result=True, # 扔掉回执单 任务执行后无需回传
+    result_backend=result_backend,
+    task_ignore_result=False, # 扔掉回执单 任务执行后无需回传
     task_acks_late=True, # 任务执行完再确认 进程奔溃回投
     time_zone="Asia/Shanghai", # 国内北京时间 东八区
     enable_utc=True, # 使用UTC国际时间
