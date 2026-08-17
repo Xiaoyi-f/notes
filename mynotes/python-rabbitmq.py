@@ -24,7 +24,7 @@ Gunicorn 把 Python 对象翻译回 HTTP 响应，发回给客户端
 # celery worker 需要单独使用命令启动单独进程执行消费者任务 
 """
 celery --app 当前目录对应模块文件名(点号作为分隔符) worker --loglevel=debug / info / warning 
---concurrency 并发数
+--concurrency 并发数  --> 默认--pool=prefetch需以管理员身份运行 或 --pool=solo 表示单进程模式 --pool=gevent 表示协程模式
 """
 
 # pip install celery
