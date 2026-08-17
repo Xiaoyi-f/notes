@@ -23,7 +23,7 @@ Gunicorn 把 Python 对象翻译回 HTTP 响应，发回给客户端
 # celery是一个强大的分布式任务队列框架, 它利用发动机入pika或者更加底层的库来驱动自己,但它的核心是管理和调度各种任务
 # celery worker 需要单独使用命令启动单独进程执行消费者任务 
 """
-celery --app 当前目录对应模块文件名(点号作为分隔符).celery_app worker --loglevel=debug / info / warning 
+celery --app 当前目录对应模块文件名(点号作为分隔符).celery_app worker -Q queue,... --loglevel=debug / info / warning 
 --concurrency 并发数  --> 默认--pool=prefetch需以管理员身份运行 或 --pool=solo 表示单进程模式 --pool=gevent 表示协程模式
 """
 
