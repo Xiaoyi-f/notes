@@ -342,8 +342,23 @@ for (const item of string) {}
 String(val).trim()
 window.scrollTo(x, y)
 
-// 避免用户输入url显示内容为特殊字符时被浏览器解析错误
-window.encodeURI(str) window.decodeURI(str) 
+/* 避免用户输入url显示内容为特殊字符时被浏览器解析错误 */
+Tip: @用户信息和域名分隔符 +表单规则空格   
+
+/* 参数编码 */ 
+encodeURIComponent(rawStr) 
+// 对应python --> urllib.parse.quote(rawStr, safe="", encoding="utf-8")
+decodeURIComponent(encodedStr)
+// 对应python --> urllib.parse.unquote(encodedStr, encoding="utf-8")
+
+/* url整体编码 -- 少用 */
+encodeURI(url) // 解码: decodeURI(url) 
+// 对应python --> urllib.parse.quote(url, safe="/?:@&=+$#", encoding="utf-8") urllib.parse.unquote(encodedUrl, encoding="utf-8")
+
+/* 表单规则 */
+encodeURIComponent(rawStr).replaceAll("%20", '+') 
+// 对应python --> urllib.parse.quote_plus(rawStr, safe="", encoding="utf-8") urllib.parse.unquote_plus(encodedStr, encoding="utf-8")
+
 
 try {} catch(err) {} finally {}
 
