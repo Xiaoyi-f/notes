@@ -39,6 +39,7 @@ https://mineru.net/
 模型统一API网站: 
 https://openrouter.ai/
 https://cloud.siliconflow.cn/
+https://chatanywhere.tech/ --> 每日提供一定免费额度 
 
 AI社区:
 https://huggingface.co/
