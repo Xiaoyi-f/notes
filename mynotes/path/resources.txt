@@ -2,15 +2,19 @@ Resources:
 各大厂公众号 GitHub Gitee 
 https://yun.itheima.com/subject/aiappmap/index.html 
 http://rencaiya.vip/college/postcourse
+https://www.mianshiya.com/
+https://www.xiaolinnote.com/
+https://notes.kamacoder.com/
+https://leetcode.cn/
+https://www.nowcoder.com/
 https://xiaolincoding.com/
 https://www.codefather.cn/
-https://www.xiaolinnote.com/
 https://www.datawhale.cn/
 https://www.runoob.com/
+https://cainiaoya.com/
 https://modelcontextprotocol.io/docs/getting-started/intro
 https://skillsmp.com/
 https://github.com/anthropics/skills/tree/main/skills
-https://cainiaoya.com/
 https://www.sanfengyun.com/
 https://examcrafts.com/
 https://roadmap.sh/
