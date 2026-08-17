@@ -1,5 +1,10 @@
 RapidFuzz：模糊字符串匹配算法库（Fuzzy String Matching Library）
-Louvain 算法（Louvain Method for Community Detection），属于图聚类算法（Graph Clustering）
+
+
+Louvain社区算法（Louvain Method for Community Detection），属于无监督的图聚类算法（Graph Clustering）
+--> 把图中的节点划分成若干个“社区（Community）”，使得社区内部的边很密，社区之间的边很疏
+
+
 时间序列趋势检验（Time-Series Trend Validation），属于统计分析（Statistical Analysis）
 
 

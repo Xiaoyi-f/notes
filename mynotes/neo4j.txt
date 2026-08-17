@@ -149,6 +149,28 @@ DROP DATABASE dbName
 // 行为
 :COMMIT 
 
+// neo4j 支持 GDS --> 支持实现 Louvain社区算法 
+// 找到 neo4j-community-5.26.27 对应的 GDS-2.13.x 下载 
+// 投影概念: 算法不能直接在硬盘的原数据上跑（太慢），必须先复制一份到内存（电脑内存条）里，这个复制动作就是投影
+// 下载好 GDS 之后 将 jar文件 复制粘贴到 neo4j安装目录的 plugins 文件夹 重启neo4j
+// docker容器内挂载插件  
+
+# pip install graphdatascience 下载GDS驱动 不同于 neo4j驱动 
+from graphdatascience import GraphDataScience 
+
+gds = GraphDataScience("bolt://localhost:7687", auth=("neo4j", "password"))
+
+# 投影 res['nodeCount'] 获取结点数 res['relationshipCount'] 获取关系数
+G, res = gds.graph.project("graph", "*", "*", {"orientation": "UNDIRECTED"}) # 名称 结点 关系 强行转无向图
+
+# 执行 Louvain社区算法 并且 将数据写回neo4j
+result_write = gds.louvain.write(G, writeProperty="community_id")
+# result_write["communityCount"] 获取发现社区数
+# result_write["modularity"] 获取模块度 --> 越接近1则分得越好
+
+G.drop() # 释放内存
+
+
 # pip install neo4j
 from neo4j import GraphDatabase 
 
