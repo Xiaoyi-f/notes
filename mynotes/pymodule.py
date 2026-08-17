@@ -154,7 +154,7 @@ elements = document.select("选择器")
 # oss操作
 """
 通过aliyun创建OSS桶然后进入RAM控制台访问找到用户访问key信息
-给OSS对应的权限
+给OSS对应的权限 注意访问权限问题
 服务器A记录将域名指向一个IP地址，而CNAME记录将一个域名指向另一个域名
 TXT记录负责描述和验证，解决相关校验问题 
 用户凭证管理 OSS桶概览
