@@ -98,3 +98,14 @@ def task_status(task_id):
     else:
         return {"status": state, "message": f"未知状态: {state}"}
 
+# 装饰器高级控制示例
+@celery_app.task(                                                                                                                                                                 
+    name="email.send_email",                                                                                                                                                             
+    autoretry_for=(smtplib.SMTPConnectError, TimeoutError, ConnectionError),                                                                                                             
+    retry_backoff=5,       # 指数退避基数 5s                                                                                                                                      
+    retry_backoff_max=60,  # 单次等待上限 60s                                                                                                                                            
+    max_retries=5,         # 最多重试 5 次（退避序列约 5/10/20/40/60s）                                                                                                                  
+    retry_jitter=True,     # 加随机抖动，避免固定节奏                                                                                                                                    
+)
+
+
