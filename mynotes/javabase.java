@@ -292,8 +292,15 @@ String now_str = now.format(dtf);
  * Map 映射集 双列数据 顶层接口
  *    - key-value       
  */
+
+// 增强for循环 --> 任何 Collection接口下集合对象 / 数组 可使用 
+for (元素类型 变量名 : 集合对象 / 数组) { 
+    // 循环体 
+}
+
 Collection<引用数据类型> collection = new ArrayList<引用数据类型>(); // 写上泛型之后编译器会做类型检查
 Collection collection = new ArrayList(); 
+// Collection接口下集合均支持的方法
 collection.add(引用数据类型); // 可以添加不同引用类型数据 boolean
 collection.remove(Object obj); // boolean 
 collection.clear(); // void 
@@ -301,7 +308,16 @@ collection.contains(Object obj) // boolean
 collection.isEmpty() // boolean 
 collection.size() // int 
 
-// Collection 集合 遍历 
+List<引用数据类型> list = new ArrayList<>();
+// List特有方法 实现方法重载 / 全新方法 
+add(int index, 引用数据类型 element) // void 
+remove(int index) // 引用数据类型 返回被删除的元素 
+set(int index, 引用数据类型 element) // 引用数据类型 返回被替换的元素
+get(int index) // 引用数据类型 返回指定索引的元素
+// 可以依据索引进行 get / set 常配合 for 循环使用 
+
+
+// Collection接口下集合均支持的遍历方式 
 // 迭代器 --> 集合专用遍历方式 初始Cursor=-1 
 Iterator<引用数据类型> it = collection.iterator(); 
 while (it.hasNext()) {
@@ -310,7 +326,15 @@ while (it.hasNext()) {
 // 此时已经没有元素了
 String error = it.next(); // 抛出 java.util.NoSuchElementException 异常
 
-
-
+// List特有遍历方式 
+ListIterator<引用数据类型> lit = list.listIterator();
+// 从上往下遍历
+while (lit.hasNext()) {
+  引用数据类型 item = lit.next();
+}
+// 从下往上遍历 普通迭代器不支持 previous 
+while (lit.hasPrevious()) {
+  引用数据类型 item = lit.previous();
+}
 
 
