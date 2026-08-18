@@ -310,13 +310,30 @@ collection.isEmpty() // boolean
 collection.size() // int 
 
 List<引用数据类型> list = new ArrayList<>();
-// List特有方法 实现方法重载 / 全新方法 
+// List接口下集合特有方法 实现方法重载 / 全新方法 
 add(int index, 引用数据类型 element) // void 
 remove(int index) // 引用数据类型 返回被删除的元素 
 set(int index, 引用数据类型 element) // 引用数据类型 返回被替换的元素
 get(int index) // 引用数据类型 返回指定索引的元素
 // 可以依据索引进行 get / set 常配合 for 循环使用 
 
+List<引用数据类型> list = new LinkedList<>();
+// LinkedList集合特有方法 实现方法重载 / 全新方法
+public void addFirst(引用数据类型 element)
+public void addLast(引用数据类型 element)
+public Element getFirst()
+public Element getLast() 
+public Element removeFirst()
+public Element removeLast()
+
+Set<引用数据类型> set = new HashSet<>();
+/**
+ * 补充:
+ * 哈希值 --> JDK依据对象地址或字符串或数字算出来的int类型数值 --> 对象对应的编号 
+ * public int hashCode() --> Object 返回哈希码值 
+ * 同一个对象多次调用hashCode()方法返回的哈希码值相同
+ * 默认情况下不同对象哈希值不同,重写hashCode()方法可以实现让不同相同属性同类对象哈希值相同 
+ */
 
 // Collection接口下集合均支持的遍历方式 
 // 迭代器 --> 集合专用遍历方式 初始Cursor=-1 
