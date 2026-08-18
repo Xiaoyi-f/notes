@@ -294,6 +294,7 @@ String now_str = now.format(dtf);
  */
 
 // 增强for循环 --> 任何 Collection接口下集合对象 / 数组 可使用 
+// 增强 for 只负责"读"，不负责"改/删" 否则可能报错 
 for (元素类型 变量名 : 集合对象 / 数组) { 
     // 循环体 
 }
