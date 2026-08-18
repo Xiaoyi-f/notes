@@ -299,8 +299,8 @@ for (元素类型 变量名 : 集合对象 / 数组) {
     // 循环体 
 }
 
-Collection<引用数据类型> collection = new ArrayList<引用数据类型>(); // 写上泛型之后编译器会做类型检查
-Collection collection = new ArrayList(); 
+Collection<引用数据类型> collection = new ArrayList<引用数据类型>(); // 写上泛型之后编译器会做类型检查 --> ArrayList(查快改慢) LinkedList(查慢改快)
+Collection collection = new ArrayList(); // --> ArrayList(查快改慢) LinkedList(查慢改快) 
 // Collection接口下集合均支持的方法
 collection.add(引用数据类型); // 可以添加不同引用类型数据 boolean
 collection.remove(Object obj); // boolean 
