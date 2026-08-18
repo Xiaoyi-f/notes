@@ -333,7 +333,7 @@ public Element removeLast()
  * 同一个对象多次调用hashCode()方法返回的哈希码值相同
  * 默认情况下不同对象哈希值不同,重写hashCode()方法可以实现让不同相同属性同类对象哈希值相同 
  */
-Set<引用数据类型> set = new HashSet<>(); 
+Set<引用数据类型> set = new HashSet<>(); // 存取顺序不确定
 Set<引用数据类型> set = new LinkedHashSet<>(); // 可以保证存储和取出的顺序
 
 
@@ -364,4 +364,5 @@ while (lit.hasPrevious()) {
  * 泛型类 --> 类名后参数化
  * 泛型方法 --> 修饰符后参数化
  * 泛型接口 --> 接口名后参数化 
+ * 
  */
