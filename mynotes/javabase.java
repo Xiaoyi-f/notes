@@ -301,6 +301,15 @@ collection.contains(Object obj) // boolean
 collection.isEmpty() // boolean 
 collection.size() // int 
 
+// Collection 集合 遍历 
+// 迭代器 --> 集合专用遍历方式 初始Cursor=-1 
+Iterator<引用数据类型> it = collection.iterator(); 
+while (it.hasNext()) {
+  引用数据类型 item = it.next();
+}
+// 此时已经没有元素了
+String error = it.next(); // 抛出 java.util.NoSuchElementException 异常
+
 
 
 
