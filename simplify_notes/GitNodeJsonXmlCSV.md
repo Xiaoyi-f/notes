@@ -19,6 +19,7 @@ git remote rm nickName
 git merge branch
 git pull origin branch --allow-unrelated-histories
 # Tip: 空文件夹git不推送,建议写一个 占位文件_启用则删.txt
+# Tip: 先明确好所在分支,推送中间仓库和推送到远程仓库都是按照分支进行的
 
 git reset --hard origin/branch 
 
