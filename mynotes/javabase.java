@@ -339,9 +339,9 @@ Set<引用数据类型> set = new LinkedHashSet<>(); // 可以保证存储和取
 
 Map<键类型, 值类型> map = new HashMap<>();
 /* 常用方法 */
-Set keySet(); // 获取所有key集合
+Set keySet(); // 获取所有key集合 --> 进一步依据增强for实现读值
 Collection values(); // 获取所有value集合
-Set<Map.Entry> entrySet(); // 获取所有key-value对象集合 
+Set<Map.Entry> entrySet(); // 获取所有key-value对象集合 --> 进一步使用增强for 以即 getKey() 和 getValue() 实现读值 
 Value get(Object key);
 Value put(键, 值); // 添加/替换元素,若为替换返回被替换的value否则返回null
 Value remove(Object key) 
@@ -371,6 +371,8 @@ while (lit.hasNext()) {
 while (lit.hasPrevious()) {
   引用数据类型 item = lit.previous();
 }
+
+
 
 /**
  * 补充:
