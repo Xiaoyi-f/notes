@@ -249,6 +249,15 @@ img, video, div, span {
 @media (min-width: 600px) {}
 @media (max-width: 600px) {}
 
+## z-index 规范
+层级范围	用途	
+0 ~ 99	页面内部的基础层级	
+100 ~ 199	固定导航、头部（Header）	
+200 ~ 299	下拉菜单、弹出层	
+300 ~ 499	模态框（Modal/Dialog）	
+500 ~ 799	通知、消息（Message/Notification）	
+800 ~ 999	顶层覆盖（Backdrop/Mask）	
+
 ## scss vite解析
 npm install sass --save-dev 
 <style scoped lang="scss">
