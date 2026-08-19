@@ -338,6 +338,7 @@ Set<引用数据类型> set = new HashSet<>(); // 存取顺序不确定
 Set<引用数据类型> set = new LinkedHashSet<>(); // 可以保证存储和取出的顺序
 
 Map<键类型, 值类型> map = new HashMap<>();
+Map<键类型, 值类型> map = new LinkedHashMap<>(); // 维护迭代顺序
 /* 常用方法 */
 Set keySet(); // 获取所有key集合 --> 进一步依据增强for实现读值
 Collection values(); // 获取所有value集合
