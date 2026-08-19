@@ -290,7 +290,7 @@ String now_str = now.format(dtf);
  *    - Set 元素无序不可重复 子接口  
  * 
  * Map 映射集 双列数据 顶层接口
- *    - key-value       
+ *    - key-value无序 key不可重复(Api -> Set) value可重复(Api -> Collection) key/value可以为null     
  */
 
 // 增强for循环 --> 任何 Collection接口下集合对象 / 数组 可使用 
