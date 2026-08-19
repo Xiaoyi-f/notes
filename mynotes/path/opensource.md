@@ -2,7 +2,7 @@
 
 五大主流开源社区的贡献者成长路径全解析
 
-## 🏛️ Apache 社区：通往 Committer 与 PMC 的"标准路径"
+## 🏛️ Apache 社区：通往 Committer 与 PMC 的"标准路径" -- 第一步
 
 Apache 社区的晋升路径最为清晰和制度化，是所有 Apache 项目（如 Flink、Dubbo、APISIX 等）的统一标准。
 
@@ -35,7 +35,7 @@ Apache 社区的晋升路径最为清晰和制度化，是所有 Apache 项目�
 熟悉发布流程：积极参与测试和投票候选版本，熟悉 ASF 的发布政策
 社区建设与指导：积极引导和帮助新贡献者，具备社区意识
 
-## 🐍 Python 社区：成为"核心开发者"之路
+## 🐍 Python 社区：成为"核心开发者"之路 -- 第四步
 
 Python 社区的 Committer 被称为 核心开发者（Core Developer） ，代表着极高的信任，需要展现出对 Python 语言长期的承诺。
 
@@ -50,7 +50,7 @@ Python 社区的 Committer 被称为 核心开发者（Core Developer） ，代�
 获得至少 三分之二 的赞成票，提名即通过
 最终由指导委员会（Steering Council）进行确认
 
-## ☕ OpenJDK（Java）：清晰的阶梯式成长
+## ☕ OpenJDK（Java）：清晰的阶梯式成长 -- 第二步
 
 OpenJDK 社区的角色阶梯非常明确，可以按部就班地成长。
 
@@ -61,7 +61,7 @@ OpenJDK 社区的角色阶梯非常明确，可以按部就班地成长。
 提交者（Committer）	贡献约 8 个有意义的变更	可独立推送代码，无需担保人
 审查者（Reviewer）	贡献 32 个重要变更	拥有批准他人代码变更的权限
 
-## 🖖 Vue 社区：从贡献者到核心成员
+## 🖖 Vue 社区：从贡献者到核心成员 -- 第二步
 
 Vue 社区同样重视贡献，但没有像 Apache 那样严格的制度化流程，更依赖于核心团队的认可。
 
@@ -77,7 +77,7 @@ Vue 社区同样重视贡献，但没有像 Apache 那样严格的制度化流�
 
 当持续提交高质量的 PR，并在代码审查和社区讨论中展现出对 Vue 核心的理解后，核心团队成员会发出加入邀请。
 
-## 🏢 Spring 官方项目：贡献与晋升
+## 🏢 Spring 官方项目：贡献与晋升 -- 第三步
 
 Spring 官方项目（如 Spring Framework、Spring Boot、Spring Cloud 等）的贡献流程相似，但角色体系相对非正式。
 
