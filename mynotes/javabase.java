@@ -30,7 +30,7 @@ JDK(开发工具与运行环境) > JRE(运行环境) > JVM(运行程序核心)
  * switch case default switch具有穿透性
  * try cathc throw throws 
  * import package 
- * boolean byte char short int long float double null  
+ * boolean byte char short int long float double null(特殊类型/底层类型)  
  * true false 
  * super this void 
  */
