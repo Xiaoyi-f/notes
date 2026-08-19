@@ -291,6 +291,7 @@ String now_str = now.format(dtf);
  * 
  * Map 映射集 双列数据 顶层接口
  *    - key-value无序 key不可重复(Api -> Set) value可重复(Api -> Collection) key/value可以为null     
+ *    - LinkedHashMap 继承于 HashMap --> LinkedHashMap 可以维护Map的迭代顺序   
  */
 
 // 增强for循环 --> 任何 Collection接口下集合对象 / 数组 可使用 
@@ -335,6 +336,20 @@ public Element removeLast()
  */
 Set<引用数据类型> set = new HashSet<>(); // 存取顺序不确定
 Set<引用数据类型> set = new LinkedHashSet<>(); // 可以保证存储和取出的顺序
+
+Map<键类型, 值类型> map = new HashMap<>();
+/* 常用方法 */
+Set keySet(); // 获取所有key集合
+Collection values(); // 获取所有value集合
+Set<Map.Entry> entrySet(); // 获取所有key-value对象集合 
+Value get(Object key);
+Value put(键, 值); // 添加/替换元素,若为替换返回被替换的value否则返回null
+Value remove(Object key) 
+void clear()
+boolean containsKey(Object key)
+boolean containsValue(Object value)
+boolean isEmpty()
+int size()
 
 
 // Collection接口下集合均支持的遍历方式 
